@@ -843,3 +843,30 @@ footer {
         font-size: 1.2rem;
     }
 }
+
+
+/* Bagian contact-item WhatsApp */
+.contact-item:nth-child(1) .contact-icon {
+    background: #25D366; /* Warna hijau WhatsApp */
+}
+
+/* Style latar belakang nomor WhatsApp */
+.contact-item:nth-child(1) .contact-text a {
+    background-color: #128C7E; /* Hijau WhatsApp */
+    color: white !important; /* Teks putih */
+    padding: 8px 15px;
+    border-radius: 50px; /* Bentuk bulat */
+    display: inline-block;
+    text-decoration: none;
+    font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: none;
+    transition: all 0.3s ease;
+}
+
+/* Efek hover */
+.contact-item:nth-child(1) .contact-text a:hover {
+    background-color: #25D366; /* Warna lebih terang saat hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
