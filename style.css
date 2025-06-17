@@ -861,3 +861,27 @@ nav ul li a:after {
 
 
 
+
+
+/* Ganti hanya bagian contact-item WhatsApp */
+.contact-item:nth-child(1) .contact-icon {
+    background: #25D366; /* Warna hijau WhatsApp */
+}
+
+/* Tambahkan style untuk link WhatsApp */
+.contact-item:nth-child(1) .contact-text a {
+    color: #25D366; /* Warna hijau WhatsApp */
+    font-weight: 600;
+}
+
+/* Style untuk tombol WhatsApp di social links */
+.social-links a[href*="whatsapp"] {
+    background: #25D366;
+}
+
+.social-links a[href*="whatsapp"]:hover {
+    background: #128C7E; /* Warna hijau WhatsApp lebih gelap saat hover */
+}
+
+
+
