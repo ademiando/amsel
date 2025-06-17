@@ -868,20 +868,28 @@ nav ul li a:after {
     background: #25D366; /* Warna hijau WhatsApp */
 }
 
-/* Tambahkan style untuk link WhatsApp */
+/* Style untuk latar belakang nomor WhatsApp */
 .contact-item:nth-child(1) .contact-text a {
-    color: #25D366; /* Warna hijau WhatsApp */
+    background-color: #25D366; /* Warna hijau WhatsApp */
+    color: white !important; /* Warna teks putih */
+    padding: 8px 15px;
+    border-radius: 50px; /* Bentuk bulat */
+    display: inline-block;
+    text-decoration: none;
     font-weight: 600;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border: 2px solid #128C7E; /* Border lebih gelap */
+    transition: all 0.3s ease;
 }
 
-/* Style untuk tombol WhatsApp di social links */
-.social-links a[href*="whatsapp"] {
+/* Efek hover */
+.contact-item:nth-child(1) .contact-text a:hover {
+    background-color: #128C7E; /* Warna lebih gelap saat hover */
+    transform: translateY(-2px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+}
+
+/* Tetap pertahankan ikon WhatsApp hijau */
+.contact-item:nth-child(1) .contact-icon {
     background: #25D366;
 }
-
-.social-links a[href*="whatsapp"]:hover {
-    background: #128C7E; /* Warna hijau WhatsApp lebih gelap saat hover */
-}
-
-
-
