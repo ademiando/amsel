@@ -870,7 +870,7 @@ nav ul li a:after {
 
 /* Style untuk latar belakang nomor WhatsApp */
 .contact-item:nth-child(1) .contact-text a {
-    background-color: #25D366; /* Warna hijau WhatsApp */
+    background-color: #128C7E; /* Warna hijau WhatsApp */
     color: white !important; /* Warna teks putih */
     padding: 8px 15px;
     border-radius: 50px; /* Bentuk bulat */
@@ -884,12 +884,8 @@ nav ul li a:after {
 
 /* Efek hover */
 .contact-item:nth-child(1) .contact-text a:hover {
-    background-color: #128C7E; /* Warna lebih gelap saat hover */
+    background-color: #25D366; /* Warna lebih gelap saat hover */
     transform: translateY(-2px);
     box-shadow: 0 6px 12px rgba(0,0,0,0.15);
 }
 
-/* Tetap pertahankan ikon WhatsApp hijau */
-.contact-item:nth-child(1) .contact-icon {
-    background: #25D366;
-}
