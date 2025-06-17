@@ -878,7 +878,7 @@ nav ul li a:after {
     text-decoration: none;
     font-weight: 600;
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-    border: 2px solid #128C7E; /* Border lebih gelap */
+    border: none; /* 2px solid #128C7E; Border lebih gelap */
     transition: all 0.3s ease;
 }
 
