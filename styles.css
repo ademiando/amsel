@@ -88,6 +88,14 @@ header {
     font-size: 1.5rem;
 }
 
+
+.logo-icon img {
+    width: 40px;
+    height: auto;
+    display: block;
+}
+
+
 nav ul {
     display: flex;
     list-style: none;
