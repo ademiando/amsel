@@ -1073,123 +1073,89 @@
         </div>
     </footer>
 
-    <script>
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
-                });
-                
-                // Close mobile menu if open
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-                }
+<script>
+    // Smooth Scrolling
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
             });
-        });
 
-        // Header Scroll Effect
-        window.addEventListener('scroll', function() {
-            const header = document.querySelector('header');
-            if (window.scrollY > 100) {
-                header.style.padding = '10px 0';
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
-            } else {
-                header.style.padding = '20px 0';
-                header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
-            }
-        });
-
-        // Mobile Menu Toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
+            // Close mobile menu if open
             if (navMenu.classList.contains('active')) {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(event) {
-            const isClickInsideMenu = navMenu.contains(event.target);
-            const isClickMenuBtn = mobileMenuBtn.contains(event.target);
-            
-            if (!isClickInsideMenu && !isClickMenuBtn && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
-
-        // Gallery Lightbox Effect
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
-        });
-
-        // Floating Elements Animation
-        const floatingElements = document.querySelectorAll('.floating-element');
-        floatingElements.forEach(el => {
-            el.style.animationDelay = Math.random() * 5 + 's';
-        });
-
-        // Service Card Animation on Scroll
-        const serviceCards = document.querySelectorAll('.service-card');
-        
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                    observer.unobserve(entry.target);
-                }
-            });
-        }, { threshold: 0.1 });
-        
-        serviceCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            observer.observe(card);
-        });
-
-
-
-// Perbaikan script untuk hamburger menu
-const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-const navMenu = document.getElementById('navMenu');
-
-mobileMenuBtn.addEventListener('click', function(e) {
-    e.stopPropagation(); // Mencegah event bubbling
-    navMenu.classList.toggle('active');
-    if (navMenu.classList.contains('active')) {
-        mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-    } else {
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    }
-});
-
-// Tutup menu saat klik di luar
-document.addEventListener('click', function(e) {
-    if (!navMenu.contains(e.target) {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-    }
-});
-
-// Tutup menu saat memilih item
-document.querySelectorAll('nav ul li a').forEach(link => {
-    link.addEventListener('click', function() {
-        navMenu.classList.remove('active');
-        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
     });
-});
 
-    </script>
+    // Header Scroll Effect
+    window.addEventListener('scroll', function() {
+        const header = document.querySelector('header');
+        if (window.scrollY > 100) {
+            header.style.padding = '10px 0';
+            header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
+        } else {
+            header.style.padding = '20px 0';
+            header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
+        }
+    });
+
+    // Mobile Menu Toggle - Improved version
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const navMenu = document.getElementById('navMenu');
+
+    mobileMenuBtn.addEventListener('click', function(e) {
+        e.stopPropagation(); // Mencegah event bubbling
+        navMenu.classList.toggle('active');
+        if (navMenu.classList.contains('active')) {
+            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+        } else {
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
+            navMenu.classList.remove('active');
+            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+        }
+    });
+
+    // Gallery Lightbox Effect
+    const galleryItems = document.querySelectorAll('.gallery-item');
+    galleryItems.forEach(item => {
+        item.addEventListener('click', function() {
+            this.classList.toggle('active');
+        });
+    });
+
+    // Floating Elements Animation
+    const floatingElements = document.querySelectorAll('.floating-element');
+    floatingElements.forEach(el => {
+        el.style.animationDelay = Math.random() * 5 + 's';
+    });
+
+    // Service Card Animation on Scroll
+    const serviceCards = document.querySelectorAll('.service-card');
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    serviceCards.forEach(card => {
+        card.style.opacity = '0';
+        card.style.transform = 'translateY(30px)';
+        observer.observe(card);
+    });
+</script>
+
 </body>
 </html>
