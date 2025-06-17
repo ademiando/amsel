@@ -1157,6 +1157,39 @@
             card.style.transform = 'translateY(30px)';
             observer.observe(card);
         });
+
+
+
+// Perbaikan script untuk hamburger menu
+const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+const navMenu = document.getElementById('navMenu');
+
+mobileMenuBtn.addEventListener('click', function(e) {
+    e.stopPropagation(); // Mencegah event bubbling
+    navMenu.classList.toggle('active');
+    if (navMenu.classList.contains('active')) {
+        mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+    } else {
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+});
+
+// Tutup menu saat klik di luar
+document.addEventListener('click', function(e) {
+    if (!navMenu.contains(e.target) {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    }
+});
+
+// Tutup menu saat memilih item
+document.querySelectorAll('nav ul li a').forEach(link => {
+    link.addEventListener('click', function() {
+        navMenu.classList.remove('active');
+        mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+    });
+});
+
     </script>
 </body>
 </html>
