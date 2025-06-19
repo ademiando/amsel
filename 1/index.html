@@ -44,16 +44,6 @@
             color: var(--rose-gold);
         }
         
-        /* Glassmorphism effect */
-        .glass {
-            background: var(--glass);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--glass-border);
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-        
         /* Header Styles */
         header {
             position: fixed;
@@ -165,17 +155,7 @@
             background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
         }
         
-        #hero-video {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: -1;
-        }
-        
-        #ring-canvas {
+        #dna-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -195,6 +175,8 @@
             animation: fadeUp 1s forwards 0.5s;
             box-shadow: var(--shadow);
             border: 1px solid rgba(255, 255, 255, 0.2);
+            position: relative;
+            z-index: 2;
         }
         
         .hero h1 {
@@ -262,18 +244,6 @@
             background: white;
             color: var(--rose-gold);
             border: 2px solid var(--rose-gold);
-        }
-        
-        /* Floating Flowers */
-        .floating-flower {
-            position: absolute;
-            font-size: 2rem;
-            color: var(--rose-gold);
-            opacity: 0.7;
-            z-index: 0;
-            pointer-events: none;
-            animation: float 15s infinite ease-in-out;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         /* About Section */
@@ -637,41 +607,6 @@
             text-decoration: none;
         }
         
-        /* 3D Ring Animation */
-        .ring-container {
-            position: absolute;
-            right: 5%;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 200px;
-            height: 200px;
-            perspective: 1000px;
-            z-index: 1;
-            opacity: 0.8;
-        }
-        
-        .ring {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            transform-style: preserve-3d;
-            animation: rotateRing 20s infinite linear;
-        }
-        
-        .ring-face {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            border: 5px solid var(--gold);
-            border-radius: 50%;
-            opacity: 0.7;
-        }
-        
-        .ring-face:nth-child(1) { transform: rotateY(0deg); }
-        .ring-face:nth-child(2) { transform: rotateY(45deg); }
-        .ring-face:nth-child(3) { transform: rotateY(90deg); }
-        .ring-face:nth-child(4) { transform: rotateY(135deg); }
-        
         /* Animations */
         @keyframes fadeUp {
             from {
@@ -684,30 +619,6 @@
             }
         }
         
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0) translateX(0) rotate(0deg);
-            }
-            25% {
-                transform: translateY(-20px) translateX(10px) rotate(10deg);
-            }
-            50% {
-                transform: translateY(10px) translateX(-15px) rotate(-10deg);
-            }
-            75% {
-                transform: translateY(-15px) translateX(-10px) rotate(5deg);
-            }
-        }
-        
-        @keyframes rotateRing {
-            from {
-                transform: rotateX(60deg) rotateZ(0deg);
-            }
-            to {
-                transform: rotateX(60deg) rotateZ(360deg);
-            }
-        }
-        
         /* Mobile Responsive */
         @media (max-width: 992px) {
             .about-content {
@@ -716,10 +627,6 @@
             
             .hero h1 {
                 font-size: 2.8rem;
-            }
-            
-            .ring-container {
-                display: none;
             }
         }
         
@@ -795,10 +702,7 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <video autoplay muted loop id="hero-video">
-            <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-walking-through-a-field-of-flowers-4530-large.mp4" type="video/mp4">
-        </video>
-        <canvas id="ring-canvas"></canvas>
+        <canvas id="dna-canvas"></canvas>
         <div class="container">
             <div class="hero-content">
                 <h1>Solusi Terbaik untuk Pernikahan Impian Anda</h1>
@@ -811,23 +715,6 @@
                         <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
                     </a>
                 </div>
-            </div>
-        </div>
-        
-        <!-- Floating Flowers -->
-        <div class="floating-flower" style="top: 20%; left: 10%; animation-delay: 0s;">🌸</div>
-        <div class="floating-flower" style="top: 60%; left: 80%; animation-delay: 2s;">🌹</div>
-        <div class="floating-flower" style="top: 80%; left: 20%; animation-delay: 4s;">💮</div>
-        <div class="floating-flower" style="top: 40%; left: 90%; animation-delay: 1s;">🌺</div>
-        <div class="floating-flower" style="top: 10%; left: 70%; animation-delay: 3s;">🌷</div>
-        
-        <!-- 3D Ring Animation -->
-        <div class="ring-container">
-            <div class="ring">
-                <div class="ring-face"></div>
-                <div class="ring-face"></div>
-                <div class="ring-face"></div>
-                <div class="ring-face"></div>
             </div>
         </div>
     </section>
@@ -1090,37 +977,62 @@
         // Initialize GSAP animations
         gsap.registerPlugin(ScrollTrigger);
         
-        // Create 3D wedding ring with Three.js
-        function initRingScene() {
-            const canvas = document.getElementById('ring-canvas');
+        // Create DNA helix with Three.js
+        function initDNAScene() {
+            const canvas = document.getElementById('dna-canvas');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             
-            // Create ring
-            const ringGeometry = new THREE.TorusGeometry(1, 0.3, 16, 100);
-            const ringMaterial = new THREE.MeshPhongMaterial({
-                color: 0xd4af37,
-                shininess: 100,
-                emissive: 0x222222
-            });
-            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
-            ring.scale.set(0.8, 0.8, 0.8);
-            scene.add(ring);
+            // Create DNA structure
+            const group = new THREE.Group();
+            scene.add(group);
             
-            // Create diamond
-            const diamondGeometry = new THREE.OctahedronGeometry(0.4, 0);
-            const diamondMaterial = new THREE.MeshPhongMaterial({
+            // Colors
+            const baseColors = [
+                new THREE.Color(0xff6b6b), // Coral
+                new THREE.Color(0x4ecdc4), // Turquoise
+                new THREE.Color(0xffd166), // Yellow
+                new THREE.Color(0x6a0572)  // Purple
+            ];
+            
+            // Create DNA helix
+            const helixRadius = 1.5;
+            const baseCount = 40;
+            const baseDistance = 0.3;
+            
+            // Create backbone
+            const backboneMaterial = new THREE.MeshPhongMaterial({
                 color: 0xffffff,
-                shininess: 100,
-                emissive: 0x111111,
-                transparent: true,
-                opacity: 0.9
+                shininess: 100
             });
-            const diamond = new THREE.Mesh(diamondGeometry, diamondMaterial);
-            diamond.position.y = 0.5;
-            scene.add(diamond);
+            
+            const backboneGeometry = new THREE.CylinderGeometry(0.05, 0.05, baseCount * baseDistance, 8);
+            
+            const backbone1 = new THREE.Mesh(backboneGeometry, backboneMaterial);
+            const backbone2 = new THREE.Mesh(backboneGeometry, backboneMaterial);
+            group.add(backbone1);
+            group.add(backbone2);
+            
+            // Create bases
+            const bases = [];
+            const baseGeometry = new THREE.SphereGeometry(0.15, 16, 16);
+            
+            for (let i = 0; i < baseCount; i++) {
+                const colorIndex = i % baseColors.length;
+                const baseMaterial = new THREE.MeshPhongMaterial({
+                    color: baseColors[colorIndex],
+                    shininess: 100
+                });
+                
+                const base1 = new THREE.Mesh(baseGeometry, baseMaterial);
+                const base2 = new THREE.Mesh(baseGeometry, baseMaterial);
+                
+                bases.push(base1, base2);
+                group.add(base1);
+                group.add(base2);
+            }
             
             // Add lights
             const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
@@ -1134,15 +1046,160 @@
             pointLight.position.set(0, 5, 5);
             scene.add(pointLight);
             
-            camera.position.z = 3;
+            camera.position.z = 5;
             
-            // Animation
+            // Animation variables
+            let angleX = 0;
+            let angleY = 0;
+            let autoRotate = true;
+            let dragging = false;
+            let lastX, lastY;
+            let autoRotateTimeout;
+            const AUTO_ROTATE_DELAY = 2000; // 2 detik setelah interaksi
+            
+            // Handle user interaction
+            function handleUserInteraction() {
+                autoRotate = false;
+                clearTimeout(autoRotateTimeout);
+                autoRotateTimeout = setTimeout(() => {
+                    autoRotate = true;
+                }, AUTO_ROTATE_DELAY);
+            }
+            
+            // Mouse events
+            canvas.addEventListener('mousedown', function(e) {
+                dragging = true;
+                lastX = e.clientX;
+                lastY = e.clientY;
+                handleUserInteraction();
+            });
+            
+            window.addEventListener('mousemove', function(e) {
+                if (dragging) {
+                    const deltaX = e.clientX - lastX;
+                    const deltaY = e.clientY - lastY;
+                    
+                    angleY += deltaX * 0.01;
+                    angleX -= deltaY * 0.01;
+                    
+                    lastX = e.clientX;
+                    lastY = e.clientY;
+                }
+            });
+            
+            window.addEventListener('mouseup', function() {
+                dragging = false;
+            });
+            
+            // Touch events
+            canvas.addEventListener('touchstart', function(e) {
+                dragging = true;
+                lastX = e.touches[0].clientX;
+                lastY = e.touches[0].clientY;
+                handleUserInteraction();
+                e.preventDefault();
+            });
+            
+            canvas.addEventListener('touchmove', function(e) {
+                if (dragging) {
+                    const deltaX = e.touches[0].clientX - lastX;
+                    const deltaY = e.touches[0].clientY - lastY;
+                    
+                    angleY += deltaX * 0.01;
+                    angleX -= deltaY * 0.01;
+                    
+                    lastX = e.touches[0].clientX;
+                    lastY = e.touches[0].clientY;
+                    e.preventDefault();
+                }
+            });
+            
+            canvas.addEventListener('touchend', function() {
+                dragging = false;
+            });
+            
+            // Animation loop
             function animate() {
                 requestAnimationFrame(animate);
                 
-                ring.rotation.y += 0.01;
-                ring.rotation.x += 0.005;
-                diamond.rotation.y -= 0.02;
+                // Auto rotate if enabled
+                if (autoRotate) {
+                    angleX = 15 + 5 * Math.sin(Date.now() / 5000);
+                    angleY += 0.01;
+                }
+                
+                // Update DNA positions
+                const time = Date.now() * 0.001;
+                
+                // Update backbones
+                backbone1.position.y = -((baseCount - 1) * baseDistance) / 2;
+                backbone2.position.y = -((baseCount - 1) * baseDistance) / 2;
+                
+                backbone1.rotation.x = angleX;
+                backbone1.rotation.y = angleY;
+                backbone2.rotation.x = angleX;
+                backbone2.rotation.y = angleY;
+                
+                // Update bases
+                for (let i = 0; i < baseCount; i++) {
+                    const height = i * baseDistance - ((baseCount - 1) * baseDistance) / 2;
+                    const angle = i * Math.PI / 4 + time * 2;
+                    
+                    const base1 = bases[i * 2];
+                    const base2 = bases[i * 2 + 1];
+                    
+                    base1.position.set(
+                        Math.cos(angle) * helixRadius,
+                        height,
+                        Math.sin(angle) * helixRadius
+                    );
+                    
+                    base2.position.set(
+                        Math.cos(angle + Math.PI) * helixRadius,
+                        height,
+                        Math.sin(angle + Math.PI) * helixRadius
+                    );
+                    
+                    // Connect bases with lines
+                    if (i > 0) {
+                        const prevBase1 = bases[(i - 1) * 2];
+                        const prevBase2 = bases[(i - 1) * 2 + 1];
+                        
+                        // Remove old connections if they exist
+                        if (base1.userData.line) group.remove(base1.userData.line);
+                        if (base2.userData.line) group.remove(base2.userData.line);
+                        
+                        // Create new connections
+                        const lineGeometry1 = new THREE.BufferGeometry().setFromPoints([
+                            new THREE.Vector3(prevBase1.position.x, prevBase1.position.y, prevBase1.position.z),
+                            new THREE.Vector3(base1.position.x, base1.position.y, base1.position.z)
+                        ]);
+                        
+                        const lineGeometry2 = new THREE.BufferGeometry().setFromPoints([
+                            new THREE.Vector3(prevBase2.position.x, prevBase2.position.y, prevBase2.position.z),
+                            new THREE.Vector3(base2.position.x, base2.position.y, base2.position.z)
+                        ]);
+                        
+                        const lineMaterial = new THREE.LineBasicMaterial({ 
+                            color: base1.material.color,
+                            transparent: true,
+                            opacity: 0.7
+                        });
+                        
+                        const line1 = new THREE.Line(lineGeometry1, lineMaterial);
+                        const line2 = new THREE.Line(lineGeometry2, lineMaterial);
+                        
+                        group.add(line1, line2);
+                        
+                        // Store references to remove later
+                        base1.userData.line = line1;
+                        base2.userData.line = line2;
+                    }
+                }
+                
+                // Rotate entire group
+                group.rotation.x = angleX;
+                group.rotation.y = angleY;
                 
                 renderer.render(scene, camera);
             }
@@ -1158,7 +1215,7 @@
         }
         
         // Initialize when window loads
-        window.addEventListener('load', initRingScene);
+        window.addEventListener('load', initDNAScene);
         
         // Scroll-triggered animations
         gsap.utils.toArray('.service-card, .gallery-item, .about-image, .contact-item').forEach(item => {
@@ -1174,37 +1231,6 @@
                 ease: "power2.out"
             });
         });
-        
-        // Create falling petals effect
-        function createPetal() {
-            const petal = document.createElement('div');
-            petal.className = 'floating-flower';
-            petal.innerHTML = ['🌸', '🌹', '💮', '🌺', '🌷'][Math.floor(Math.random() * 5)];
-            
-            const size = Math.random() * 2 + 1;
-            petal.style.fontSize = `${size}rem`;
-            petal.style.left = `${Math.random() * 100}%`;
-            petal.style.opacity = Math.random() * 0.7 + 0.3;
-            petal.style.animationDuration = `${Math.random() * 10 + 10}s`;
-            petal.style.animationDelay = `${Math.random() * 5}s`;
-            
-            document.body.appendChild(petal);
-            
-            // Remove after animation completes
-            setTimeout(() => {
-                petal.remove();
-            }, 15000);
-        }
-        
-        // Create initial petals
-        for (let i = 0; i < 15; i++) {
-            setTimeout(() => {
-                createPetal();
-            }, i * 500);
-        }
-        
-        // Keep creating petals
-        setInterval(createPetal, 1000);
         
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
