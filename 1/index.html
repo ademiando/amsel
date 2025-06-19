@@ -17,8 +17,10 @@
             --gold: #d4af37;
             --rose-gold: #b76e79;
             --soft-pink: #ffd7e2;
-            --glass: rgba(20, 40, 78, 0.4);
-            --glass-border: rgba(255, 255, 255, 0.1);
+            --ivory: #fffff0;
+            --cream: #f5f5dc;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
             --shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
             --transition: all 0.5s cubic-bezier(0.215, 0.61, 0.355, 1);
         }
@@ -31,23 +33,22 @@
         
         body {
             font-family: 'Poppins', sans-serif;
-            background: var(--dark-blue);
-            color: white;
+            background: linear-gradient(135deg, var(--ivory) 0%, var(--cream) 100%);
+            color: #333;
             overflow-x: hidden;
             line-height: 1.6;
-            background-image: radial-gradient(circle at 20% 30%, var(--deep-blue) 0%, var(--dark-blue) 70%);
         }
         
         h1, h2, h3, h4 {
             font-family: 'Playfair Display', serif;
-            color: var(--gold);
+            color: var(--rose-gold);
         }
         
         /* Glassmorphism effect */
         .glass {
             background: var(--glass);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
             border: 1px solid var(--glass-border);
             border-radius: 20px;
             box-shadow: var(--shadow);
@@ -60,9 +61,9 @@
             left: 0;
             width: 100%;
             padding: 15px 0;
-            background: rgba(12, 27, 51, 0.7);
+            background: rgba(255, 255, 255, 0.9);
             backdrop-filter: blur(10px);
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             z-index: 1000;
             transition: var(--transition);
         }
@@ -89,12 +90,12 @@
         .logo-icon {
             width: 60px;
             height: 60px;
-            background: linear-gradient(135deg, var(--gold), var(--rose-gold));
+            background: linear-gradient(135deg, var(--rose-gold), var(--gold));
             border-radius: 50%;
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 5px 15px rgba(212, 175, 55, 0.3);
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.3);
             transition: var(--transition);
         }
         
@@ -106,7 +107,7 @@
         
         .logo h1 {
             font-size: 1.8rem;
-            background: linear-gradient(to right, var(--gold), var(--rose-gold));
+            background: linear-gradient(to right, var(--rose-gold), var(--gold));
             -webkit-background-clip: text;
             background-clip: text;
             color: transparent;
@@ -121,7 +122,7 @@
         
         nav a {
             text-decoration: none;
-            color: white;
+            color: #333;
             font-weight: 500;
             font-size: 1.1rem;
             position: relative;
@@ -136,7 +137,7 @@
             left: 0;
             width: 0;
             height: 2px;
-            background: var(--gold);
+            background: var(--rose-gold);
             transition: var(--transition);
         }
         
@@ -149,7 +150,7 @@
             background: transparent;
             border: none;
             font-size: 1.5rem;
-            color: var(--gold);
+            color: var(--rose-gold);
             cursor: pointer;
             z-index: 1001;
         }
@@ -161,10 +162,20 @@
             align-items: center;
             position: relative;
             overflow: hidden;
-            background: radial-gradient(circle at 50% 30%, rgba(42, 74, 138, 0.2) 0%, rgba(12, 27, 51, 0.8) 80%);
+            background: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3));
         }
         
-        #flower-canvas {
+        #hero-video {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: -1;
+        }
+        
+        #ring-canvas {
             position: absolute;
             top: 0;
             left: 0;
@@ -176,28 +187,27 @@
         .hero-content {
             max-width: 650px;
             padding: 40px;
-            background: rgba(20, 40, 78, 0.4);
+            background: rgba(255, 255, 255, 0.85);
             border-radius: 20px;
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
             transform: translateY(50px);
             opacity: 0;
             animation: fadeUp 1s forwards 0.5s;
             box-shadow: var(--shadow);
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
         
         .hero h1 {
             font-size: 3.5rem;
             margin-bottom: 20px;
             line-height: 1.2;
-            color: var(--gold);
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            color: var(--rose-gold);
         }
         
         .hero p {
             font-size: 1.2rem;
             margin-bottom: 30px;
-            color: rgba(255, 255, 255, 0.9);
+            color: #333;
         }
         
         .cta-buttons {
@@ -216,9 +226,10 @@
             gap: 10px;
             transition: var(--transition);
             transform: translateY(0);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(183, 110, 121, 0.2);
             position: relative;
             overflow: hidden;
+            z-index: 1;
         }
         
         .btn:before {
@@ -228,8 +239,9 @@
             left: -100%;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
             transition: 0.5s;
+            z-index: -1;
         }
         
         .btn:hover:before {
@@ -238,20 +250,18 @@
         
         .btn:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.4);
+            box-shadow: 0 10px 25px rgba(183, 110, 121, 0.3);
         }
         
         .btn-primary {
             background: linear-gradient(45deg, var(--rose-gold), var(--gold));
             color: white;
-            z-index: 1;
         }
         
         .btn-secondary {
-            background: rgba(20, 40, 78, 0.5);
-            color: white;
-            border: 2px solid var(--gold);
-            z-index: 1;
+            background: white;
+            color: var(--rose-gold);
+            border: 2px solid var(--rose-gold);
         }
         
         /* Floating Flowers */
@@ -263,7 +273,7 @@
             z-index: 0;
             pointer-events: none;
             animation: float 15s infinite ease-in-out;
-            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
         }
         
         /* About Section */
@@ -301,7 +311,7 @@
             max-width: 700px;
             margin: 20px auto 0;
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.8);
+            color: #555;
         }
         
         .about-content {
@@ -317,13 +327,13 @@
         .about-text h3 {
             font-size: 2rem;
             margin-bottom: 20px;
-            color: var(--gold);
+            color: var(--rose-gold);
         }
         
         .about-text p {
             margin-bottom: 20px;
             font-size: 1.1rem;
-            color: rgba(255, 255, 255, 0.9);
+            color: #444;
         }
         
         .about-image {
@@ -351,7 +361,7 @@
         .services {
             padding: 100px 0;
             position: relative;
-            background: radial-gradient(circle at center, rgba(42, 74, 138, 0.1) 0%, transparent 70%);
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
         }
         
         .services-grid {
@@ -361,7 +371,7 @@
         }
         
         .service-card {
-            background: rgba(20, 40, 78, 0.4);
+            background: white;
             border-radius: 20px;
             overflow: hidden;
             box-shadow: var(--shadow);
@@ -369,14 +379,11 @@
             transform: translateY(0);
             position: relative;
             z-index: 1;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
         }
         
         .service-card:hover {
             transform: translateY(-10px);
-            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
-            background: rgba(20, 40, 78, 0.6);
+            box-shadow: 0 20px 40px rgba(183, 110, 121, 0.2);
         }
         
         .service-card:before {
@@ -395,14 +402,14 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: rgba(42, 74, 138, 0.1);
+            background: linear-gradient(rgba(247, 202, 201, 0.1), rgba(255, 249, 249, 0.2));
             position: relative;
             overflow: hidden;
         }
         
         .service-icon i {
             font-size: 4rem;
-            color: var(--gold);
+            color: var(--rose-gold);
             z-index: 2;
         }
         
@@ -413,11 +420,11 @@
         .service-content h3 {
             font-size: 1.5rem;
             margin-bottom: 15px;
-            color: var(--gold);
+            color: var(--rose-gold);
         }
         
         .service-content p {
-            color: rgba(255, 255, 255, 0.8);
+            color: #555;
         }
         
         /* Gallery Section */
@@ -425,6 +432,7 @@
             padding: 120px 0;
             position: relative;
             overflow: hidden;
+            background: linear-gradient(rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0.9));
         }
         
         .gallery-grid {
@@ -441,7 +449,6 @@
             box-shadow: var(--shadow);
             transition: var(--transition);
             cursor: pointer;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .gallery-item img {
@@ -477,7 +484,7 @@
         .contact {
             padding: 120px 0;
             position: relative;
-            background: radial-gradient(circle at 70% 50%, rgba(42, 74, 138, 0.1) 0%, transparent 70%);
+            background: linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8));
         }
         
         .contact-container {
@@ -514,17 +521,17 @@
         .contact-text h4 {
             font-size: 1.3rem;
             margin-bottom: 5px;
-            color: var(--gold);
+            color: var(--rose-gold);
         }
         
         .contact-text p, .contact-text a {
-            color: rgba(255, 255, 255, 0.9);
+            color: #333;
             text-decoration: none;
             font-size: 1.1rem;
         }
         
         .contact-text a:hover {
-            color: var(--gold);
+            color: var(--rose-gold);
             text-decoration: underline;
         }
         
@@ -536,7 +543,6 @@
             overflow: hidden;
             box-shadow: var(--shadow);
             position: relative;
-            border: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .contact-map iframe {
@@ -562,7 +568,7 @@
             justify-content: center;
             font-size: 1.3rem;
             transition: var(--transition);
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
         }
         
         .social-link:hover {
@@ -572,10 +578,9 @@
         
         /* Footer */
         footer {
-            background: linear-gradient(135deg, var(--deep-blue), #0a162f);
+            background: linear-gradient(135deg, var(--rose-gold), #9a5b65);
             color: white;
             padding: 70px 0 30px;
-            border-top: 1px solid rgba(255, 255, 255, 0.1);
         }
         
         .footer-container {
@@ -641,7 +646,7 @@
             width: 200px;
             height: 200px;
             perspective: 1000px;
-            z-index: -1;
+            z-index: 1;
             opacity: 0.8;
         }
         
@@ -725,7 +730,7 @@
                 right: -100%;
                 width: 70%;
                 height: 100vh;
-                background: var(--deep-blue);
+                background: white;
                 flex-direction: column;
                 align-items: center;
                 justify-content: center;
@@ -733,7 +738,6 @@
                 transition: var(--transition);
                 box-shadow: -5px 0 15px rgba(0,0,0,0.1);
                 z-index: 1000;
-                backdrop-filter: blur(10px);
             }
             
             nav ul.active {
@@ -766,7 +770,7 @@
 </head>
 <body>
     <!-- Header -->
-    <header class="glass">
+    <header>
         <div class="container header-container">
             <div class="logo">
                 <div class="logo-icon">
@@ -791,9 +795,12 @@
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <canvas id="flower-canvas"></canvas>
+        <video autoplay muted loop id="hero-video">
+            <source src="https://assets.mixkit.co/videos/preview/mixkit-wedding-couple-walking-through-a-field-of-flowers-4530-large.mp4" type="video/mp4">
+        </video>
+        <canvas id="ring-canvas"></canvas>
         <div class="container">
-            <div class="hero-content glass">
+            <div class="hero-content">
                 <h1>Solusi Terbaik untuk Pernikahan Impian Anda</h1>
                 <p>Penyewaan tenda premium dan jasa lengkap untuk pernikahan, wisuda, dan acara penting lainnya. Dengan kualitas terbaik dan pelayanan profesional.</p>
                 <div class="cta-buttons">
@@ -844,7 +851,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="about-image glass">
+                <div class="about-image">
                     <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tenda Pernikahan">
                 </div>
             </div>
@@ -859,7 +866,7 @@
                 <p>Berbagai layanan profesional untuk semua kebutuhan pernikahan Anda</p>
             </div>
             <div class="services-grid">
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-tents"></i>
                     </div>
@@ -868,7 +875,7 @@
                         <p>Tenda eksklusif dengan desain modern untuk pernikahan mewah. Berbagai ukuran dan model sesuai kebutuhan acara Anda.</p>
                     </div>
                 </div>
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-brush"></i>
                     </div>
@@ -877,7 +884,7 @@
                         <p>Makeup artist profesional untuk pengantin dan keluarga. Berbagai konsep riasan sesuai keinginan Anda.</p>
                     </div>
                 </div>
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-vest"></i>
                     </div>
@@ -886,7 +893,7 @@
                         <p>Gaun pengantin, jas, kebaya, dan aksesoris pernikahan dengan desain terkini dan kualitas premium.</p>
                     </div>
                 </div>
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-camera"></i>
                     </div>
@@ -895,7 +902,7 @@
                         <p>Jasa profesional untuk mengabadikan momen berharga pernikahan Anda dengan hasil maksimal.</p>
                     </div>
                 </div>
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-chair"></i>
                     </div>
@@ -904,7 +911,7 @@
                         <p>Konsep dekorasi lengkap untuk membuat acara pernikahan Anda menjadi tak terlupakan.</p>
                     </div>
                 </div>
-                <div class="service-card glass">
+                <div class="service-card">
                     <div class="service-icon">
                         <i class="fas fa-music"></i>
                     </div>
@@ -925,37 +932,37 @@
                 <p>Karya terbaik yang telah kami wujudkan untuk pernikahan bahagia</p>
             </div>
             <div class="gallery-grid">
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1600041161228-519e6dd27bac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" alt="Tenda Pernikahan">
                     <div class="gallery-overlay">
                         <h3>Tenda Pernikahan Mewah</h3>
                     </div>
                 </div>
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1592311617290-5a1b0e0e8cf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80" alt="Makeup Wisuda">
                     <div class="gallery-overlay">
                         <h3>Rias Pengantin Tradisional</h3>
                     </div>
                 </div>
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1610465299993-e95f6caa7c8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Gaun Pengantin">
                     <div class="gallery-overlay">
                         <h3>Gaun Pengantin Modern</h3>
                     </div>
                 </div>
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Acara Konser">
                     <div class="gallery-overlay">
                         <h3>Dekorasi Panggung Pernikahan</h3>
                     </div>
                 </div>
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dekorasi Acara">
                     <div class="gallery-overlay">
                         <h3>Dekorasi Meja Pengantin</h3>
                     </div>
                 </div>
-                <div class="gallery-item glass">
+                <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Rias Pengantin">
                     <div class="gallery-overlay">
                         <h3>Foto Prewedding Eksklusif</h3>
@@ -1025,7 +1032,7 @@
                         </a>
                     </div>
                 </div>
-                <div class="contact-map glass">
+                <div class="contact-map">
                     <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
                     <div class="map-overlay">
                         <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
@@ -1083,72 +1090,59 @@
         // Initialize GSAP animations
         gsap.registerPlugin(ScrollTrigger);
         
-        // Create flower particles with Three.js
-        function initFlowerParticles() {
-            const canvas = document.getElementById('flower-canvas');
+        // Create 3D wedding ring with Three.js
+        function initRingScene() {
+            const canvas = document.getElementById('ring-canvas');
             const scene = new THREE.Scene();
             const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
             const renderer = new THREE.WebGLRenderer({ canvas, alpha: true });
             renderer.setSize(window.innerWidth, window.innerHeight);
             
-            // Create particles
-            const particlesGeometry = new THREE.BufferGeometry();
-            const particlesCount = 500;
-            
-            const posArray = new Float32Array(particlesCount * 3);
-            const colorArray = new Float32Array(particlesCount * 3);
-            const sizeArray = new Float32Array(particlesCount);
-            
-            for(let i = 0; i < particlesCount * 3; i += 3) {
-                // Position
-                posArray[i] = (Math.random() - 0.5) * 50;
-                posArray[i + 1] = (Math.random() - 0.5) * 30 + 10;
-                posArray[i + 2] = (Math.random() - 0.5) * 50 - 10;
-                
-                // Color (rose gold shades)
-                colorArray[i] = 183/255;     // R
-                colorArray[i + 1] = 110/255; // G
-                colorArray[i + 2] = 121/255; // B
-                
-                // Size
-                sizeArray[i/3] = Math.random() * 0.5 + 0.1;
-            }
-            
-            particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-            particlesGeometry.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-            particlesGeometry.setAttribute('size', new THREE.BufferAttribute(sizeArray, 1));
-            
-            // Material
-            const particlesMaterial = new THREE.PointsMaterial({
-                size: 0.5,
-                vertexColors: true,
-                transparent: true,
-                opacity: 0.7,
-                sizeAttenuation: true
+            // Create ring
+            const ringGeometry = new THREE.TorusGeometry(1, 0.3, 16, 100);
+            const ringMaterial = new THREE.MeshPhongMaterial({
+                color: 0xd4af37,
+                shininess: 100,
+                emissive: 0x222222
             });
+            const ring = new THREE.Mesh(ringGeometry, ringMaterial);
+            ring.scale.set(0.8, 0.8, 0.8);
+            scene.add(ring);
             
-            // Points system
-            const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-            scene.add(particlesMesh);
+            // Create diamond
+            const diamondGeometry = new THREE.OctahedronGeometry(0.4, 0);
+            const diamondMaterial = new THREE.MeshPhongMaterial({
+                color: 0xffffff,
+                shininess: 100,
+                emissive: 0x111111,
+                transparent: true,
+                opacity: 0.9
+            });
+            const diamond = new THREE.Mesh(diamondGeometry, diamondMaterial);
+            diamond.position.y = 0.5;
+            scene.add(diamond);
             
-            camera.position.z = 5;
+            // Add lights
+            const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+            scene.add(ambientLight);
+            
+            const directionalLight = new THREE.DirectionalLight(0xffffff, 1);
+            directionalLight.position.set(5, 5, 5);
+            scene.add(directionalLight);
+            
+            const pointLight = new THREE.PointLight(0xffd700, 1, 100);
+            pointLight.position.set(0, 5, 5);
+            scene.add(pointLight);
+            
+            camera.position.z = 3;
             
             // Animation
             function animate() {
                 requestAnimationFrame(animate);
                 
-                // Move particles
-                const positions = particlesGeometry.attributes.position.array;
-                for(let i = 1; i < positions.length; i += 3) {
-                    positions[i] -= 0.01; // Move down
-                    if(positions[i] < -15) {
-                        positions[i] = 15; // Reset to top
-                    }
-                }
-                particlesGeometry.attributes.position.needsUpdate = true;
-                
-                // Rotate particles
-                particlesMesh.rotation.y += 0.001;
+                ring.rotation.y += 0.01;
+                ring.rotation.x += 0.005;
+                diamond.rotation.y -= 0.02;
                 
                 renderer.render(scene, camera);
             }
@@ -1164,7 +1158,7 @@
         }
         
         // Initialize when window loads
-        window.addEventListener('load', initFlowerParticles);
+        window.addEventListener('load', initRingScene);
         
         // Scroll-triggered animations
         gsap.utils.toArray('.service-card, .gallery-item, .about-image, .contact-item').forEach(item => {
@@ -1181,39 +1175,36 @@
             });
         });
         
-        // Create additional flowers on scroll
-        let flowerCount = 0;
-        ScrollTrigger.create({
-            trigger: "body",
-            start: "top top",
-            end: "bottom bottom",
-            onUpdate: self => {
-                if (self.direction === 1 && flowerCount < 20 && Math.random() > 0.7) { // Scrolling down
-                    createScrollFlower();
-                }
-            }
-        });
-        
-        function createScrollFlower() {
-            flowerCount++;
-            const flower = document.createElement('div');
-            flower.className = 'floating-flower';
-            flower.innerHTML = ['🌸', '🌹', '💮', '🌺', '🌷'][Math.floor(Math.random() * 5)];
+        // Create falling petals effect
+        function createPetal() {
+            const petal = document.createElement('div');
+            petal.className = 'floating-flower';
+            petal.innerHTML = ['🌸', '🌹', '💮', '🌺', '🌷'][Math.floor(Math.random() * 5)];
             
             const size = Math.random() * 2 + 1;
-            flower.style.fontSize = `${size}rem`;
-            flower.style.left = `${Math.random() * 100}%`;
-            flower.style.top = `${Math.random() * 100}%`;
-            flower.style.animationDelay = `${Math.random() * 5}s`;
+            petal.style.fontSize = `${size}rem`;
+            petal.style.left = `${Math.random() * 100}%`;
+            petal.style.opacity = Math.random() * 0.7 + 0.3;
+            petal.style.animationDuration = `${Math.random() * 10 + 10}s`;
+            petal.style.animationDelay = `${Math.random() * 5}s`;
             
-            document.body.appendChild(flower);
+            document.body.appendChild(petal);
             
             // Remove after animation completes
             setTimeout(() => {
-                flower.remove();
-                flowerCount--;
+                petal.remove();
             }, 15000);
         }
+        
+        // Create initial petals
+        for (let i = 0; i < 15; i++) {
+            setTimeout(() => {
+                createPetal();
+            }, i * 500);
+        }
+        
+        // Keep creating petals
+        setInterval(createPetal, 1000);
         
         // Mobile Menu Toggle
         const mobileMenuBtn = document.getElementById('mobileMenuBtn');
@@ -1262,19 +1253,12 @@
             const header = document.querySelector('header');
             if (window.scrollY > 100) {
                 header.style.padding = '10px 0';
-                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.3)';
+                header.style.boxShadow = '0 5px 20px rgba(0,0,0,0.1)';
             } else {
                 header.style.padding = '15px 0';
-                header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.3)';
+                header.style.boxShadow = '0 8px 24px rgba(0,0,0,0.1)';
             }
         });
-        
-        // Create initial flowers
-        for (let i = 0; i < 8; i++) {
-            setTimeout(() => {
-                createScrollFlower();
-            }, i * 300);
-        }
     </script>
 </body>
 </html>
