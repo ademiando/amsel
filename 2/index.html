@@ -1,105 +1,125 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>ademiando Identity</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>AdeMiando Visual Card</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
-      margin: 0;
-      padding: 0;
-      background: #f9fafb;
+      margin: 0; padding: 0;
+      min-height: 100vh;
+      display: flex; align-items: center; justify-content: center;
+      background: #f0f2f5;
       font-family: 'Poppins', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
-      color: #111827;
     }
-    
-    .container {
+    .wrapper {
+      position: relative;
       text-align: center;
-      max-width: 400px;
-      width: 90%;
-    }
-    
-    .identity-item {
-      margin: 25px 0;
-      line-height: 1.6;
-    }
-    
-    .label {
-      font-size: 1rem;
-      color: #64748b;
-      text-transform: uppercase;
-      letter-spacing: 1px;
-      margin-bottom: 5px;
-    }
-    
-    .value {
-      font-size: 1.4rem;
+      font-size: 2.2rem;
       font-weight: 600;
+      color: #1a202c;
     }
-    
-    .value a {
+    .email {
+      display: inline-flex;
+      position: relative;
+    }
+    .segment {
+      position: relative;
+      padding: 0 4px;
+    }
+    .separator { padding: 0 2px; }
+    a {
       color: inherit;
       text-decoration: none;
-      transition: color 0.2s ease;
+      transition: color 0.2s;
+    }
+    a:hover { color: #0d9488; }
+
+    /* Kurawal atas */
+    .segment.profile::before,
+    .segment.website::before {
+      content: '}';
+      position: absolute;
+      font-size: 2.5rem;
+      color: #0d9488;
+      top: -50px;
+    }
+    .segment.profile::after,
+    .segment.website::after {
+      position: absolute;
+      top: -80px;
+      left: 0; right: 0;
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+    .segment.profile::after { content: 'Profile'; }
+    .segment.website::after { content: 'Website'; }
+
+    /* Kurawal bawah */
+    .segment.instagram::after,
+    .wrapper::after {
+      content: '}';
+      position: absolute;
+      font-size: 2.5rem;
+      color: #0d9488;
+      bottom: -50px;
+    }
+    .segment.instagram .label-bot,
+    .wrapper .label-bot {
+      position: absolute;
+      bottom: -80px;
+      left: 0; right: 0;
+      font-size: 0.9rem;
+      color: #4a5568;
+    }
+    .segment.instagram .label-bot { content: 'Instagram'; }
+    .wrapper .label-bot::after { content: 'Email'; }
+
+    /* Link segment */
+    .segment.instagram a,
+    .segment.profile a,
+    .segment.website a {
       display: inline-block;
+      padding: 2px 6px;
     }
-    
-    .value a:hover {
-      color: #0f766e;
+
+    /* Label bawah untuk Instagram */
+    .segment.instagram::after { /* Already added brace */ }
+    .segment.instagram .label-bot {
+      font-family: inherit;
     }
-    
-    .main-email {
-      font-size: 1.8rem;
-      margin: 30px 0;
-      font-weight: 700;
-    }
-    
-    .divider {
-      height: 1px;
-      background: #e5e7eb;
-      width: 80%;
-      margin: 30px auto;
+
+    /* Label bawah untuk Email (full) */
+    .wrapper::after { /* brace */ }
+    .wrapper .label-bot {
+      position: absolute;
+      bottom: -110px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 0.9rem;
+      color: #4a5568;
+      font-family: inherit;
     }
   </style>
 </head>
 <body>
-  <div class="container">
-    <div class="identity-item">
-      <div class="label">Profile</div>
-      <div class="value">ademiando</div>
-    </div>
-    
-    <div class="main-email">
-      ademiando @ ademiando.com
-    </div>
-    
-    <div class="divider"></div>
-    
-    <div class="identity-item">
-      <div class="label">Website</div>
-      <div class="value">
+  <div class="wrapper">
+    <div class="email">
+      <div class="segment profile">
+        <a href="https://instagram.com/ademiando" target="_blank">ademiando</a>
+      </div>
+      <span class="separator">@</span>
+      <div class="segment website">
         <a href="https://ademiando.com" target="_blank">ademiando.com</a>
       </div>
-    </div>
-    
-    <div class="identity-item">
-      <div class="label">Instagram</div>
-      <div class="value">
-        <a href="https://instagram.com/ademiando" target="_blank">@ademiando</a>
+      <!-- Segment Instagram: @ademiando -->
+      <div class="segment instagram" style="position:absolute; left:0; right:0; top:0;">
+        <span class="label-bot"><i class="fa-brands fa-instagram"></i> Instagram</span>
       </div>
     </div>
-    
-    <div class="identity-item">
-      <div class="label">Email</div>
-      <div class="value">
-        <a href="mailto:ademiando@ademiando.com">ademiando@ademiando.com</a>
-      </div>
-    </div>
+    <!-- Label bawah keseluruhan: Email -->
+    <span class="label-bot"><i class="fa-solid fa-envelope"></i> Email</span>
   </div>
 </body>
 </html>
