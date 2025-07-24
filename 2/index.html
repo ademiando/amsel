@@ -5,135 +5,353 @@
   <title>ademiando Identity</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
-    body {
+    * {
       margin: 0;
       padding: 0;
+      box-sizing: border-box;
+    }
+    
+    body {
       background: #f9fafb;
       font-family: 'Poppins', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
-      height: 100vh;
+      min-height: 100vh;
+      padding: 20px;
     }
+    
     .container {
-      position: relative;
+      max-width: 800px;
+      width: 100%;
       text-align: center;
-      font-size: 2rem;
-      font-weight: bold;
-      color: #111827;
+      padding: 40px;
+      background: white;
+      border-radius: 16px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.05);
+      position: relative;
+      overflow: hidden;
     }
-
-    .email {
-      display: inline-flex;
+    
+    .title {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #0f766e;
+      margin-bottom: 50px;
       position: relative;
     }
-
-    .email span {
-      padding: 0 4px;
+    
+    .title::after {
+      content: '';
+      position: absolute;
+      bottom: -10px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 80px;
+      height: 4px;
+      background: #0f766e;
+      border-radius: 2px;
     }
-
-    .segment {
+    
+    .identity-card {
       position: relative;
+      padding: 40px 0;
+      margin: 30px 0;
     }
-
-    /* Upper braces and labels */
-    .segment.profile::before,
-    .segment.website::before {
-      content: '}';
-      position: absolute;
-      top: -50px;
+    
+    .main-email {
       font-size: 2.5rem;
-      color: #0f766e;
-    }
-
-    .segment.profile::after {
-      content: 'Profile';
-      position: absolute;
-      top: -80px;
-      left: 0;
-      right: 0;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
-    .segment.website::after {
-      content: 'Website';
-      position: absolute;
-      top: -80px;
-      left: 0;
-      right: 0;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
-    /* Lower braces and labels */
-    .segment.instagram::after,
-    .whole::after {
-      position: absolute;
-      bottom: -50px;
-      font-size: 2.5rem;
-      color: #0f766e;
-    }
-
-    .segment.instagram::after {
-      content: '{';
-      left: 0;
-      right: 0;
-    }
-
-    .segment.instagram .label-bot {
-      position: absolute;
-      bottom: -80px;
-      left: 0;
-      right: 0;
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
-    .whole::after {
-      content: '{';
-      left: 50%;
-      transform: translateX(-50%);
-    }
-
-    .whole .label-email {
-      position: absolute;
-      bottom: -110px;
-      left: 50%;
-      transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: #374151;
-    }
-
-    /* Links */
-    a {
+      font-weight: 700;
       color: #111827;
+      margin-bottom: 70px;
+      position: relative;
+      z-index: 10;
+    }
+    
+    .main-email a {
+      color: inherit;
       text-decoration: none;
-      transition: 0.2s ease;
+      transition: all 0.3s ease;
+      position: relative;
+      display: inline-block;
     }
-    a:hover {
+    
+    .main-email a:hover {
       color: #0f766e;
+      transform: translateY(-3px);
+    }
+    
+    .main-email a::after {
+      content: '';
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: #0f766e;
+      border-radius: 2px;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    .main-email a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 40px;
+      position: relative;
+    }
+    
+    .info-section {
+      position: relative;
+      padding: 20px;
+      border-radius: 10px;
+      background: #f0fdfa;
+      z-index: 5;
+      transition: all 0.3s ease;
+      min-height: 140px;
+    }
+    
+    .info-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 10px 20px rgba(5, 150, 105, 0.1);
+    }
+    
+    .info-section.top {
+      margin-bottom: 20px;
+    }
+    
+    .section-title {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #0f766e;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+    }
+    
+    .section-content {
+      font-size: 1.4rem;
+      font-weight: 700;
+      color: #111827;
+      margin-bottom: 15px;
+    }
+    
+    .section-content a {
+      color: inherit;
+      text-decoration: none;
+      transition: all 0.3s ease;
+      position: relative;
+    }
+    
+    .section-content a:hover {
+      color: #0f766e;
+    }
+    
+    .section-content a::after {
+      content: '';
+      position: absolute;
+      bottom: -2px;
+      left: 0;
+      width: 100%;
+      height: 2px;
+      background: #0f766e;
+      transform: scaleX(0);
+      transform-origin: right;
+      transition: transform 0.3s ease;
+    }
+    
+    .section-content a:hover::after {
+      transform: scaleX(1);
+      transform-origin: left;
+    }
+    
+    .connector {
+      position: absolute;
+      background: #0f766e;
+      z-index: 1;
+    }
+    
+    .connector.vertical {
+      width: 3px;
+    }
+    
+    .connector.horizontal {
+      height: 3px;
+    }
+    
+    .connector.profile {
+      top: 0;
+      left: 25%;
+      height: 100px;
+    }
+    
+    .connector.website {
+      top: 0;
+      right: 25%;
+      height: 100px;
+    }
+    
+    .connector.instagram {
+      bottom: 0;
+      left: 25%;
+      height: 100px;
+    }
+    
+    .connector.email {
+      bottom: 0;
+      right: 25%;
+      height: 100px;
+    }
+    
+    .connector.center-v {
+      left: 50%;
+      width: 3px;
+      height: 200px;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+    
+    .connector.center-h {
+      top: 50%;
+      height: 3px;
+      width: 100%;
+      transform: translateY(-50%);
+    }
+    
+    .brace {
+      position: absolute;
+      font-size: 2.5rem;
+      color: #0f766e;
+      font-weight: 100;
+    }
+    
+    .brace.profile {
+      top: 100px;
+      left: 25%;
+      transform: translateX(-50%);
+    }
+    
+    .brace.website {
+      top: 100px;
+      right: 25%;
+      transform: translateX(50%);
+    }
+    
+    .brace.instagram {
+      bottom: 100px;
+      left: 25%;
+      transform: translateX(-50%) rotate(180deg);
+    }
+    
+    .brace.email {
+      bottom: 100px;
+      right: 25%;
+      transform: translateX(50%) rotate(180deg);
+    }
+    
+    .footer {
+      margin-top: 40px;
+      font-size: 0.9rem;
+      color: #64748b;
+    }
+    
+    .footer a {
+      color: #0f766e;
+      text-decoration: none;
+    }
+    
+    @media (max-width: 768px) {
+      .info-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .main-email {
+        font-size: 2rem;
+      }
+      
+      .connector, .brace {
+        display: none;
+      }
     }
   </style>
 </head>
 <body>
   <div class="container">
-    <div class="email whole">
-      <div class="segment profile">
-        <a href="https://instagram.com/ademiando" target="_blank">ademiando</a>
+    <h1 class="title">ademiando Identity</h1>
+    
+    <div class="identity-card">
+      <!-- Garis penghubung -->
+      <div class="connector vertical center-v"></div>
+      <div class="connector horizontal center-h"></div>
+      
+      <!-- Garis dan kurawal untuk setiap bagian -->
+      <div class="connector vertical profile"></div>
+      <div class="connector vertical website"></div>
+      <div class="connector vertical instagram"></div>
+      <div class="connector vertical email"></div>
+      
+      <div class="brace profile">}</div>
+      <div class="brace website">}</div>
+      <div class="brace instagram">{</div>
+      <div class="brace email">{</div>
+      
+      <!-- Email utama -->
+      <div class="main-email">
+        <a href="mailto:ademiando@ademiando.com">ademiando@ademiando.com</a>
       </div>
-      <span>@</span>
-      <div class="segment website">
-        <a href="https://ademiando.com" target="_blank">ademiando.com</a>
+      
+      <!-- Grid informasi -->
+      <div class="info-grid">
+        <!-- Bagian atas -->
+        <div class="info-section top">
+          <div class="section-title">
+            <i class="fa-solid fa-user"></i> Profile
+          </div>
+          <div class="section-content">
+            <a href="https://instagram.com/ademiando" target="_blank">ademiando</a>
+          </div>
+        </div>
+        
+        <div class="info-section top">
+          <div class="section-title">
+            <i class="fa-solid fa-globe"></i> Website
+          </div>
+          <div class="section-content">
+            <a href="https://ademiando.com" target="_blank">ademiando.com</a>
+          </div>
+        </div>
+        
+        <!-- Bagian bawah -->
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fa-brands fa-instagram"></i> Instagram
+          </div>
+          <div class="section-content">
+            <a href="https://instagram.com/ademiando" target="_blank">@ademiando</a>
+          </div>
+        </div>
+        
+        <div class="info-section">
+          <div class="section-title">
+            <i class="fa-solid fa-envelope"></i> Email
+          </div>
+          <div class="section-content">
+            <a href="mailto:ademiando@ademiando.com">ademiando@ademiando</a>
+          </div>
+        </div>
       </div>
-
-      <!-- Instagram (@ademiando) underline -->
-      <div class="segment instagram" style="position:absolute; left:33%; bottom:0;">
-        <div class="label-bot"><i class="fa-brands fa-instagram"></i> Instagram</div>
-      </div>
-
-      <!-- Full Email underline -->
-      <div class="label-email"><i class="fa-solid fa-envelope"></i> Email</div>
+    </div>
+    
+    <div class="footer">
+      Identity diagram for <a href="https://ademiando.com">ademiando</a> | Created with HTML/CSS
     </div>
   </div>
 </body>
