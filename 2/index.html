@@ -2,124 +2,110 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1"/>
-  <title>AdeMiando Visual Card</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>ademiando identity</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
-      margin: 0; padding: 0;
-      min-height: 100vh;
-      display: flex; align-items: center; justify-content: center;
-      background: #f0f2f5;
-      font-family: 'Poppins', sans-serif;
+      font-family: sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: #f3f4f6;
     }
-    .wrapper {
+    .container {
       position: relative;
       text-align: center;
-      font-size: 2.2rem;
-      font-weight: 600;
-      color: #1a202c;
+      font-size: 1.8rem;
+      font-weight: bold;
     }
     .email {
-      display: inline-flex;
-      position: relative;
-    }
-    .segment {
-      position: relative;
-      padding: 0 4px;
-    }
-    .separator { padding: 0 2px; }
-    a {
-      color: inherit;
-      text-decoration: none;
-      transition: color 0.2s;
-    }
-    a:hover { color: #0d9488; }
-
-    /* Kurawal atas */
-    .segment.profile::before,
-    .segment.website::before {
-      content: '}';
-      position: absolute;
-      font-size: 2.5rem;
-      color: #0d9488;
-      top: -50px;
-    }
-    .segment.profile::after,
-    .segment.website::after {
-      position: absolute;
-      top: -80px;
-      left: 0; right: 0;
-      font-size: 0.9rem;
-      color: #4a5568;
-    }
-    .segment.profile::after { content: 'Profile'; }
-    .segment.website::after { content: 'Website'; }
-
-    /* Kurawal bawah */
-    .segment.instagram::after,
-    .wrapper::after {
-      content: '}';
-      position: absolute;
-      font-size: 2.5rem;
-      color: #0d9488;
-      bottom: -50px;
-    }
-    .segment.instagram .label-bot,
-    .wrapper .label-bot {
-      position: absolute;
-      bottom: -80px;
-      left: 0; right: 0;
-      font-size: 0.9rem;
-      color: #4a5568;
-    }
-    .segment.instagram .label-bot { content: 'Instagram'; }
-    .wrapper .label-bot::after { content: 'Email'; }
-
-    /* Link segment */
-    .segment.instagram a,
-    .segment.profile a,
-    .segment.website a {
       display: inline-block;
-      padding: 2px 6px;
+      position: relative;
+    }
+    .email a {
+      color: #0f172a;
+      text-decoration: none;
+    }
+    .email a:hover {
+      color: #0ea5e9;
     }
 
-    /* Label bawah untuk Instagram */
-    .segment.instagram::after { /* Already added brace */ }
-    .segment.instagram .label-bot {
-      font-family: inherit;
-    }
-
-    /* Label bawah untuk Email (full) */
-    .wrapper::after { /* brace */ }
-    .wrapper .label-bot {
+    /* Garis dan label */
+    .line {
       position: absolute;
-      bottom: -110px;
-      left: 50%;
+      height: 2px;
+      background: #0f766e;
+    }
+    .bracket-label {
+      position: absolute;
+      font-size: 0.85rem;
+      color: #0f766e;
+      display: flex;
+      align-items: center;
+      gap: 5px;
+    }
+
+    /* Profile (atas kiri) */
+    .line-profile {
+      top: -40px; left: 0; width: 120px;
+    }
+    .label-profile {
+      top: -60px; left: 5px;
+    }
+
+    /* Website (atas kanan) */
+    .line-website {
+      top: -40px; right: 0; width: 140px;
+    }
+    .label-website {
+      top: -60px; right: 0;
+    }
+
+    /* Instagram (bawah tengah) */
+    .line-instagram {
+      bottom: -40px; left: 20%; width: 170px;
+    }
+    .label-instagram {
+      bottom: -60px; left: 25%;
+    }
+
+    /* Email (bawah besar) */
+    .line-email {
+      bottom: -100px; left: -30px; right: -30px;
+      border-bottom: 2px dashed #94a3b8;
+      height: 0;
+    }
+    .label-email {
+      bottom: -120px; left: 50%;
       transform: translateX(-50%);
-      font-size: 0.9rem;
-      color: #4a5568;
-      font-family: inherit;
     }
   </style>
 </head>
 <body>
-  <div class="wrapper">
+  <div class="container">
     <div class="email">
-      <div class="segment profile">
-        <a href="https://instagram.com/ademiando" target="_blank">ademiando</a>
-      </div>
-      <span class="separator">@</span>
-      <div class="segment website">
-        <a href="https://ademiando.com" target="_blank">ademiando.com</a>
-      </div>
-      <!-- Segment Instagram: @ademiando -->
-      <div class="segment instagram" style="position:absolute; left:0; right:0; top:0;">
-        <span class="label-bot"><i class="fa-brands fa-instagram"></i> Instagram</span>
-      </div>
+      <!-- Email text -->
+      <a href="mailto:ademiando@ademiando.com">
+        <span id="part1"><a href="https://instagram.com/ademiando">ademiando</a></span>
+        <span>@</span>
+        <span id="part2"><a href="https://ademiando.com">ademiando.com</a></span>
+      </a>
+
+      <!-- Brackets & labels -->
+      <div class="line line-profile"></div>
+      <div class="bracket-label label-profile"><i class="fa-solid fa-user"></i> Profile</div>
+
+      <div class="line line-website"></div>
+      <div class="bracket-label label-website"><i class="fa-solid fa-globe"></i> Website</div>
+
+      <div class="line line-instagram"></div>
+      <div class="bracket-label label-instagram"><i class="fa-brands fa-instagram"></i> Instagram</div>
+
+      <div class="line line-email"></div>
+      <div class="bracket-label label-email"><i class="fa-solid fa-envelope"></i> Email</div>
     </div>
-    <!-- Label bawah keseluruhan: Email -->
-    <span class="label-bot"><i class="fa-solid fa-envelope"></i> Email</span>
   </div>
 </body>
 </html>
