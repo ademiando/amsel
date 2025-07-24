@@ -2,13 +2,13 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Ade Miando Contact Card</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" integrity="sha512-..." crossorigin="anonymous" referrerpolicy="no-referrer" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>AdeMiando Card</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
   <style>
     body {
-      background: #f0f4f8;
-      font-family: 'Inter', sans-serif;
+      background: #f2f4f7;
+      font-family: 'Segoe UI', sans-serif;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -16,95 +16,152 @@
       margin: 0;
     }
 
-    .namecard {
-      background: #ffffff;
-      border-radius: 16px;
+    .card-container {
+      background: #fff;
       padding: 2rem;
-      box-shadow: 0 12px 36px rgba(0, 0, 0, 0.1);
-      max-width: 420px;
-      width: 100%;
+      border-radius: 16px;
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.1);
       text-align: center;
+      position: relative;
+      width: max-content;
     }
 
-    .labels {
+    .email-wrapper {
       display: flex;
-      flex-direction: column;
-      gap: 0.8rem;
-      margin-bottom: 2rem;
-    }
-
-    .label {
-      display: flex;
-      align-items: center;
+      font-size: 1.8rem;
+      font-weight: 600;
+      color: #333;
+      position: relative;
       justify-content: center;
-      gap: 8px;
-      font-size: 0.95rem;
-      color: #666;
+      gap: 4px;
     }
 
-    .label i {
+    .part {
+      position: relative;
+      padding: 0 4px;
+      transition: 0.3s;
+      text-decoration: none;
+      color: inherit;
+    }
+
+    .part:hover {
       color: #2a9d8f;
     }
 
+    /* Curly bracket-like lines */
     .bracket {
-      background: #f5f5f5;
-      padding: 0.2rem 0.6rem;
-      border-radius: 8px;
+      position: absolute;
+      border: 2px solid #ccc;
+      border-top: none;
+      border-bottom: none;
+      border-radius: 20px;
+      height: 60px;
+      pointer-events: none;
+    }
+
+    .bracket-label {
+      position: absolute;
+      font-size: 0.85rem;
       font-weight: 500;
-    }
-
-    .email-display {
+      color: #555;
+      background: #fff;
+      padding: 2px 8px;
       display: flex;
-      justify-content: center;
-      flex-wrap: wrap;
+      align-items: center;
       gap: 6px;
-      font-size: 1.4rem;
-      font-weight: 600;
-      color: #222;
     }
 
-    .email-part {
-      padding: 0.2rem 0.4rem;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: 0.3s ease;
-      text-decoration: none;
-      color: #222;
-      position: relative;
+    /* LEFT - Profile/Instagram */
+    .bracket.profile {
+      left: 0;
+      width: 110px;
+      top: -30px;
     }
 
-    .email-part:hover {
-      background: #2a9d8f;
-      color: #fff;
+    .bracket-label.profile {
+      top: -38px;
+      left: 4px;
     }
 
-    .email-part:focus {
-      outline: 2px solid #2a9d8f;
+    /* RIGHT - Website */
+    .bracket.website {
+      right: 0;
+      width: 160px;
+      top: -30px;
+    }
+
+    .bracket-label.website {
+      top: -38px;
+      right: 6px;
+    }
+
+    /* BOTTOM - Instagram */
+    .bracket.instagram {
+      left: 0;
+      width: 110px;
+      top: 40px;
+    }
+
+    .bracket-label.instagram {
+      top: 72px;
+      left: 10px;
+    }
+
+    /* WHOLE - Email */
+    .bracket.email {
+      left: 0;
+      width: 100%;
+      top: 40px;
+      height: 80px;
+      border-radius: 20px;
+    }
+
+    .bracket-label.email {
+      top: 128px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+
+    .bracket-label i {
+      color: #2a9d8f;
+    }
+
+    @media (max-width: 480px) {
+      .email-wrapper {
+        flex-direction: column;
+        gap: 6px;
+        font-size: 1.4rem;
+      }
+
+      .bracket, .bracket-label {
+        display: none; /* Hide brackets on mobile for clarity */
+      }
     }
   </style>
 </head>
 <body>
-  <div class="namecard">
-    <div class="labels">
-      <div class="label">
-        <i class="fa-solid fa-user"></i> <span>Profile / Instagram:</span>
-        <span class="bracket">ademiando</span>
-      </div>
-      <div class="label">
-        <i class="fa-solid fa-globe"></i> <span>Website:</span>
-        <span class="bracket">@ademiando.com</span>
-      </div>
-      <div class="label">
-        <i class="fa-solid fa-envelope"></i> <span>Email:</span>
-        <span class="bracket">ademiando@ademiando.com</span>
-      </div>
-    </div>
 
-    <div class="email-display">
-      <a href="https://instagram.com/ademiando" class="email-part" title="Instagram" target="_blank">ademiando</a>
-      <span class="email-part">@</span>
-      <a href="https://ademiando.com" class="email-part" title="Website" target="_blank">ademiando.com</a>
+  <div class="card-container">
+    <!-- Brackets -->
+    <div class="bracket profile"></div>
+    <div class="bracket-label profile"><i class="fa-solid fa-user"></i>Profile</div>
+
+    <div class="bracket website"></div>
+    <div class="bracket-label website"><i class="fa-solid fa-globe"></i>Website</div>
+
+    <div class="bracket instagram"></div>
+    <div class="bracket-label instagram"><i class="fa-brands fa-instagram"></i>Instagram</div>
+
+    <div class="bracket email"></div>
+    <div class="bracket-label email"><i class="fa-solid fa-envelope"></i>Email</div>
+
+    <!-- Email -->
+    <div class="email-wrapper">
+      <a href="https://instagram.com/ademiando" target="_blank" class="part">ademiando</a>
+      <span class="part">@</span>
+      <a href="https://ademiando.com" target="_blank" class="part">ademiando.com</a>
     </div>
   </div>
+
 </body>
 </html>
