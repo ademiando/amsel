@@ -3,141 +3,153 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>ademiando card</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+  <title>ademiando@ademiando.com Card</title>
+  <link rel="stylesheet"
+        href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"/>
   <style>
     body {
-      background-color: #f3f4f6;
-      font-family: 'Segoe UI', 'Inter', sans-serif;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       margin: 0;
+      height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #f3f4f6;
+      font-family: 'Poppins', sans-serif;
     }
-
     .card {
-      background: white;
-      padding: 3rem;
-      border-radius: 1.5rem;
-      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
       position: relative;
+      background: #fff;
+      padding: 3rem 2rem 5rem;
+      border-radius: 1.5rem;
+      box-shadow: 0 15px 40px rgba(0,0,0,0.08);
       text-align: center;
     }
-
-    .email-wrapper {
+    /* EMAIL TEXT */
+    .email {
       display: inline-flex;
+      align-items: center;
       font-size: 2rem;
       font-weight: 600;
-      color: #1f2937;
+      color: #111827;
       position: relative;
     }
-
-    .part {
-      position: relative;
+    .email span { position: relative; padding: 0 4px; }
+    /* bracket around whole email */
+    .email::before, .email::after {
+      content: '';
+      position: absolute;
+      border: 2px solid #9ca3af;
+      width: calc(100% + 32px);
+      height: 80px;
+      border-radius: 24px;
+      left: -16px;
+      top: -16px;
+      pointer-events: none;
     }
-
-    .part a {
+    /* Left segment bracket (Profile/IG) */
+    .email a.instagram::before,
+    .email a.instagram::after {
+      content: '';
+      position: absolute;
+      border: 2px solid #9ca3af;
+      width: 60px; height: 40px;
+    }
+    .email a.instagram::before {
+      top: -16px; left: -8px;
+      border-bottom: none; border-right: none;
+      border-top-left-radius: 12px;
+    }
+    .email a.instagram::after {
+      bottom: -16px; left: -8px;
+      border-top: none; border-right: none;
+      border-bottom-left-radius: 12px;
+    }
+    /* Right segment bracket (Website) */
+    .email a.website::before,
+    .email a.website::after {
+      content: '';
+      position: absolute;
+      border: 2px solid #9ca3af;
+      width: 90px; height: 40px;
+    }
+    .email a.website::before {
+      top: -16px; right: -8px;
+      border-bottom: none; border-left: none;
+      border-top-right-radius: 12px;
+    }
+    .email a.website::after {
+      bottom: -16px; right: -8px;
+      border-top: none; border-left: none;
+      border-bottom-right-radius: 12px;
+    }
+    /* LINKS INSIDE EMAIL */
+    .email a {
       color: #111827;
       text-decoration: none;
-      transition: 0.2s ease;
+      transition: 0.2s;
     }
+    .email a:hover { color: #0f766e; }
 
-    .part a:hover {
-      color: #0f766e;
-    }
-
-    .part.instagram::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      background: #e1306c;
-      bottom: -8px;
-      left: 0;
-      border-radius: 2px;
-    }
-
-    .part.website::after {
-      content: "";
-      position: absolute;
-      height: 3px;
-      width: 100%;
-      background: #2563eb;
-      bottom: -8px;
-      left: 0;
-      border-radius: 2px;
-    }
-
+    /* LABELS */
     .label {
-      font-size: 0.9rem;
+      position: absolute;
+      font-size: 0.85rem;
       font-weight: 500;
-      display: flex;
+      color: #374151;
+      background: #fff;
+      padding: 4px 8px;
+      border-radius: 8px;
+      display: inline-flex;
       align-items: center;
       gap: 6px;
-      justify-content: center;
-      color: #4b5563;
-      margin-top: 1.5rem;
       text-decoration: none;
-      transition: 0.2s ease;
+      transition: 0.2s;
     }
+    .label:hover { color: #0f766e; }
+    .label i { color: #0f766e; }
 
-    .label:hover {
-      color: #0f766e;
+    .label.profile {
+      top: 0; left: calc(50% - 120px);
     }
-
-    .labels {
-      margin-top: 3.5rem;
-      display: flex;
-      flex-direction: column;
-      gap: 10px;
+    .label.website {
+      top: 0; left: calc(50% + 20px);
     }
-
-    .bracket-line {
-      position: absolute;
-      border: 2px dashed #9ca3af;
-      border-radius: 18px;
-      top: -20px;
-      left: -20px;
-      right: -20px;
-      bottom: -20px;
-      pointer-events: none;
+    .label.instagram {
+      bottom: 1.5rem; left: calc(50% - 120px);
+    }
+    .label.email {
+      bottom: 1.5rem; left: 50%; transform: translateX(-50%);
     }
   </style>
 </head>
 <body>
+  <div class="card">
+    <!-- Email utama -->
+    <div class="email">
+      <a href="https://instagram.com/ademiando"
+         class="instagram" target="_blank">ademiando</a>
+      <span>@</span>
+      <a href="https://ademiando.com"
+         class="website" target="_blank">ademiando.com</a>
+    </div>
 
-<div class="card">
-  <!-- Garis lingkar luar untuk EMAIL -->
-  <div class="bracket-line"></div>
-
-  <!-- Email -->
-  <div class="email-wrapper">
-    <span class="part instagram">
-      <a href="https://instagram.com/ademiando" target="_blank">ademiando</a>
-    </span>
-    <span>@</span>
-    <span class="part website">
-      <a href="https://ademiando.com" target="_blank">ademiando.com</a>
-    </span>
-  </div>
-
-  <!-- Labels (link aktif) -->
-  <div class="labels">
-    <a href="https://instagram.com/ademiando" class="label" target="_blank">
-      <i class="fa-brands fa-instagram"></i> Instagram
-    </a>
-    <a href="https://ademiando.com" class="label" target="_blank">
-      <i class="fa-solid fa-globe"></i> Website
-    </a>
-    <a href="mailto:ademiando@ademiando.com" class="label">
-      <i class="fa-solid fa-envelope"></i> Email
-    </a>
-    <a href="https://instagram.com/ademiando" class="label" target="_blank">
+    <!-- Labels klik-able -->
+    <a href="https://instagram.com/ademiando"
+       class="label profile" target="_blank">
       <i class="fa-solid fa-user"></i> Profile
     </a>
+    <a href="https://ademiando.com"
+       class="label website" target="_blank">
+      <i class="fa-solid fa-globe"></i> Website
+    </a>
+    <a href="https://instagram.com/ademiando"
+       class="label instagram" target="_blank">
+      <i class="fa-brands fa-instagram"></i> Instagram
+    </a>
+    <a href="mailto:ademiando@ademiando.com"
+       class="label email">
+      <i class="fa-solid fa-envelope"></i> Email
+    </a>
   </div>
-</div>
-
 </body>
 </html>
