@@ -7,24 +7,23 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
 
-
 <link rel="stylesheet" href="styles.css">
+
+
+
+
 </head>
-
-
-
 <body>
     <!-- Header -->
-    <header>
+    <header id="header">
         <div class="container header-container">
-
-         <div class="logo">
-            <div class="logo-icon">
-                <img src="assets/logo-amsel.png" alt="Logo Amsel Tenda" />
+            <div class="logo">
+                <div class="logo-icon">
+                    <img src="assets/logo-amsel.png" alt="Logo Amsel Tenda" />
+                </div>
+                <h1>Amsel Tenda</h1>
             </div>
-            <h1>Amsel Tenda</h1>
-        </div>
-  <nav>
+            <nav>
                 <ul id="navMenu">
                     <li><a href="#home">Beranda</a></li>
                     <li><a href="#about">Tentang Kami</a></li>
@@ -49,25 +48,14 @@
                     <a href="https://wa.me/6285292234655" class="btn btn-primary">
                         <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
                     </a>
-                    <a href="#contact" class="btn btn-secondary">
-                        <i class="fas fa-map-marker-alt"></i> Lihat Lokasi
+                    <a href="#" class="btn btn-secondary" id="locationBtn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="text">Lihat Lokasi</span>
+                        <span class="hover-text">Buka di Google Maps</span>
                     </a>
                 </div>
             </div>
         </div>
-
-
-
-
-
-
-
-        
-
-
-
-
-
     </section>
 
     <!-- About Section -->
@@ -140,6 +128,15 @@
                         <p>Paket komplit untuk pernikahan dan acara besar lainnya, termasuk tenda, dekorasi, kursi, meja, sound system, dan layanan katering.</p>
                     </div>
                 </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-camera"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Fotografi & Video</h3>
+                        <p>Layanan profesional fotografi dan videografi untuk mengabadikan momen spesial Anda. Tim kami akan menangkap setiap detil berharga dari acara Anda.</p>
+                    </div>
+                </div>
             </div>
         </div>
     </section>
@@ -151,10 +148,6 @@
                 <h2>Galeri Kami</h2>
                 <p>Beberapa hasil karya dan layanan yang telah kami sediakan</p>
             </div>
-
-
-
-
             <div class="gallery-grid">
                 <div class="gallery-item">
                     <img src="https://images.unsplash.com/photo-1600041161228-519e6dd27bac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" alt="Tenda Pernikahan">
@@ -196,9 +189,6 @@
         </div>
     </section>
 
-
-
-
     <!-- Contact Section -->
     <section class="contact" id="contact">
         <div class="container">
@@ -217,26 +207,35 @@
                             <p><a href="https://wa.me/6285292234655">0852-9223-4655</a></p>
                         </div>
                     </div>
-
-                
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-map-marker-alt"></i>
+                        </div>
                         <div class="contact-text">
                             <h4>Alamat</h4>
                             <p><a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></p>
                         </div>
                     </div>
-
-<div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="map-overlay">
-                        <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
-                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
-                        </a>
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-phone-alt"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Telepon</h4>
+                            <p>+62 812 3456 7890</p>
+                            <p>+62 823 4567 8901</p>
+                        </div>
                     </div>
-                </div>
-        
-
-
-
+                    <div class="contact-item">
+                        <div class="contact-icon">
+                            <i class="fas fa-envelope"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>Email</h4>
+                            <a href="mailto:info@amseltenda.com">info@amseltenda.com</a>
+                            <a href="mailto:marketing@amseltenda.com">marketing@amseltenda.com</a>
+                        </div>
+                    </div>
                     <div class="social-links">
                         <a href="https://wa.me/6285292234655" class="social-link">
                             <i class="fab fa-whatsapp"></i>
@@ -248,16 +247,20 @@
                             <i class="fab fa-facebook-f"></i>
                         </a>
                         <a href="#" class="social-link">
-                            <i class="fab fa-twitter"></i>
+                            <i class="fab fa-tiktok"></i>
                         </a>
                     </div>
                 </div>
-
-                
-
-
-    </div>
-    </div>
+                <div class="contact-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
+                    <div class="map-overlay">
+                        <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
+                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
     </section>
 
     <!-- Footer -->
@@ -275,6 +278,7 @@
                         <li><a href="#services">Jasa Rias</a></li>
                         <li><a href="#services">Sewa Pakaian</a></li>
                         <li><a href="#services">Paket Acara Lengkap</a></li>
+                        <li><a href="#services">Fotografi & Video</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
@@ -297,93 +301,111 @@
                 </div>
             </div>
             <div class="copyright">
-              &copy; 2023–2025 Amsel Tenda. All rights reserved. Powered by <a href="https://ademiando.com" target="_blank">ademiando.</a>
+              &copy; 2023–2025 Amsel Tenda. All rights reserved. Powered by <a href="https://ademiando.com" target="_blank" class="ademiando">ademiando.</a>
             </div>
         </div>
     </footer>
 
+    <script>
+        // Sticky header with glassmorphism effect
+        window.addEventListener('scroll', function() {
+            const header = document.getElementById('header');
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
 
-
-
-
-<script>
-    // Smooth Scrolling
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function (e) {
-            e.preventDefault();
-            document.querySelector(this.getAttribute('href')).scrollIntoView({
-                behavior: 'smooth'
-            });
-
-            // Close mobile menu if open
+        // Mobile menu toggle
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
+        
+        mobileMenuBtn.addEventListener('click', function() {
+            navMenu.classList.toggle('active');
             if (navMenu.classList.contains('active')) {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
+            } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
                 navMenu.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
-    });
 
-   
-
-
-
-
-
-
-    // Mobile Menu Toggle - Improved version
-    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-    const navMenu = document.getElementById('navMenu');
-
-    mobileMenuBtn.addEventListener('click', function(e) {
-        e.stopPropagation(); // Mencegah event bubbling
-        navMenu.classList.toggle('active');
-        if (navMenu.classList.contains('active')) {
-            mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-        } else {
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', function(e) {
-        if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
-            navMenu.classList.remove('active');
-            mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-        }
-    });
-
-    // Gallery Lightbox Effect
-    const galleryItems = document.querySelectorAll('.gallery-item');
-    galleryItems.forEach(item => {
-        item.addEventListener('click', function() {
-            this.classList.toggle('active');
-        });
-    });
-
-    // Floating Elements Animation
-    const floatingElements = document.querySelectorAll('.floating-element');
-    floatingElements.forEach(el => {
-        el.style.animationDelay = Math.random() * 5 + 's';
-    });
-
-    // Service Card Animation on Scroll
-    const serviceCards = document.querySelectorAll('.service-card');
-
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if (entry.isIntersecting) {
-                entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                observer.unobserve(entry.target);
+        // Tombol Lihat Lokasi (2x klik)
+        const locationBtn = document.getElementById('locationBtn');
+        let clickCount = 0;
+        
+        locationBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            clickCount++;
+            
+            if (clickCount === 1) {
+                // Klik pertama - ubah teks
+                this.querySelector('.text').style.display = 'none';
+                this.querySelector('.hover-text').style.display = 'inline';
+                
+                // Reset setelah 3 detik jika tidak ada klik kedua
+                setTimeout(() => {
+                    if (clickCount === 1) {
+                        clickCount = 0;
+                        this.querySelector('.text').style.display = 'inline';
+                        this.querySelector('.hover-text').style.display = 'none';
+                    }
+                }, 3000);
+            } else if (clickCount === 2) {
+                // Klik kedua - buka Google Maps
+                window.location.href = 'https://maps.app.goo.gl/bY2KpmC8s7ytgyku6';
             }
         });
-    }, { threshold: 0.1 });
 
-    serviceCards.forEach(card => {
-        card.style.opacity = '0';
-        card.style.transform = 'translateY(30px)';
-        observer.observe(card);
-    });
-</script>
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
 
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Gallery Lightbox Effect
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Service Card Animation on Scroll
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        serviceCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            observer.observe(card);
+        });
+    </script>
 </body>
 </html>
