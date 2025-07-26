@@ -3,328 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amsel Tenda - Penyewaan Tenda & Jasa Rias Profesional | Wonosobo</title>
+    <title>Amsel Tenda - Galeri Geser Manual</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary: #1E3A8A;
-            --secondary: #60A5FA;
-            --accent: #3B82F6;
-            --light: #EFF6FF;
-            --dark: #1F2937;
-            --pastel-blue: #BFDBFE;
-            --pastel-yellow: #FEF3C7;
-            --shadow: 0 8px 24px rgba(0,0,0,0.1);
-            --glass: rgba(255, 255, 255, 0.85);
-            --whatsapp-green: #25D366;
-            --whatsapp-dark: #128C7E;
-        }
-
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-        }
-
-        body {
             font-family: 'Poppins', sans-serif;
-            color: var(--dark);
-            background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
+        }
+        
+        body {
+            background: #f8f9fa;
+            color: #333;
             line-height: 1.6;
-            overflow-x: hidden;
         }
-
-        h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--dark);
-        }
-
+        
         .container {
-            width: 90%;
             max-width: 1200px;
             margin: 0 auto;
-            padding: 0 20px;
+            padding: 20px;
         }
-
-        /* Header Styles */
-        header {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            z-index: 1000;
-            background-color: transparent;
-            backdrop-filter: blur(10px);
-            transition: all 0.4s ease;
-        }
-
-        header.scrolled {
-            background-color: var(--glass);
-            box-shadow: var(--shadow);
-        }
-
-        .header-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 12px 0;
-        }
-
-        .logo {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .logo-icon {
-            background: linear-gradient(45deg, var(--accent), var(--primary));
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            box-shadow: var(--shadow);
-        }
-
-        .logo-icon img {
-            width: 80px;
-            height: auto;
-            display: block;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li {
-            margin-left: 30px;
-        }
-
-        nav ul li a {
-            text-decoration: none;
-            color: var(--dark);
-            font-weight: 500;
-            position: relative;
-            padding-bottom: 5px;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(45deg, var(--accent), var(--primary));
-            transition: width 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: var(--accent);
-        }
-
-        nav ul li a:hover:after {
-            width: 100%;
-        }
-
-        .mobile-menu-btn {
-            display: none;
-            background: none;
-            border: none;
-            font-size: 1.5rem;
-            color: var(--dark);
-            cursor: pointer;
-            z-index: 1001;
-        }
-
-        /* Hero Section */
-        .hero {
-            height: 100vh;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            position: relative;
-            overflow: hidden;
-            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
-            background-size: cover;
-            background-position: center;
-        }
-
-        .hero-content {
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            height: 100%;
-            padding: 80px 0;
-            max-width: 650px;
-            margin: 0 auto;
-            z-index: 2;
-            animation: fadeInUp 1s ease-out;
-        }
-
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-top: 100px; /* Judul lebih ke atas */
-            margin-bottom: 20px;
-            line-height: 1.2;
-            color: white;
-            text-align: center;
-            text-shadow: 0 2px 10px rgba(0,0,0,0.3);
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 20px;
-            color: white;
-            text-align: center;
-            text-shadow: 0 1px 5px rgba(0,0,0,0.3);
-        }
-
-        .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-            flex-wrap: wrap;
-            margin-bottom: 150px; /* Tombol lebih ke bawah */
-        }
-
-        .btn {
-            padding: 14px 30px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s ease;
-            display: inline-flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: var(--shadow);
-        }
-
-        .btn-primary {
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 20px rgba(0,0,0,0.15);
-        }
-
-        .btn.btn-secondary {
-            position: relative;
-            background: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
-            color: white !important;
-            border: none;
-            border-radius: 50px;
-            padding: 12px 28px;
-            display: inline-flex;
-            align-items: center;
-            gap: 8px;
-            cursor: pointer;
-            overflow: hidden;
-            transition: all 0.2s ease;
-        }
-
-        .btn.btn-secondary::before {
-            content: "";
-            position: absolute;
-            inset: 0;
-            background: rgba(0, 0, 0, 0.35);
-            z-index: 0;
-        }
-
-        .btn.btn-secondary > * {
-            position: relative;
-            z-index: 1;
-            color: white !important;
-        }
-
-        .btn.btn-secondary .hover-text {
-            display: none;
-        }
-
-        .btn.btn-secondary:hover .text {
-            display: none;
-        }
-
-        .btn.btn-secondary:hover .hover-text {
-            display: inline;
-        }
-
-        .floating-elements {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            pointer-events: none;
-        }
-
-        .floating-element {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(1px);
-            opacity: 0.7;
-            animation: float 6s infinite ease-in-out;
-        }
-
-        .floating-element:nth-child(1) {
-            width: 120px;
-            height: 120px;
-            background: var(--primary);
-            top: 15%;
-            right: 10%;
-            animation-delay: 0s;
-        }
-
-        .floating-element:nth-child(2) {
-            width: 80px;
-            height: 80px;
-            background: var(--secondary);
-            top: 40%;
-            right: 25%;
-            animation-delay: -2s;
-        }
-
-        .floating-element:nth-child(3) {
-            width: 60px;
-            height: 60px;
-            background: var(--pastel-blue);
-            bottom: 20%;
-            right: 15%;
-            animation-delay: -4s;
-        }
-
-        /* Section Common Styles */
-        section {
-            padding: 100px 0;
-        }
-
+        
         .section-header {
             text-align: center;
-            margin-bottom: 60px;
+            margin-bottom: 40px;
+            padding: 20px 0;
         }
-
+        
         .section-header h2 {
             font-size: 2.5rem;
-            margin-bottom: 20px;
+            color: #1E3A8A;
+            margin-bottom: 15px;
             position: relative;
             display: inline-block;
         }
-
+        
         .section-header h2:after {
             content: '';
             position: absolute;
@@ -333,1005 +47,279 @@
             transform: translateX(-50%);
             width: 80px;
             height: 4px;
-            background: linear-gradient(45deg, var(--accent), var(--primary));
+            background: linear-gradient(45deg, #3B82F6, #1E3A8A);
             border-radius: 2px;
         }
-
+        
         .section-header p {
             max-width: 700px;
             margin: 0 auto;
             color: #777;
             font-size: 1.1rem;
         }
-
-        /* About Section */
-        .about-content {
-            display: flex;
-            align-items: center;
-            gap: 50px;
+        
+        /* Galeri Styles */
+        .gallery-section {
+            padding: 60px 0;
+            background: #fff;
         }
-
-        .about-text {
-            flex: 1;
-        }
-
-        .about-text h3 {
-            font-size: 2rem;
-            margin-bottom: 20px;
-        }
-
-        .about-text p {
-            margin-bottom: 20px;
-            font-size: 1.05rem;
-            line-height: 1.8;
-        }
-
-        .about-image {
-            flex: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transform: perspective(1000px) rotateY(-5deg);
-            transition: transform 0.5s ease;
-        }
-
-        .about-image:hover {
-            transform: perspective(1000px) rotateY(0deg);
-        }
-
-        .about-image img {
-            width: 100%;
-            height: auto;
-            display: block;
-            transition: transform 0.5s ease;
-        }
-
-        .about-image:hover img {
-            transform: scale(1.05);
-        }
-
-        /* Services Section */
-        .services {
-            background-color: var(--light);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .services-container {
-            position: relative;
-        }
-
-        .services-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 30px;
-        }
-
-        .service-card {
-            background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            transition: all 0.4s ease;
-            position: relative;
-            z-index: 2;
-        }
-
-        .service-card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 20px 30px rgba(0,0,0,0.15);
-        }
-
-        .service-icon {
-            height: 200px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 4rem;
-            color: var(--primary); /* Warna ikon biru */
-            position: relative;
-            overflow: hidden;
-        }
-
-        .service-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80') center/cover;
-            filter: brightness(0.8);
-            z-index: -1;
-        }
-
-        .service-content {
-            padding: 30px;
-        }
-
-        .service-content h3 {
-            font-size: 1.5rem;
-            margin-bottom: 15px;
-        }
-
-        .service-content p {
-            line-height: 1.7;
-        }
-
-        /* Gallery Section */
+        
         .gallery-container {
             position: relative;
-        }
-
-        .gallery-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 25px;
-        }
-
-        .gallery-item {
-            border-radius: 15px;
             overflow: hidden;
-            box-shadow: var(--shadow);
-            position: relative;
-            height: 300px;
-            transition: all 0.4s ease;
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            max-width: 1100px;
+            margin: 0 auto;
         }
-
-        .gallery-item img {
+        
+        .gallery-track {
+            display: flex;
+            transition: transform 0.5s ease;
+            height: 500px;
+        }
+        
+        .gallery-slide {
+            min-width: 100%;
+            position: relative;
+        }
+        
+        .gallery-slide img {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.5s ease;
+            display: block;
         }
-
-        .gallery-item:hover {
-            transform: translateY(-10px) scale(1.03);
-        }
-
-        .gallery-item:hover img {
-            transform: scale(1.1);
-        }
-
+        
         .gallery-overlay {
             position: absolute;
             bottom: 0;
             left: 0;
             width: 100%;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(transparent, rgba(0,0,0,0.7));
             color: white;
-            opacity: 0;
-            transition: opacity 0.3s ease;
         }
-
-        .gallery-item:hover .gallery-overlay {
-            opacity: 1;
-        }
-
-        /* Contact Section */
-        .contact {
-            background: linear-gradient(135deg, var(--secondary), var(--pastel-blue));
-            position: relative;
-            overflow: hidden;
-        }
-
-        .contact-container {
-            display: flex;
-            gap: 50px;
-        }
-
-        .contact-info {
-            flex: 1;
-            background: rgba(255, 255, 255, 0.9);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: var(--shadow);
-        }
-
-        .contact-item {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 30px;
-        }
-
-        .contact-icon {
-            width: 50px;
-            height: 50px;
-            background: var(--primary);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-right: 20px;
-            color: white;
-            font-size: 1.2rem;
-            flex-shrink: 0;
-        }
-
-        .contact-text h4 {
+        
+        .gallery-overlay h3 {
+            font-size: 1.8rem;
             margin-bottom: 10px;
-            font-size: 1.2rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
-
-        .contact-text p, 
-        .contact-text a {
-            color: var(--dark);
-            text-decoration: none;
-            transition: color 0.3s ease;
-            display: block;
-            margin-top: 5px;
+        
+        .gallery-overlay p {
+            font-size: 1.1rem;
+            opacity: 0.9;
         }
-
-        /* WhatsApp specific styles */
-        .contact-item.whatsapp .contact-icon {
-            background: var(--whatsapp-green);
-        }
-
-        .contact-item.whatsapp .contact-text a {
-            background-color: var(--whatsapp-green);
-            color: white !important;
-            padding: 8px 15px;
-            border-radius: 50px;
-            display: inline-block;
-            text-decoration: none;
-            font-weight: 600;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-            border: none;
-            transition: all 0.3s ease;
-            margin-top: 10px;
-        }
-
-        .contact-item.whatsapp .contact-text a:hover {
-            background-color: var(--whatsapp-dark);
-            transform: translateY(-2px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.15);
-        }
-
-        .contact-map {
-            flex: 1;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: var(--shadow);
-            height: 500px;
-            position: relative;
-        }
-
-        .contact-map iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        .map-overlay {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
+        
+        .gallery-indicators {
             display: flex;
-            align-items: center;
             justify-content: center;
-            background: rgba(0,0,0,0.3);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-            z-index: 10;
+            gap: 12px;
+            margin-top: 25px;
         }
-
-        .map-overlay:hover {
-            opacity: 1;
-        }
-
-        .map-overlay-btn {
-            background: white;
-            padding: 12px 25px;
-            border-radius: 50px;
-            text-decoration: none;
-            font-weight: 600;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
-            color: var(--dark);
-            transition: all 0.3s ease;
-        }
-
-        .map-overlay-btn:hover {
-            transform: scale(1.05);
-            background: var(--primary);
-            color: white;
-        }
-
-        .social-links {
-            display: flex;
-            gap: 15px;
-            margin-top: 30px;
-            flex-wrap: wrap;
-        }
-
-        .social-link {
-            width: 50px;
-            height: 50px;
+        
+        .gallery-indicator {
+            width: 12px;
+            height: 12px;
             border-radius: 50%;
-            background: var(--primary);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 1.5rem;
+            background: #ddd;
+            cursor: pointer;
             transition: all 0.3s ease;
-            text-decoration: none;
         }
-
-        .social-link:hover {
-            transform: translateY(-5px);
-            background: var(--accent);
+        
+        .gallery-indicator.active {
+            background: #1E3A8A;
+            transform: scale(1.2);
         }
-
-        /* Footer */
-        footer {
-            background: var(--dark);
-            color: white;
-            padding: 50px 0 20px;
-        }
-
-        .footer-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 40px;
-            margin-bottom: 40px;
-        }
-
-        .footer-logo {
-            font-size: 2rem;
-            font-weight: 700;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, var(--accent), var(--primary));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-        }
-
-        .footer-links h4 {
-            color: white;
-            margin-bottom: 20px;
-            position: relative;
-            padding-bottom: 10px;
-            font-size: 1.3rem;
-        }
-
-        .footer-links h4:after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: var(--primary);
-        }
-
-        .footer-links ul {
-            list-style: none;
-        }
-
-        .footer-links ul li {
-            margin-bottom: 10px;
-        }
-
-        .footer-links ul li a {
-            color: #ccc;
-            text-decoration: none;
-            transition: color 0.3s ease;
-            font-size: 1rem;
-        }
-
-        .footer-links ul li a:hover {
-            color: var(--accent);
-        }
-
-        .copyright {
-            text-align: center;
-            padding-top: 20px;
-            border-top: 1px solid rgba(255,255,255,0.1);
-            font-size: 0.9rem;
-            color: #aaa;
-        }
-
-        .copyright .ademiando {
-            font-weight: bold;
-            color: #aaa;
-        }
-
-        /* Animations */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0% {
-                transform: translateY(0) rotate(0deg);
-            }
-            50% {
-                transform: translateY(-20px) rotate(10deg);
-            }
-            100% {
-                transform: translateY(0) rotate(0deg);
-            }
-        }
-
+        
         /* Responsive Design */
-        @media (max-width: 1200px) {
-            .hero h1 {
-                font-size: 3rem;
-            }
-        }
-
         @media (max-width: 992px) {
-            .about-content,
-            .contact-container {
-                flex-direction: column;
+            .gallery-track {
+                height: 400px;
             }
             
-            .hero h1 {
-                font-size: 2.8rem;
-            }
-            
-            .section-header h2 {
-                font-size: 2.2rem;
-            }
-        }
-
-        @media (max-width: 768px) {
-            nav ul {
-                display: none;
-                position: fixed;
-                top: 0;
-                right: 0;
-                width: 70%;
-                height: 100vh;
-                background: white;
-                flex-direction: column;
-                padding: 100px 30px 30px;
-                box-shadow: -5px 0 15px rgba(0,0,0,0.1);
-                transform: translateX(100%);
-                transition: transform 0.4s ease;
-                z-index: 999;
-            }
-            
-            nav ul.active {
-                display: flex;
-                transform: translateX(0);
-            }
-            
-            nav ul li {
-                margin: 15px 0;
-                margin-left: 0;
-            }
-            
-            .mobile-menu-btn {
-                display: block;
-            }
-            
-            .hero h1 {
-                font-size: 2.3rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                gap: 15px;
-            }
-            
-            section {
-                padding: 70px 0;
-            }
-            
-            .section-header h2 {
-                font-size: 2rem;
-            }
-            
-            .about-image {
-                margin-top: 30px;
-            }
-
-            .gallery-grid {
-                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            }
-        }
-
-        @media (max-width: 480px) {
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .hero p {
-                font-size: 1rem;
-            }
-            
-            .section-header h2 {
-                font-size: 1.8rem;
-            }
-            
-            .section-header p {
-                font-size: 1rem;
-            }
-            
-            .service-icon {
-                height: 150px;
-                font-size: 3rem;
-            }
-            
-            .contact-info {
-                padding: 25px;
-            }
-            
-            .contact-item {
-                flex-direction: column;
-                align-items: flex-start;
-            }
-            
-            .contact-icon {
-                margin-right: 0;
-                margin-bottom: 15px;
-            }
-            
-            .social-links {
-                justify-content: center;
-            }
-            
-            .footer-container {
-                grid-template-columns: 1fr;
-                text-align: center;
-            }
-            
-            .footer-links h4:after {
-                left: 50%;
-                transform: translateX(-50%);
-            }
-            
-            .map-overlay-btn {
-                padding: 10px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .logo h1 {
+            .gallery-overlay h3 {
                 font-size: 1.5rem;
             }
         }
-
-        @media (max-width: 360px) {
-            .hero h1 {
-                font-size: 1.8rem;
-            }
-            
-            .btn {
-                padding: 12px 20px;
-                font-size: 0.9rem;
-            }
-            
-            .section-header h2 {
-                font-size: 1.6rem;
-            }
-            
-            .contact-map {
+        
+        @media (max-width: 768px) {
+            .gallery-track {
                 height: 350px;
             }
             
-            .gallery-item {
-                height: 250px;
+            .section-header h2 {
+                font-size: 2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .gallery-track {
+                height: 300px;
             }
             
-            .contact-item.whatsapp .contact-text a {
-                padding: 6px 12px;
+            .gallery-overlay {
+                padding: 15px;
+            }
+            
+            .gallery-overlay h3 {
+                font-size: 1.3rem;
+            }
+            
+            .gallery-overlay p {
                 font-size: 0.9rem;
-            }
-            
-            .footer-links h4 {
-                font-size: 1.2rem;
             }
         }
     </style>
 </head>
 <body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-container">
-            <div class="logo">
-                <div class="logo-icon">
-                    <img src="assets/logo-amsel.png" alt="Logo Amsel Tenda" />
-                </div>
-                <h1>Amsel Tenda</h1>
-            </div>
-            <nav>
-                <ul id="navMenu">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#services">Layanan</a></li>
-                    <li><a href="#gallery">Galeri</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
-        </div>
-    </header>
-
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Solusi Terbaik untuk Acara Spesial Anda</h1>
-                <p>Penyewaan tenda premium dan jasa rias profesional untuk pernikahan, konser, wisuda, dan acara penting lainnya. Dengan kualitas terbaik dan pelayanan ramah.</p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/6285292234655" class="btn btn-primary">
-                        <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
-                    </a>
-                    <a href="#" class="btn btn-secondary" id="locationBtn">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span class="text">Lihat Lokasi</span>
-                        <span class="hover-text">Buka di Google Maps</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>Tentang Amsel Tenda</h2>
-                <p>Kami menyediakan solusi lengkap untuk segala kebutuhan acara Anda dengan kualitas premium dan harga terjangkau</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Pengalaman Lebih dari 15 Tahun Melayani Pelanggan</h3>
-                    <p>Amsel Tenda telah menjadi pilihan utama masyarakat Wonosobo dan sekitarnya untuk penyewaan tenda dan jasa rias profesional. Kami mengutamakan kualitas, kebersihan, dan ketepatan waktu dalam setiap layanan kami.</p>
-                    <p>Dengan tim profesional yang berpengalaman, kami siap membantu mewujudkan acara impian Anda, mulai dari pernikahan, wisuda, hingga acara perusahaan dan konser musik.</p>
-                    <p>Kami tidak hanya menyediakan tenda berkualitas tinggi, tetapi juga menyediakan jasa rias lengkap dengan berbagai pilihan gaun, jas, kebaya, dan aksesoris pernikahan yang elegan.</p>
-                    <div class="cta-buttons">
-                        <a href="#services" class="btn btn-primary">
-                            <i class="fas fa-concierge-bell"></i> Lihat Layanan Kami
-                        </a>
-                    </div>
-                </div>
-                <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tenda Pernikahan">
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Services Section -->
-    <section class="services" id="services">
-        <div class="container">
-            <div class="section-header">
-                <h2>Layanan Kami</h2>
-                <p>Berbagai layanan profesional untuk semua kebutuhan acara Anda</p>
-            </div>
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-tents"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Sewa Tenda</h3>
-                        <p>Berbagai jenis tenda untuk berbagai acara: pernikahan, konser, seminar, pameran, dan acara keluarga. Tenda kami terbuat dari bahan berkualitas dengan desain modern dan elegan.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-brush"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Jasa Rias Profesional</h3>
-                        <p>Layanan rias untuk wisuda, pernikahan, dan acara khusus lainnya. Tim makeup artist profesional kami akan membuat Anda tampil sempurna di hari istimewa Anda.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-vest"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Sewa Pakaian Acara</h3>
-                        <p>Kami menyediakan berbagai pilihan gaun pengantin, jas, kebaya, dan aksesoris pernikahan lengkap dengan kualitas premium dan desain terkini.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-chair"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Paket Lengkap Acara</h3>
-                        <p>Paket komplit untuk pernikahan dan acara besar lainnya, termasuk tenda, dekorasi, kursi, meja, sound system, dan layanan katering.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-camera"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Fotografi & Video</h3>
-                        <p>Layanan profesional fotografi dan videografi untuk mengabadikan momen spesial Anda. Tim kami akan menangkap setiap detil berharga dari acara Anda.</p>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
     <!-- Gallery Section -->
-    <section class="gallery" id="gallery">
+    <section class="gallery-section">
         <div class="container">
             <div class="section-header">
                 <h2>Galeri Kami</h2>
                 <p>Beberapa hasil karya dan layanan yang telah kami sediakan</p>
             </div>
-            <div class="gallery-grid">
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1600041161228-519e6dd27bac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" alt="Tenda Pernikahan">
-                    <div class="gallery-overlay">
-                        <h3>Tenda Pernikahan</h3>
+            
+            <div class="gallery-container">
+                <div class="gallery-track">
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1600041161228-519e6dd27bac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" alt="Tenda Pernikahan">
+                        <div class="gallery-overlay">
+                            <h3>Tenda Pernikahan Mewah</h3>
+                            <p>Dekorasi elegan untuk hari istimewa Anda</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1592311617290-5a1b0e0e8cf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80" alt="Makeup Wisuda">
+                        <div class="gallery-overlay">
+                            <h3>Rias Wisuda Profesional</h3>
+                            <p>Tampil sempurna di hari kelulusan</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1610465299993-e95f6caa7c8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Gaun Pengantin">
+                        <div class="gallery-overlay">
+                            <h3>Gaun Pengantin Eksklusif</h3>
+                            <p>Koleksi terbaru untuk pengantin modern</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Acara Konser">
+                        <div class="gallery-overlay">
+                            <h3>Panggung Konser Spektakuler</h3>
+                            <p>Produksi acara musik skala besar</p>
+                        </div>
+                    </div>
+                    <div class="gallery-slide">
+                        <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dekorasi Acara">
+                        <div class="gallery-overlay">
+                            <h3>Dekorasi Acara Perusahaan</h3>
+                            <p>Konsep profesional untuk acara bisnis</p>
+                        </div>
                     </div>
                 </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1592311617290-5a1b0e0e8cf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80" alt="Makeup Wisuda">
-                    <div class="gallery-overlay">
-                        <h3>Makeup Wisuda</h3>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1610465299993-e95f6caa7c8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Gaun Pengantin">
-                    <div class="gallery-overlay">
-                        <h3>Gaun Pengantin</h3>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Acara Konser">
-                    <div class="gallery-overlay">
-                        <h3>Acara Konser</h3>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dekorasi Acara">
-                    <div class="gallery-overlay">
-                        <h3>Dekorasi Acara</h3>
-                    </div>
-                </div>
-                <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Rias Pengantin">
-                    <div class="gallery-overlay">
-                        <h3>Rias Pengantin</h3>
-                    </div>
-                </div>
+            </div>
+            
+            <div class="gallery-indicators">
+                <div class="gallery-indicator active"></div>
+                <div class="gallery-indicator"></div>
+                <div class="gallery-indicator"></div>
+                <div class="gallery-indicator"></div>
+                <div class="gallery-indicator"></div>
             </div>
         </div>
     </section>
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Hubungi Kami</h2>
-                <p>Kami siap membantu mewujudkan acara impian Anda</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>WhatsApp</h4>
-                            <p><a href="https://wa.me/6285292234655">0852-9223-4655</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Alamat</h4>
-                            <p><a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-phone-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Telepon</h4>
-                            <p>+62 812 3456 7890</p>
-                            <p>+62 823 4567 8901</p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-envelope"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Email</h4>
-                            <a href="mailto:info@amseltenda.com">info@amseltenda.com</a>
-                            <a href="mailto:marketing@amseltenda.com">marketing@amseltenda.com</a>
-                        </div>
-                    </div>
-                    <div class="social-links">
-                        <a href="https://wa.me/6285292234655" class="social-link">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://instagram.com/amseltenda_wsb" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="map-overlay">
-                        <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
-                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-links">
-                    <div class="footer-logo">Amsel Tenda</div>
-                    <p>Solusi lengkap untuk semua kebutuhan acara Anda. Dari penyewaan tenda hingga jasa rias profesional dengan kualitas premium dan harga terjangkau.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Layanan</h4>
-                    <ul>
-                        <li><a href="#services">Sewa Tenda</a></li>
-                        <li><a href="#services">Jasa Rias</a></li>
-                        <li><a href="#services">Sewa Pakaian</a></li>
-                        <li><a href="#services">Paket Acara Lengkap</a></li>
-                        <li><a href="#services">Fotografi & Video</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Link</h4>
-                    <ul>
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#about">Tentang Kami</a></li>
-                        <li><a href="#services">Layanan</a></li>
-                        <li><a href="#gallery">Galeri</a></li>
-                        <li><a href="#contact">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Kontak</h4>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> 0852-9223-4655</li>
-                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></li>
-                        <li><i class="fas fa-envelope"></i> info@amseltenda.com</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-              &copy; 2023–2025 Amsel Tenda. All rights reserved. Powered by <a href="https://ademiando.com" target="_blank" class="ademiando">ademiando.</a>
-            </div>
-        </div>
-    </footer>
 
     <script>
-        // Sticky header with glassmorphism effect
-        window.addEventListener('scroll', function() {
-            const header = document.getElementById('header');
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
-        });
-
-        // Mobile menu toggle
-        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-        const navMenu = document.getElementById('navMenu');
-        
-        mobileMenuBtn.addEventListener('click', function() {
-            navMenu.classList.toggle('active');
-            if (navMenu.classList.contains('active')) {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
-            } else {
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-
-        // Close menu when clicking outside
-        document.addEventListener('click', function(e) {
-            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
-                navMenu.classList.remove('active');
-                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
-            }
-        });
-
-        // Tombol Lihat Lokasi (2x klik)
-        const locationBtn = document.getElementById('locationBtn');
-        let clickCount = 0;
-        
-        locationBtn.addEventListener('click', function(e) {
-            e.preventDefault();
-            clickCount++;
+        // Gallery Slider Functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const galleryTrack = document.querySelector('.gallery-track');
+            const slides = document.querySelectorAll('.gallery-slide');
+            const indicators = document.querySelectorAll('.gallery-indicator');
             
-            if (clickCount === 1) {
-                // Klik pertama - ubah teks
-                this.querySelector('.text').style.display = 'none';
-                this.querySelector('.hover-text').style.display = 'inline';
-                
-                // Reset setelah 3 detik jika tidak ada klik kedua
-                setTimeout(() => {
-                    if (clickCount === 1) {
-                        clickCount = 0;
-                        this.querySelector('.text').style.display = 'inline';
-                        this.querySelector('.hover-text').style.display = 'none';
-                    }
-                }, 3000);
-            } else if (clickCount === 2) {
-                // Klik kedua - buka Google Maps
-                window.location.href = 'https://maps.app.goo.gl/bY2KpmC8s7ytgyku6';
-            }
-        });
-
-        // Smooth Scrolling
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                document.querySelector(this.getAttribute('href')).scrollIntoView({
-                    behavior: 'smooth'
+            let currentIndex = 0;
+            let startX = 0;
+            let currentX = 0;
+            let isDragging = false;
+            
+            // Update indicators
+            function updateIndicators() {
+                indicators.forEach((indicator, index) => {
+                    indicator.classList.toggle('active', index === currentIndex);
                 });
-
-                // Close mobile menu if open
-                if (navMenu.classList.contains('active')) {
-                    navMenu.classList.remove('active');
-                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+            
+            // Go to specific slide
+            function goToSlide(index) {
+                currentIndex = index;
+                galleryTrack.style.transform = `translateX(-${currentIndex * 100}%)`;
+                updateIndicators();
+            }
+            
+            // Handle touch start
+            function handleTouchStart(e) {
+                startX = e.touches ? e.touches[0].clientX : e.clientX;
+                isDragging = true;
+                galleryTrack.style.transition = 'none';
+            }
+            
+            // Handle touch move
+            function handleTouchMove(e) {
+                if (!isDragging) return;
+                
+                const x = e.touches ? e.touches[0].clientX : e.clientX;
+                const diff = startX - x;
+                
+                // Prevent vertical scrolling
+                if (Math.abs(diff) > 5) {
+                    e.preventDefault();
                 }
-            });
-        });
-
-        // Gallery Lightbox Effect
-        const galleryItems = document.querySelectorAll('.gallery-item');
-        galleryItems.forEach(item => {
-            item.addEventListener('click', function() {
-                this.classList.toggle('active');
-            });
-        });
-
-        // Service Card Animation on Scroll
-        const serviceCards = document.querySelectorAll('.service-card');
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
-                    observer.unobserve(entry.target);
+                
+                currentX = -currentIndex * galleryTrack.offsetWidth - diff;
+                galleryTrack.style.transform = `translateX(${currentX}px)`;
+            }
+            
+            // Handle touch end
+            function handleTouchEnd(e) {
+                if (!isDragging) return;
+                
+                isDragging = false;
+                galleryTrack.style.transition = 'transform 0.5s ease';
+                
+                const endX = e.changedTouches ? e.changedTouches[0].clientX : e.clientX;
+                const diff = startX - endX;
+                const threshold = 100;
+                
+                if (diff > threshold && currentIndex < slides.length - 1) {
+                    currentIndex++;
+                } else if (diff < -threshold && currentIndex > 0) {
+                    currentIndex--;
                 }
-            });
-        }, { threshold: 0.1 });
-
-        serviceCards.forEach(card => {
-            card.style.opacity = '0';
-            card.style.transform = 'translateY(30px)';
-            observer.observe(card);
+                
+                goToSlide(currentIndex);
+            }
+            
+            // Add event listeners for touch devices
+            galleryTrack.addEventListener('touchstart', handleTouchStart);
+            galleryTrack.addEventListener('touchmove', handleTouchMove);
+            galleryTrack.addEventListener('touchend', handleTouchEnd);
+            
+            // Add event listeners for mouse devices
+            galleryTrack.addEventListener('mousedown', handleTouchStart);
+            galleryTrack.addEventListener('mousemove', handleTouchMove);
+            galleryTrack.addEventListener('mouseup', handleTouchEnd);
+            galleryTrack.addEventListener('mouseleave', handleTouchEnd);
+            
+            // Initialize indicators
+            updateIndicators();
+            
+            // Auto-advance every 5 seconds
+            setInterval(() => {
+                currentIndex = (currentIndex + 1) % slides.length;
+                goToSlide(currentIndex);
+            }, 5000);
         });
     </script>
 </body>
