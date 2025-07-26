@@ -205,11 +205,11 @@ nav ul li a:hover:after {
     color: white;
 }
 
- .btn-secondary {
+/* .btn-secondary {
     background: white;
     color: var(--dark);
     border: 2px solid var(--primary);
-} 
+} */
 
 .btn:hover {
     transform: translateY(-5px);
@@ -222,21 +222,23 @@ nav ul li a:hover:after {
   background-image: url('assets/amsel-map.jpg');
   background-size: cover;
   background-position: center;
+  color: white;
   text-shadow: 1px 1px 2px rgba(0,0,0,0.7);
-  border-radius: 10px;
+  border: none;
+  border-radius: 15px;
   padding: 12px 20px;
   display: inline-flex;
   align-items: center;
   gap: 8px;
+  cursor: pointer;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.15); /* SHADOW default */
 }
 
 .btn.btn-secondary:hover {
   transform: scale(1.05);
-  box-shadow: 0 6px 12px rgba(0,0,0,0.4);
+  box-shadow: 0 12px 20px rgba(0,0,0,0.3); /* SHADOW saat hover */
 }
-
-
 
 
 .floating-elements {
