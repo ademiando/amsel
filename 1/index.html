@@ -177,6 +177,7 @@
 
         .hero h1 {
             font-size: 3.5rem;
+            margin-top: 100px; /* Judul lebih ke atas */
             margin-bottom: 20px;
             line-height: 1.2;
             color: white;
@@ -186,7 +187,7 @@
 
         .hero p {
             font-size: 1.2rem;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             color: white;
             text-align: center;
             text-shadow: 0 1px 5px rgba(0,0,0,0.3);
@@ -197,6 +198,7 @@
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
+            margin-bottom: 150px; /* Tombol lebih ke bawah */
         }
 
         .btn {
@@ -223,8 +225,8 @@
 
         .btn.btn-secondary {
             position: relative;
-            background: white;
-            color: var(--dark) !important;
+            background: url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80') center/cover;
+            color: white !important;
             border: none;
             border-radius: 50px;
             padding: 12px 28px;
@@ -234,6 +236,20 @@
             cursor: pointer;
             overflow: hidden;
             transition: all 0.2s ease;
+        }
+
+        .btn.btn-secondary::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: rgba(0, 0, 0, 0.35);
+            z-index: 0;
+        }
+
+        .btn.btn-secondary > * {
+            position: relative;
+            z-index: 1;
+            color: white !important;
         }
 
         .btn.btn-secondary .hover-text {
@@ -391,22 +407,6 @@
             gap: 30px;
         }
 
-        @media (max-width: 768px) {
-            .services-grid {
-                display: flex;
-                overflow-x: auto;
-                padding-bottom: 20px;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .service-card {
-                min-width: 280px;
-                scroll-snap-align: start;
-                flex: 0 0 auto;
-            }
-        }
-
         .service-card {
             background: white;
             border-radius: 20px;
@@ -427,9 +427,22 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            background: linear-gradient(135deg, var(--primary), var(--accent));
             font-size: 4rem;
-            color: white;
+            color: var(--primary); /* Warna ikon biru */
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80') center/cover;
+            filter: brightness(0.8);
+            z-index: -1;
         }
 
         .service-content {
@@ -454,22 +467,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
             gap: 25px;
-        }
-
-        @media (max-width: 768px) {
-            .gallery-grid {
-                display: flex;
-                overflow-x: auto;
-                padding-bottom: 20px;
-                scroll-snap-type: x mandatory;
-                -webkit-overflow-scrolling: touch;
-            }
-            
-            .gallery-item {
-                min-width: 280px;
-                scroll-snap-align: start;
-                flex: 0 0 auto;
-            }
         }
 
         .gallery-item {
@@ -744,6 +741,7 @@
 
         .copyright .ademiando {
             font-weight: bold;
+            color: #aaa;
         }
 
         /* Animations */
@@ -767,15 +765,6 @@
             }
             100% {
                 transform: translateY(0) rotate(0deg);
-            }
-        }
-
-        @keyframes autoScroll {
-            0% {
-                transform: translateX(0);
-            }
-            100% {
-                transform: translateX(-100%);
             }
         }
 
@@ -851,6 +840,10 @@
             
             .about-image {
                 margin-top: 30px;
+            }
+
+            .gallery-grid {
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
             }
         }
 
@@ -982,9 +975,7 @@
                     <a href="https://wa.me/6285292234655" class="btn btn-primary">
                         <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
                     </a>
-                    <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" 
-                       class="btn btn-secondary" 
-                       id="locationBtn">
+                    <a href="#" class="btn btn-secondary" id="locationBtn">
                         <i class="fas fa-map-marker-alt"></i>
                         <span class="text">Lihat Lokasi</span>
                         <span class="hover-text">Buka di Google Maps</span>
@@ -1274,36 +1265,31 @@
             }
         });
 
-        // Auto-scroll for services and gallery cards on mobile
-        function autoScrollCards(containerClass, scrollAmount) {
-            const containers = document.querySelectorAll(`.${containerClass}`);
-            if (!containers.length) return;
+        // Tombol Lihat Lokasi (2x klik)
+        const locationBtn = document.getElementById('locationBtn');
+        let clickCount = 0;
+        
+        locationBtn.addEventListener('click', function(e) {
+            e.preventDefault();
+            clickCount++;
             
-            containers.forEach(container => {
-                let scrollPosition = 0;
-                const cardWidth = container.querySelector('.service-card, .gallery-item').offsetWidth;
-                const gap = parseInt(getComputedStyle(container).gap);
-                const scrollStep = cardWidth + gap;
+            if (clickCount === 1) {
+                // Klik pertama - ubah teks
+                this.querySelector('.text').style.display = 'none';
+                this.querySelector('.hover-text').style.display = 'inline';
                 
-                setInterval(() => {
-                    if (window.innerWidth <= 768) {
-                        scrollPosition += scrollStep;
-                        if (scrollPosition > container.scrollWidth - container.clientWidth) {
-                            scrollPosition = 0;
-                        }
-                        container.scrollTo({
-                            left: scrollPosition,
-                            behavior: 'smooth'
-                        });
+                // Reset setelah 3 detik jika tidak ada klik kedua
+                setTimeout(() => {
+                    if (clickCount === 1) {
+                        clickCount = 0;
+                        this.querySelector('.text').style.display = 'inline';
+                        this.querySelector('.hover-text').style.display = 'none';
                     }
-                }, 3000); // Scroll every 3 seconds
-            });
-        }
-
-        // Initialize auto-scroll
-        document.addEventListener('DOMContentLoaded', function() {
-            autoScrollCards('services-grid', 300);
-            autoScrollCards('gallery-grid', 300);
+                }, 3000);
+            } else if (clickCount === 2) {
+                // Klik kedua - buka Google Maps
+                window.location.href = 'https://maps.app.goo.gl/bY2KpmC8s7ytgyku6';
+            }
         });
 
         // Smooth Scrolling
