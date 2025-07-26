@@ -152,41 +152,60 @@ nav ul li a:hover:after {
     z-index: 1001;
 }
 
+
+
+
 /* Hero Section */
 .hero {
-    height: 100vh;
-    display: flex;
-    align-items: center;
-    position: relative;
-    overflow: hidden;
-    background: /* linear-gradient(rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0.8)), */ url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
-    background-size: cover;
-    background-position: center;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+  background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80');
+  background-size: cover;
+  background-position: center;
 }
 
 .hero-content {
-    max-width: 650px;
-    z-index: 2;
-    animation: fadeInUp 1s ease-out;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  padding: 80px 0; /* biar ga nempel banget atas bawah */
+  max-width: 650px;
+  margin: 0 auto;
+  z-index: 2;
+  animation: fadeInUp 1s ease-out;
 }
 
 .hero h1 {
-    font-size: 3.5rem;
-    margin-bottom: 20px;
-    line-height: 1.2;
-    color: var(--dark);
+  font-size: 3.5rem;
+  margin: 0;
+  line-height: 1.2;
+  color: white;
+  text-align: center;
 }
 
 .hero p {
-    font-size: 1.2rem;
-    margin-bottom: 30px;
-    color: #666;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+  color: black;
+  text-align: center;
 }
 
 .cta-buttons {
-    display: flex;
-    gap: 20px;
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
 }
+
+
+
+
+
 
 .btn {
     padding: 14px 30px;
@@ -210,9 +229,6 @@ nav ul li a:hover:after {
     transform: translateY(-5px);
     box-shadow: 0 12px 20px rgba(0,0,0,0.15);
 }
-
-
-
 
 .btn.btn-secondary {
   position: relative;
@@ -252,8 +268,6 @@ nav ul li a:hover:after {
   transform: scale(1.05);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
-
-
 
 .floating-elements {
     position: absolute;
