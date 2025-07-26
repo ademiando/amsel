@@ -212,6 +212,8 @@ nav ul li a:hover:after {
 }
 
 
+
+
 .btn.btn-secondary {
   position: relative;
   background-image: url('assets/amsel-map.jpg');
@@ -228,6 +230,8 @@ nav ul li a:hover:after {
   overflow: hidden;
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+  font-weight: 600;
+  text-decoration: none;
 }
 
 .btn.btn-secondary::before {
@@ -241,12 +245,15 @@ nav ul li a:hover:after {
 .btn.btn-secondary > * {
   position: relative;
   z-index: 1;
+  color: white !important;
 }
 
 .btn.btn-secondary:hover {
   transform: scale(1.05);
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.35);
 }
+
+
 
 .floating-elements {
     position: absolute;
