@@ -217,7 +217,7 @@ nav ul li a:hover:after {
   background-image: url('assets/amsel-map.jpg');
   background-size: cover;
   background-position: center;
-  color: white;
+  color: white !important;
   border: none;
   border-radius: 50px;
   padding: 12px 28px;
