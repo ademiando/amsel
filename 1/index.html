@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amsel Tenda - Wedding Organizer</title>
+    <title>Amsel Tenda - Penyewaan Tenda & Jasa Rias Profesional | Wonosobo</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
     <style>
         :root {
             --primary: #1E3A8A;
@@ -74,15 +75,7 @@
         .logo {
             display: flex;
             align-items: center;
-        }
-
-        .logo h1 {
-            font-size: 1.8rem;
-            background: linear-gradient(45deg, var(--primary), var(--accent));
-            -webkit-background-clip: text;
-            background-clip: text;
-            color: transparent;
-            margin-left: 10px;
+            gap: 10px;
         }
 
         .logo-icon {
@@ -96,15 +89,18 @@
             box-shadow: var(--shadow);
         }
 
-        .logo-icon i {
-            color: white;
-            font-size: 1.5rem;
-        }
-
         .logo-icon img {
             width: 80px;
             height: auto;
             display: block;
+        }
+
+        .logo h1 {
+            font-size: 1.8rem;
+            background: linear-gradient(45deg, var(--primary), var(--accent));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
         }
 
         nav ul {
@@ -957,15 +953,12 @@
         <div class="container header-container">
             <div class="logo">
                 <div class="logo-icon">
-                    <i class="fas fa-rings-wedding"></i>
+                    <img src="assets/logo-amsel.png" alt="Logo Amsel Tenda" />
                 </div>
                 <h1>Amsel Tenda</h1>
             </div>
             <nav>
-                <button class="mobile-menu-btn">
-                    <i class="fas fa-bars"></i>
-                </button>
-                <ul>
+                <ul id="navMenu">
                     <li><a href="#home">Beranda</a></li>
                     <li><a href="#about">Tentang Kami</a></li>
                     <li><a href="#services">Layanan</a></li>
@@ -973,50 +966,55 @@
                     <li><a href="#contact">Kontak</a></li>
                 </ul>
             </nav>
+            <button class="mobile-menu-btn" id="mobileMenuBtn">
+                <i class="fas fa-bars"></i>
+            </button>
         </div>
     </header>
 
     <!-- Hero Section -->
     <section class="hero" id="home">
-        <div class="hero-content">
-            <h1>Mewujudkan Pernikahan Impian Anda</h1>
-            <p>Dengan sentuhan profesional dan penuh kehangatan, kami hadirkan momen spesial yang tak terlupakan</p>
-            <div class="cta-buttons">
-                <a href="#contact" class="btn btn-primary">
-                    <i class="fas fa-calendar-check"></i> Pesan Sekarang
-                </a>
-                <a href="https://maps.google.com/?q=Amsel Tenda Wonosari Mergolangu Wonosobo" 
-                   class="btn btn-secondary" 
-                   id="locationBtn">
-                    <i class="fas fa-map-marker-alt"></i>
-                    <span class="text">Lihat Lokasi</span>
-                    <span class="hover-text">Buka di Google Maps</span>
-                </a>
+        <div class="container">
+            <div class="hero-content">
+                <h1>Solusi Terbaik untuk Acara Spesial Anda</h1>
+                <p>Penyewaan tenda premium dan jasa rias profesional untuk pernikahan, konser, wisuda, dan acara penting lainnya. Dengan kualitas terbaik dan pelayanan ramah.</p>
+                <div class="cta-buttons">
+                    <a href="https://wa.me/6285292234655" class="btn btn-primary">
+                        <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
+                    </a>
+                    <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" 
+                       class="btn btn-secondary" 
+                       id="locationBtn">
+                        <i class="fas fa-map-marker-alt"></i>
+                        <span class="text">Lihat Lokasi</span>
+                        <span class="hover-text">Buka di Google Maps</span>
+                    </a>
+                </div>
             </div>
-        </div>
-        <div class="floating-elements">
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
-            <div class="floating-element"></div>
         </div>
     </section>
 
     <!-- About Section -->
-    <section id="about">
+    <section class="about" id="about">
         <div class="container">
             <div class="section-header">
-                <h2>Tentang Kami</h2>
-                <p>Sebuah perjalanan penuh dedikasi dalam menghadirkan pernikahan impian</p>
+                <h2>Tentang Amsel Tenda</h2>
+                <p>Kami menyediakan solusi lengkap untuk segala kebutuhan acara Anda dengan kualitas premium dan harga terjangkau</p>
             </div>
             <div class="about-content">
                 <div class="about-text">
-                    <h3>Mewujudkan Momen Istimewa Sejak 2010</h3>
-                    <p>Amsel Tenda telah menjadi mitra terpercaya bagi ratusan pasangan dalam menyelenggarakan pernikahan impian mereka. Dengan pengalaman lebih dari satu dekade, kami memahami setiap detail penting yang membuat hari pernikahan Anda menjadi sempurna.</p>
-                    <p>Tim profesional kami terdiri dari desainer dekorasi berpengalaman, koordinator acara yang handal, dan teknisi yang cekatan. Kami percaya bahwa setiap pernikahan adalah unik dan layak mendapatkan sentuhan personal yang istimewa.</p>
-                    <p>Dari konsep tradisional hingga modern, dari acara intim hingga pesta besar, kami siap mewujudkan visi Anda menjadi kenyataan yang memukau.</p>
+                    <h3>Pengalaman Lebih dari 15 Tahun Melayani Pelanggan</h3>
+                    <p>Amsel Tenda telah menjadi pilihan utama masyarakat Wonosobo dan sekitarnya untuk penyewaan tenda dan jasa rias profesional. Kami mengutamakan kualitas, kebersihan, dan ketepatan waktu dalam setiap layanan kami.</p>
+                    <p>Dengan tim profesional yang berpengalaman, kami siap membantu mewujudkan acara impian Anda, mulai dari pernikahan, wisuda, hingga acara perusahaan dan konser musik.</p>
+                    <p>Kami tidak hanya menyediakan tenda berkualitas tinggi, tetapi juga menyediakan jasa rias lengkap dengan berbagai pilihan gaun, jas, kebaya, dan aksesoris pernikahan yang elegan.</p>
+                    <div class="cta-buttons">
+                        <a href="#services" class="btn btn-primary">
+                            <i class="fas fa-concierge-bell"></i> Lihat Layanan Kami
+                        </a>
+                    </div>
                 </div>
                 <div class="about-image">
-                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tentang Amsel Tenda">
+                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Tenda Pernikahan">
                 </div>
             </div>
         </div>
@@ -1024,10 +1022,10 @@
 
     <!-- Services Section -->
     <section class="services" id="services">
-        <div class="container services-container">
+        <div class="container">
             <div class="section-header">
                 <h2>Layanan Kami</h2>
-                <p>Solusi lengkap untuk kebutuhan pernikahan Anda</p>
+                <p>Berbagai layanan profesional untuk semua kebutuhan acara Anda</p>
             </div>
             <div class="services-grid">
                 <div class="service-card">
@@ -1035,8 +1033,26 @@
                         <i class="fas fa-tents"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Penyewaan Tenda</h3>
-                        <p>Berbagai jenis tenda dengan kapasitas bervariasi untuk acara indoor maupun outdoor. Tersedia tenda minimalis hingga mewah dengan dekorasi lengkap.</p>
+                        <h3>Sewa Tenda</h3>
+                        <p>Berbagai jenis tenda untuk berbagai acara: pernikahan, konser, seminar, pameran, dan acara keluarga. Tenda kami terbuat dari bahan berkualitas dengan desain modern dan elegan.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-brush"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Jasa Rias Profesional</h3>
+                        <p>Layanan rias untuk wisuda, pernikahan, dan acara khusus lainnya. Tim makeup artist profesional kami akan membuat Anda tampil sempurna di hari istimewa Anda.</p>
+                    </div>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon">
+                        <i class="fas fa-vest"></i>
+                    </div>
+                    <div class="service-content">
+                        <h3>Sewa Pakaian Acara</h3>
+                        <p>Kami menyediakan berbagai pilihan gaun pengantin, jas, kebaya, dan aksesoris pernikahan lengkap dengan kualitas premium dan desain terkini.</p>
                     </div>
                 </div>
                 <div class="service-card">
@@ -1044,26 +1060,17 @@
                         <i class="fas fa-chair"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Peralatan Pesta</h3>
-                        <p>Kursi, meja, panggung, sound system, lighting, dan peralatan pendukung lainnya untuk membuat acara Anda nyaman dan berkesan.</p>
+                        <h3>Paket Lengkap Acara</h3>
+                        <p>Paket komplit untuk pernikahan dan acara besar lainnya, termasuk tenda, dekorasi, kursi, meja, sound system, dan layanan katering.</p>
                     </div>
                 </div>
                 <div class="service-card">
                     <div class="service-icon">
-                        <i class="fas fa-palette"></i>
+                        <i class="fas fa-camera"></i>
                     </div>
                     <div class="service-content">
-                        <h3>Dekorasi</h3>
-                        <p>Konsep dekorasi kreatif yang disesuaikan dengan tema pernikahan Anda. Mulai dari dekorasi minimalis, tradisional, hingga mewah.</p>
-                    </div>
-                </div>
-                <div class="service-card">
-                    <div class="service-icon">
-                        <i class="fas fa-utensils"></i>
-                    </div>
-                    <div class="service-content">
-                        <h3>Catering</h3>
-                        <p>Paket makanan lengkap dengan berbagai pilihan menu untuk memanjakan tamu undangan Anda. Dapat disesuaikan dengan kebutuhan dan budget.</p>
+                        <h3>Fotografi & Video</h3>
+                        <p>Layanan profesional fotografi dan videografi untuk mengabadikan momen spesial Anda. Tim kami akan menangkap setiap detil berharga dari acara Anda.</p>
                     </div>
                 </div>
             </div>
@@ -1071,39 +1078,47 @@
     </section>
 
     <!-- Gallery Section -->
-    <section id="gallery">
-        <div class="container gallery-container">
+    <section class="gallery" id="gallery">
+        <div class="container">
             <div class="section-header">
                 <h2>Galeri Kami</h2>
-                <p>Karya dan momen indah yang telah kami wujudkan</p>
+                <p>Beberapa hasil karya dan layanan yang telah kami sediakan</p>
             </div>
             <div class="gallery-grid">
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Dekorasi Pernikahan">
+                    <img src="https://images.unsplash.com/photo-1600041161228-519e6dd27bac?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1190&q=80" alt="Tenda Pernikahan">
                     <div class="gallery-overlay">
-                        <h3>Pernikahan Modern</h3>
-                        <p>Tenda dengan dekorasi minimalis elegan</p>
+                        <h3>Tenda Pernikahan</h3>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1519671482749-fd09be7ccebf?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Pesta Pernikahan">
+                    <img src="https://images.unsplash.com/photo-1592311617290-5a1b0e0e8cf0?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1180&q=80" alt="Makeup Wisuda">
                     <div class="gallery-overlay">
-                        <h3>Pesta Akad</h3>
-                        <p>Dekorasi tradisional dengan sentuhan modern</p>
+                        <h3>Makeup Wisuda</h3>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1600948836101-f9ffda59d250?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2036&q=80" alt="Dekorasi Tenda">
+                    <img src="https://images.unsplash.com/photo-1610465299993-e95f6caa7c8c?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Gaun Pengantin">
                     <div class="gallery-overlay">
-                        <h3>Resepsi Luar Ruangan</h3>
-                        <p>Tenda mewah dengan dekorasi bunga segar</p>
+                        <h3>Gaun Pengantin</h3>
                     </div>
                 </div>
                 <div class="gallery-item">
-                    <img src="https://images.unsplash.com/photo-1581844970062-9c3e4b4d3411?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Dekorasi Pernikahan">
+                    <img src="https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80" alt="Acara Konser">
                     <div class="gallery-overlay">
-                        <h3>Konsep Garden</h3>
-                        <p>Pernikahan dengan tema taman bunga</p>
+                        <h3>Acara Konser</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1519225421980-715cb0215aed?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1170&q=80" alt="Dekorasi Acara">
+                    <div class="gallery-overlay">
+                        <h3>Dekorasi Acara</h3>
+                    </div>
+                </div>
+                <div class="gallery-item">
+                    <img src="https://images.unsplash.com/photo-1580618672591-eb180b1a973f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1169&q=80" alt="Rias Pengantin">
+                    <div class="gallery-overlay">
+                        <h3>Rias Pengantin</h3>
                     </div>
                 </div>
             </div>
@@ -1115,17 +1130,26 @@
         <div class="container">
             <div class="section-header">
                 <h2>Hubungi Kami</h2>
-                <p>Kami siap membantu mewujudkan pernikahan impian Anda</p>
+                <p>Kami siap membantu mewujudkan acara impian Anda</p>
             </div>
             <div class="contact-container">
                 <div class="contact-info">
                     <div class="contact-item">
                         <div class="contact-icon">
+                            <i class="fab fa-whatsapp"></i>
+                        </div>
+                        <div class="contact-text">
+                            <h4>WhatsApp</h4>
+                            <p><a href="https://wa.me/6285292234655">0852-9223-4655</a></p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <div class="contact-icon">
                             <i class="fas fa-map-marker-alt"></i>
                         </div>
                         <div class="contact-text">
-                            <h4>Lokasi</h4>
-                            <p>Wonosari, Mergolangu, Wonosobo, Jawa Tengah</p>
+                            <h4>Alamat</h4>
+                            <p><a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></p>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1136,18 +1160,6 @@
                             <h4>Telepon</h4>
                             <p>+62 812 3456 7890</p>
                             <p>+62 823 4567 8901</p>
-                        </div>
-                    </div>
-                    <div class="contact-item whatsapp">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>WhatsApp</h4>
-                            <p>Hubungi kami via WhatsApp untuk respon cepat</p>
-                            <a href="https://wa.me/6281234567890">
-                                <i class="fab fa-whatsapp"></i> Chat Sekarang
-                            </a>
                         </div>
                     </div>
                     <div class="contact-item">
@@ -1161,17 +1173,25 @@
                         </div>
                     </div>
                     <div class="social-links">
-                        <a href="#" class="social-link"><i class="fab fa-facebook-f"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-instagram"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-tiktok"></i></a>
-                        <a href="#" class="social-link"><i class="fab fa-youtube"></i></a>
+                        <a href="https://wa.me/6285292234655" class="social-link">
+                            <i class="fab fa-whatsapp"></i>
+                        </a>
+                        <a href="https://instagram.com/amseltenda_wsb" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook-f"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-tiktok"></i>
+                        </a>
                     </div>
                 </div>
                 <div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d63245.98340398174!2d109.8767375!3d-7.363200800000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e7aa4aeb559b0b9%3A0x1a118e8a8e4c3c5a!2sWonosobo%2C%20Kec.%20Wonosobo%2C%20Kabupaten%20Wonosobo%2C%20Jawa%20Tengah!5e0!3m2!1sid!2sid!4v1689684966084!5m2!1sid!2sid" allowfullscreen="" loading="lazy"></iframe>
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
                     <div class="map-overlay">
-                        <a href="https://maps.google.com/?q=Amsel Tenda Wonosari Mergolangu Wonosobo" class="map-overlay-btn">
-                            <i class="fas fa-directions"></i> Petunjuk Arah
+                        <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
+                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
                         </a>
                     </div>
                 </div>
@@ -1185,20 +1205,20 @@
             <div class="footer-container">
                 <div class="footer-links">
                     <div class="footer-logo">Amsel Tenda</div>
-                    <p>Menyediakan solusi lengkap untuk pernikahan impian Anda sejak 2010. Dengan dedikasi dan kreativitas, kami berkomitmen menciptakan momen istimewa yang tak terlupakan.</p>
+                    <p>Solusi lengkap untuk semua kebutuhan acara Anda. Dari penyewaan tenda hingga jasa rias profesional dengan kualitas premium dan harga terjangkau.</p>
                 </div>
                 <div class="footer-links">
-                    <h4>Layanan Kami</h4>
+                    <h4>Layanan</h4>
                     <ul>
-                        <li><a href="#">Penyewaan Tenda</a></li>
-                        <li><a href="#">Dekorasi Pernikahan</a></li>
-                        <li><a href="#">Peralatan Pesta</a></li>
-                        <li><a href="#">Catering</a></li>
-                        <li><a href="#">Konsultasi Acara</a></li>
+                        <li><a href="#services">Sewa Tenda</a></li>
+                        <li><a href="#services">Jasa Rias</a></li>
+                        <li><a href="#services">Sewa Pakaian</a></li>
+                        <li><a href="#services">Paket Acara Lengkap</a></li>
+                        <li><a href="#services">Fotografi & Video</a></li>
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Tautan Cepat</h4>
+                    <h4>Link</h4>
                     <ul>
                         <li><a href="#home">Beranda</a></li>
                         <li><a href="#about">Tentang Kami</a></li>
@@ -1208,17 +1228,16 @@
                     </ul>
                 </div>
                 <div class="footer-links">
-                    <h4>Jam Operasional</h4>
+                    <h4>Kontak</h4>
                     <ul>
-                        <li>Senin-Jumat: 08.00 - 17.00</li>
-                        <li>Sabtu: 08.00 - 15.00</li>
-                        <li>Minggu: Libur</li>
-                        <li>Tanggal Merah: Libur</li>
+                        <li><i class="fas fa-phone-alt"></i> 0852-9223-4655</li>
+                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></li>
+                        <li><i class="fas fa-envelope"></i> info@amseltenda.com</li>
                     </ul>
                 </div>
             </div>
             <div class="copyright">
-                &copy; 2023 Amsel Tenda. Hak Cipta Dilindungi. | Powered by <span class="ademiando">ademiando</span>
+              &copy; 2023–2025 Amsel Tenda. All rights reserved. Powered by <a href="https://ademiando.com" target="_blank" class="ademiando">ademiando.</a>
             </div>
         </div>
     </footer>
@@ -1235,14 +1254,22 @@
         });
 
         // Mobile menu toggle
-        const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
-        const navMenu = document.querySelector('nav ul');
+        const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+        const navMenu = document.getElementById('navMenu');
         
         mobileMenuBtn.addEventListener('click', function() {
             navMenu.classList.toggle('active');
             if (navMenu.classList.contains('active')) {
                 mobileMenuBtn.innerHTML = '<i class="fas fa-times"></i>';
             } else {
+                mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+            }
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', function(e) {
+            if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target) && navMenu.classList.contains('active')) {
+                navMenu.classList.remove('active');
                 mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
             }
         });
@@ -1269,7 +1296,7 @@
                             behavior: 'smooth'
                         });
                     }
-                }, 2000);
+                }, 3000); // Scroll every 3 seconds
             });
         }
 
@@ -1277,6 +1304,48 @@
         document.addEventListener('DOMContentLoaded', function() {
             autoScrollCards('services-grid', 300);
             autoScrollCards('gallery-grid', 300);
+        });
+
+        // Smooth Scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+
+                // Close mobile menu if open
+                if (navMenu.classList.contains('active')) {
+                    navMenu.classList.remove('active');
+                    mobileMenuBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                }
+            });
+        });
+
+        // Gallery Lightbox Effect
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        galleryItems.forEach(item => {
+            item.addEventListener('click', function() {
+                this.classList.toggle('active');
+            });
+        });
+
+        // Service Card Animation on Scroll
+        const serviceCards = document.querySelectorAll('.service-card');
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.animation = 'fadeInUp 0.8s ease forwards';
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.1 });
+
+        serviceCards.forEach(card => {
+            card.style.opacity = '0';
+            card.style.transform = 'translateY(30px)';
+            observer.observe(card);
         });
     </script>
 </body>
