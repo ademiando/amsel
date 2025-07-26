@@ -295,6 +295,30 @@
     </footer>
 
 
+<script>
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const navMenu = document.getElementById('navMenu');
+
+  mobileMenuBtn.addEventListener('click', () => {
+    navMenu.classList.toggle('show');
+    
+    // Toggle ikon bar jadi X
+    const icon = mobileMenuBtn.querySelector('i');
+    icon.classList.toggle('fa-bars');
+    icon.classList.toggle('fa-times');
+  });
+
+  // Optional: Tutup menu saat klik di luar nav
+  document.addEventListener('click', function (event) {
+    if (!navMenu.contains(event.target) && !mobileMenuBtn.contains(event.target)) {
+      navMenu.classList.remove('show');
+      const icon = mobileMenuBtn.querySelector('i');
+      icon.classList.add('fa-bars');
+      icon.classList.remove('fa-times');
+    }
+  });
+</script>
+
 
 
 <script src="js/main.js"></script>
