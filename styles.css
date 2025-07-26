@@ -779,7 +779,15 @@
         .copyright .ademiando {
             font-weight: bold;
             color: #aaa;
+            font-size: 0.8rem;
+            text-decoration: none;
         }
+
+
+
+
+
+
 
         /* Animations */
         @keyframes fadeInUp {
