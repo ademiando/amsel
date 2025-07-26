@@ -296,58 +296,6 @@
 
 
 
-<script>
-  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
-  const navMenu = document.getElementById('navMenu');
-  const icon = mobileMenuBtn.querySelector('i');
-  let menuVisible = false;
-
-  mobileMenuBtn.addEventListener('click', () => {
-    menuVisible = !menuVisible;
-
-    if (menuVisible) {
-      // Tampilkan menu
-      navMenu.style.display = 'flex';
-      navMenu.style.flexDirection = 'column';
-      navMenu.style.position = 'absolute';
-      navMenu.style.top = '100%';
-      navMenu.style.right = '0';
-      navMenu.style.backgroundColor = 'rgba(0, 0, 0, 0.85)';
-      navMenu.style.padding = '1rem';
-      navMenu.style.borderRadius = '10px';
-      navMenu.style.zIndex = '999';
-      navMenu.style.gap = '12px';
-      navMenu.style.width = '200px';
-      navMenu.style.boxShadow = '0 8px 16px rgba(0,0,0,0.3)';
-
-      // Pastikan semua link kelihatan
-      const links = navMenu.querySelectorAll('li a');
-      links.forEach(link => {
-        link.style.color = '#fff';
-        link.style.textDecoration = 'none';
-        link.style.fontSize = '16px';
-      });
-
-      icon.classList.remove('fa-bars');
-      icon.classList.add('fa-times');
-    } else {
-      navMenu.style.display = 'none';
-      icon.classList.remove('fa-times');
-      icon.classList.add('fa-bars');
-    }
-  });
-
-  // Tutup kalau klik di luar
-  document.addEventListener('click', function (e) {
-    if (!navMenu.contains(e.target) && !mobileMenuBtn.contains(e.target)) {
-      navMenu.style.display = 'none';
-      icon.classList.remove('fa-times');
-      icon.classList.add('fa-bars');
-      menuVisible = false;
-    }
-  });
-</script>
-
 
 
 
