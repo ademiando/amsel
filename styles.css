@@ -425,17 +425,18 @@
             overflow: hidden;
         }
 
-        .service-icon::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://images.unsplash.com/photo-1511795409834-ef04bbd61622?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2069&q=80') center/cover;
-            filter: brightness(0.8);
-            z-index: -1;
-        }
+       .service-icon::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-size: cover;
+    background-position: center;
+    filter: brightness(0.8);
+    z-index: -1;
+}
 
         .service-content {
             padding: 30px;
@@ -449,6 +450,26 @@
         .service-content p {
             line-height: 1.7;
         }
+
+.service-card.tenda .service-icon::before {
+    background-image: url('assets/tenda.jpg');
+}
+
+.service-card.rias .service-icon::before {
+    background-image: url('assets/rias.jpg');
+}
+
+.service-card.pakaian .service-icon::before {
+    background-image: url('assets/pakaian.jpg');
+}
+
+.service-card.paket .service-icon::before {
+    background-image: url('assets/paket.jpg');
+}
+
+.service-card.fotografi .service-icon::before {
+    background-image: url('assets/fotografi.jpg');
+}
 
 
 /* Gallery Carousel Styles */
