@@ -20,8 +20,7 @@
         }
 
         body {
-            /* font-family: 'Poppins', sans-serif; */
-            font-family: 'Playfair Display', serif;
+            font-family: 'Poppins', sans-serif;
             color: var(--dark);
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             line-height: 1.6;
@@ -33,10 +32,24 @@
 
 
         h1, h2, h3, h4 {
-            font-family: 'Playfair Display', serif;
-            font-weight: 700;
-            color: var(--dark);
+            /* font-family: 'Playfair Display', serif; */
+            font-family: 'Poppins', sans-serif;
+            font-weight: 600;
+            /* color: var(--dark); */
+
+
+
+
+
+
+            background: linear-gradient(45deg, var(--accent), var(--primary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+
         }
+
+
 
         .container {
             width: 90%;
