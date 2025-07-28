@@ -22,6 +22,7 @@
         body {
             /* font-family: 'Poppins', sans-serif; */
             font-family: 'Playfair Display', serif;
+            /* color: var(--dark); */
             color: var(--dark);
             background: linear-gradient(135deg, #f5f7fa 0%, #e4edf5 100%);
             line-height: 1.6;
