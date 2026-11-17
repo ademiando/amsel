@@ -1,313 +1,1185 @@
+
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" class="antialiased">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Amsel Tenda - Penyewaan Tenda & Jasa Rias Profesional | Wonosobo</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AMSEL | Sewa Tenda & Perlengkapan Pesta Wonosobo</title>
+    
+    <!-- Premium Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600&family=Syne:wght@400;600;700;800&display=swap" rel="stylesheet">
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Inter', 'sans-serif'],
+                        display: ['Syne', 'sans-serif'],
+                    },
+                    colors: {
+                        dark: '#030712',
+                        brand: '#1d6eff',
+                        ash: '#cbd5e1',
+                    }
+                }
+            }
+        }
+    </script>
 
-<link rel="stylesheet" href="styles.css">
+    <!-- Three.js Import Map (Ringan) -->
+    <script type="importmap">
+        {
+            "imports": {
+                "three": "https://cdn.jsdelivr.net/npm/three@0.140.0/build/three.module.js"
+            }
+        }
+    </script>
 
+    <!-- GSAP & Lenis -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/studio-freight/lenis@1.0.27/bundled/lenis.min.js"></script>
 
+    <style>
+        /* Pengaturan Dasar */
+        body {
+            background-color: #dcebfa;
+            color: #ffffff;
+            overflow-x: hidden;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        /* Sembunyikan Scrollbar */
+        ::-webkit-scrollbar { display: none; }
+        * { -ms-overflow-style: none; scrollbar-width: none; }
+
+        /* Skala Tipografi Responsif agar rapi di layar HP tanpa terpotong */
+        .text-hero {
+            font-size: clamp(2.1rem, 8.5vw, 8.8rem);
+            line-height: 0.96;
+            letter-spacing: -0.03em;
+            word-break: keep-all;
+        }
+        .text-h2 {
+            font-size: clamp(1.65rem, 4.6vw, 4.75rem);
+            line-height: 1.18;
+            letter-spacing: -0.02em;
+        }
+        
+        /* Efek Noise Sinematik Halus */
+        .noise-bg {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            pointer-events: none; z-index: 10; opacity: 0.03;
+            background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
+        }
+
+        /* Latar Belakang WebGL dengan Gradien Langit Cerah Lembut seperti Referensi */
+        #webgl-container {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            z-index: -2; pointer-events: none;
+            background: radial-gradient(circle at 50% 25%, #f5faff 0%, #e4f0fd 48%, #d2e5fa 100%);
+        }
+
+        /* Kabut Ambien - Bening di Hero agar kain sifon biru-putih terlihat utuh, lalu tetap gelap setelah di-scroll */
+        .fog-overlay {
+            position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
+            background: #030712;
+            z-index: -1; pointer-events: none;
+            opacity: 0;
+        }
+
+        /* Kursor Kustom */
+        .cursor-dot, .cursor-outline {
+            position: fixed; top: 0; left: 0; transform: translate(-50%, -50%);
+            border-radius: 50%; pointer-events: none; z-index: 9999;
+        }
+        .cursor-dot { width: 8px; height: 8px; background-color: #1d6eff; }
+        .cursor-outline {
+            width: 40px; height: 40px; border: 1px solid rgba(29, 110, 255, 0.55);
+            transition: width 0.3s, height 0.3s, background-color 0.3s, border-color 0.3s;
+        }
+        @media (pointer: coarse) { .cursor-dot, .cursor-outline { display: none; } }
+
+        /* Loader */
+        #loader {
+            position: fixed; inset: 0; background: #e8f1fc; z-index: 1000;
+            display: flex; justify-content: center; align-items: center;
+        }
+        .loader-progress {
+            position: absolute; bottom: 0; left: 0; height: 4px; background: #1d6eff; width: 0%;
+        }
+
+        /* --- EFEK CAIRAN MURNI (TRUE ORGANIC LIQUID - TETAP ASLI) --- */
+        @keyframes liquid-wobble {
+            0%, 100% { border-radius: 35px 45px 35px 45px / 45px 35px 45px 35px; }
+            33% { border-radius: 45px 35px 45px 35px / 35px 45px 35px 45px; }
+            66% { border-radius: 40px 45px 35px 40px / 45px 40px 45px 35px; }
+        }
+
+        /* Bening Cair Terang */
+        .btn-liquid {
+            background: rgba(255, 255, 255, 0.28);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid rgba(255, 255, 255, 0.65);
+            box-shadow: 
+                inset 0 3px 6px -2px rgba(255, 255, 255, 0.85), 
+                inset 0 -3px 6px -2px rgba(29, 110, 255, 0.22), 
+                0 6px 18px rgba(15, 45, 95, 0.12); 
+            position: relative;
+            overflow: hidden;
+            animation: liquid-wobble 4s ease-in-out infinite;
+            transition: all 0.4s ease;
+        }
+
+        .btn-liquid:hover {
+            background: rgba(255, 255, 255, 0.45);
+            backdrop-filter: blur(10px);
+            animation-duration: 2s;
+            box-shadow: 
+                inset 0 4px 8px -2px rgba(255, 255, 255, 0.95),
+                inset 0 -4px 8px -2px rgba(29, 110, 255, 0.28),
+                0 8px 22px rgba(29, 110, 255, 0.24);
+            transform: translateY(-2px);
+        }
+
+        .btn-liquid:active {
+            transform: scale(0.95);
+        }
+
+        /* Tombol cair di area gelap (section Layanan) */
+        .btn-liquid-on-dark {
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            box-shadow: 
+                inset 0 3px 6px -2px rgba(255, 255, 255, 0.55), 
+                inset 0 -3px 6px -2px rgba(13, 45, 110, 0.3), 
+                0 4px 12px rgba(0, 0, 0, 0.2); 
+        }
+        .btn-liquid-on-dark:hover {
+            background: rgba(255, 255, 255, 0.15);
+        }
+
+        /* Cair Kontras (Untuk footer biru agar serasi dengan putih) */
+        .btn-liquid-dark {
+            background: rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(6px);
+            -webkit-backdrop-filter: blur(6px);
+            border: 1px solid rgba(255, 255, 255, 0.38);
+            box-shadow: 
+                inset 0 3px 6px -2px rgba(255, 255, 255, 0.65),
+                inset 0 -3px 6px -2px rgba(8, 28, 75, 0.35),
+                0 4px 12px rgba(8, 28, 75, 0.18);
+            position: relative;
+            overflow: hidden;
+            animation: liquid-wobble 4.5s ease-in-out infinite reverse;
+            transition: all 0.4s ease;
+        }
+
+        .btn-liquid-dark:hover {
+            background: rgba(255, 255, 255, 0.24);
+            backdrop-filter: blur(10px);
+            animation-duration: 2.5s;
+            box-shadow: 
+                inset 0 4px 8px -2px rgba(255, 255, 255, 0.85),
+                inset 0 -4px 8px -2px rgba(8, 28, 75, 0.4),
+                0 6px 18px rgba(8, 28, 75, 0.25);
+            transform: translateY(-2px);
+        }
+
+        /* State Klik Pertama Tombol WhatsApp (Berubah Warna WhatsApp) */
+        .btn-wa-active {
+            background: #25D366 !important;
+            border-color: rgba(255, 255, 255, 0.9) !important;
+            color: #ffffff !important;
+            box-shadow:
+                inset 0 3px 6px -2px rgba(255, 255, 255, 0.65),
+                inset 0 -3px 6px -2px rgba(18, 140, 126, 0.55),
+                0 8px 24px rgba(37, 211, 102, 0.48) !important;
+        }
+
+        /* Kotak Maps Lanskap Interaktif (Bisa Digeser, Perbesar & Perkecil) */
+        #address-map-box {
+            height: 185px;
+            transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
+        }
+        #address-map-box iframe {
+            filter: brightness(0.78) contrast(1.08);
+        }
+        #address-map-box.is-expanded {
+            height: 320px;
+            box-shadow: 0 18px 40px rgba(3, 7, 18, 0.38);
+        }
+        @media (min-width: 640px) {
+            #address-map-box.is-expanded {
+                height: 360px;
+            }
+        }
+
+        /* Menu Overlay Fullscreen */
+        #menu-overlay {
+            clip-path: circle(0% at 100% 0%);
+            transition: clip-path 1s cubic-bezier(0.77, 0, 0.175, 1);
+        }
+        #menu-overlay.open {
+            clip-path: circle(150% at 100% 0%);
+        }
+
+        /* State warna navigasi dinamis:
+           1. Awal di Hero (latar kain sifon biru-putih cerah) -> teks biru tua elegan (#0a1d3e)
+           2. Area tengah gelap (Kisah & Layanan) -> teks putih (#ffffff)
+           3. Ujung scroll (Footer biru #1d6eff) -> hitam kebiruan seperti awal (#0a1d3e) */
+        #main-nav {
+            transition: color 0.35s ease;
+            color: #0a1d3e;
+        }
+        #main-nav.nav-light-text {
+            color: #ffffff !important;
+        }
+        #main-nav.nav-light-text .btn-liquid {
+            color: #ffffff !important;
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.28);
+        }
+        #main-nav.nav-dark-text,
+        #main-nav.nav-dark-text #brand-logo,
+        #main-nav.nav-dark-text .nav-link-item {
+            color: #0a1d3e !important;
+        }
+        #main-nav.nav-dark-text .btn-liquid {
+            color: #0a1d3e !important;
+            background: rgba(255, 255, 255, 0.42);
+            border-color: rgba(10, 29, 62, 0.25);
+        }
+    </style>
 </head>
-<body>
-    <!-- Header -->
-    <header id="header">
-        <div class="container header-container">
-           <div class="logo">
-                <div class="logo-icon">
-                    <img src="assets/logo-amsel.png" alt="Logo Amsel Tenda" />
-                </div>
+<body class="overflow-x-hidden w-full">
 
-                <h1>Amsel Tenda</h1>
-            </div>
-            <nav>
-                <ul id="navMenu">
-                    <li><a href="#home">Beranda</a></li>
-                    <li><a href="#about">Tentang Kami</a></li>
-                    <li><a href="#services">Layanan</a></li>
-                    <li><a href="#gallery">Galeri</a></li>
-                    <li><a href="#contact">Kontak</a></li>
-                </ul>
-            </nav>
-            <button class="mobile-menu-btn" id="mobileMenuBtn">
-                <i class="fas fa-bars"></i>
-            </button>
+    <!-- Loaders & Cursors -->
+    <div id="loader">
+        <div class="font-display text-xl sm:text-2xl tracking-[0.28em] uppercase text-[#0a1d3e] loader-text overflow-hidden">
+            <span class="inline-block translate-y-full mask-anim">Amsel Tenda...</span>
         </div>
-    </header>
+        <div class="loader-progress" id="progress-bar"></div>
+    </div>
+    
+    <div class="cursor-dot"></div>
+    <div class="cursor-outline"></div>
+    <div class="noise-bg"></div>
 
-    <!-- Hero Section -->
-    <section class="hero" id="home">
-        <div class="container">
-            <div class="hero-content">
-                <h1>Solusi Terbaik untuk Acara Spesial Anda</h1>
-                <p>Penyewaan tenda premium dan jasa rias profesional untuk pernikahan, konser, wisuda, dan acara penting lainnya. Dengan kualitas terbaik dan pelayanan ramah.</p>
-                <div class="cta-buttons">
-                    <a href="https://wa.me/6285292234655" class="btn btn-primary">
-                        <i class="fab fa-whatsapp"></i> Hubungi WhatsApp
-                    </a>
-                    <a href="#" class="btn btn-secondary" id="locationBtn">
-                        <i class="fas fa-map-marker-alt"></i>
-                        <span class="text">Lihat Lokasi</span>
-                        <span class="hover-text">Buka di Google Maps</span>
-                    </a>
-                </div>
-            </div>
-        </div>
-    </section>
+    <!-- 3D Environment & Fog -->
+    <div id="webgl-container"></div>
+    <div class="fog-overlay" id="fog"></div>
 
-    <!-- About Section -->
-    <section class="about" id="about">
-        <div class="container">
-            <div class="section-header">
-                <h2>Tentang Amsel Tenda</h2>
-                <p>Kami menyediakan solusi lengkap untuk segala kebutuhan acara Anda dengan kualitas premium dan harga terjangkau</p>
-            </div>
-            <div class="about-content">
-                <div class="about-text">
-                    <h3>Pengalaman Lebih dari 15 Tahun Melayani Pelanggan</h3>
-                    <p>Amsel Tenda telah menjadi pilihan utama masyarakat Wonosobo dan sekitarnya untuk penyewaan tenda dan jasa rias profesional. Kami mengutamakan kualitas, kebersihan, dan ketepatan waktu dalam setiap layanan kami.</p>
-                    <p>Dengan tim profesional yang berpengalaman, kami siap membantu mewujudkan acara impian Anda, mulai dari pernikahan, wisuda, hingga acara perusahaan dan konser musik.</p>
-                    <p>Kami tidak hanya menyediakan tenda berkualitas tinggi, tetapi juga menyediakan jasa rias lengkap dengan berbagai pilihan gaun, jas, kebaya, dan aksesoris pernikahan yang elegan.</p>
-                  
-                </div>
-            </div>
+    <!-- Fullscreen Menu Overlay -->
+    <div id="menu-overlay" class="fixed inset-0 bg-[#071124] z-[60] flex flex-col justify-center items-center pointer-events-none">
+        <div class="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-luminosity"></div>
+        <div class="flex flex-col gap-4 text-center z-10 px-4">
+            <a href="#hero" class="menu-item font-display text-2xl sm:text-3xl md:text-5xl uppercase text-white hover:text-brand transition-colors cursor-hover split-text block">Beranda</a>
+            <a href="#about" class="menu-item font-display text-2xl sm:text-3xl md:text-5xl uppercase text-white hover:text-brand transition-colors cursor-hover split-text block">Kisah Kami</a>
+            <a href="#products" class="menu-item font-display text-2xl sm:text-3xl md:text-5xl uppercase text-white hover:text-brand transition-colors cursor-hover split-text block">Layanan</a>
+            <a href="#contact" class="menu-item font-display text-2xl sm:text-3xl md:text-5xl uppercase text-white hover:text-brand transition-colors cursor-hover split-text block">Kontak</a>
         </div>
-    </section>
-
-<!-- Services Section -->
-<section class="services" id="services">
-    <div class="container">
-        <div class="section-header">
-            <h2>Layanan Kami</h2>
-            <p>Berbagai layanan profesional untuk semua kebutuhan acara Anda</p>
-        </div>
-        <div class="services-grid">
-            <div class="service-card tenda">
-                <div class="service-icon">
-                    <i class="fas fa-tents"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Sewa Tenda</h3>
-                    <p>Berbagai jenis tenda untuk berbagai acara: pernikahan, konser, seminar, pameran, dan acara keluarga. Tenda kami terbuat dari bahan berkualitas dengan desain modern dan elegan.</p>
-                </div>
-            </div>
-            <div class="service-card rias">
-                <div class="service-icon">
-                    <i class="fas fa-brush"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Jasa Rias Profesional</h3>
-                    <p>Layanan rias untuk wisuda, pernikahan, dan acara khusus lainnya. Tim makeup artist profesional kami akan membuat Anda tampil sempurna di hari istimewa Anda.</p>
-                </div>
-            </div>
-            <div class="service-card pakaian">
-                <div class="service-icon">
-                    <i class="fas fa-vest"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Sewa Pakaian Acara</h3>
-                    <p>Kami menyediakan berbagai pilihan gaun pengantin, jas, kebaya, dan aksesoris pernikahan lengkap dengan kualitas premium dan desain terkini.</p>
-                </div>
-            </div>
-            <div class="service-card paket">
-                <div class="service-icon">
-                    <i class="fas fa-chair"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Paket Lengkap Acara</h3>
-                    <p>Paket komplit untuk pernikahan dan acara besar lainnya, termasuk tenda, dekorasi, kursi, meja, sound system, dan layanan katering.</p>
-                </div>
-            </div>
-            <div class="service-card fotografi">
-                <div class="service-icon">
-                    <i class="fas fa-camera"></i>
-                </div>
-                <div class="service-content">
-                    <h3>Fotografi & Video</h3>
-                    <p>Layanan profesional fotografi dan videografi untuk mengabadikan momen spesial Anda. Tim kami akan menangkap setiap detil berharga dari acara Anda.</p>
-                </div>
-            </div>
+        <div class="absolute bottom-8 px-6 flex flex-col md:flex-row gap-3 md:gap-8 font-sans text-[11px] sm:text-xs tracking-widest uppercase text-ash z-10 text-center">
+            <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20ingin%20konsultasi%20sewa%20tenda%20dan%20perlengkapan%20acara." target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors cursor-hover">WhatsApp: 0852-9223-4655</a>
+            <span class="hidden md:inline text-white/25">|</span>
+            <a href="https://www.google.com/maps/search/?api=1&query=Wonosari%2C+Mergolangu%2C+Kalibawang%2C+Wonosobo%2C+Jawa+Tengah+56373" target="_blank" rel="noopener noreferrer" class="hover:text-white transition-colors cursor-hover">Wonosari, Mergolangu, Kalibawang, Wonosobo</a>
         </div>
     </div>
-</section>
 
-<!-- Gallery Section -->
-<section class="gallery" id="gallery">
-    <div class="container">
-        <div class="section-header">
-            <h2>Galeri Kami</h2>
-            <p>Beberapa hasil karya dan layanan yang telah kami sediakan</p>
-        </div>
+    <!-- Navigation Bar -->
+    <nav id="main-nav" class="fixed top-0 left-0 w-full px-5 py-5 sm:px-8 md:p-10 z-[70] flex justify-between items-center">
+        <a id="brand-logo" href="#hero" class="font-display font-bold text-xl md:text-2xl tracking-tighter cursor-hover transition-colors duration-300">AMSEL</a>
         
-        <div class="gallery-carousel">
-            <div class="carousel-container">
-                <div class="carousel-track">
-                    <div class="carousel-slide">
-                        <img src="assets/tenda.jpg" alt="Tenda Pernikahan">
-                        <div class="gallery-overlay">
-                            <h3>Tenda Pernikahan</h3>
-                        </div>
+        <!-- CTA Header Button (Desktop) -->
+        <div class="hidden md:flex items-center gap-10 font-sans text-xs tracking-[0.2em] uppercase font-medium">
+            <a href="#products" class="nav-link-item cursor-hover hover:opacity-75 transition-colors duration-300">Layanan</a>
+            <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20ingin%20konsultasi%20sewa%20tenda%20dan%20perlengkapan%20acara." target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid px-6 py-3 cursor-hover flex items-center gap-2">
+                Chat WhatsApp
+                <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+            </a>
+        </div>
+
+        <!-- Hamburger Menu Button -->
+        <button id="menu-toggle" class="magnetic-btn btn-liquid font-sans uppercase text-xs tracking-widest px-5 py-2.5 md:px-6 md:py-3 cursor-hover flex items-center gap-2">
+            <span>Menu</span>
+        </button>
+    </nav>
+
+    <main id="smooth-wrapper" class="w-full overflow-x-hidden">
+        <div id="smooth-content" class="w-full">
+
+            <!-- 1. HERO SECTION (Selaras dengan Latar Kain Sifon Biru-Putih Cerah Interaktif) -->
+            <section class="relative w-full min-h-screen flex flex-col justify-center items-center px-5 sm:px-8 z-10" id="hero">
+                <div class="text-center mt-16 md:mt-24 w-full max-w-4xl mx-auto">
+                    <span class="inline-block font-sans text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[#1450b8] font-semibold mb-4 md:mb-6 fade-in drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
+                        Wonosobo &amp; Sekitarnya &bull; Pengalaman Lebih Dari 15 Tahun
+                    </span>
+                    <h1 class="font-display font-bold text-hero uppercase split-text text-[#091c3e] drop-shadow-[0_2px_20px_rgba(255,255,255,0.95)]" data-speed="0.8">
+                        Merajut Momen<br>Suci.
+                    </h1>
+                    <p class="font-sans text-[#173363] font-medium mt-5 md:mt-8 max-w-xl mx-auto text-xs sm:text-sm tracking-[0.11em] sm:tracking-[0.14em] uppercase leading-relaxed split-line drop-shadow-[0_1px_14px_rgba(255,255,255,0.95)] px-2" data-speed="1.1">
+                        Setiap pernikahan dan hajatan adalah kisah sekali seumur hidup.<br>Amsel hadir melengkapi hari bahagia Anda dengan tenda dekorasi elegan, jasa rias, sewa pakaian, foto video, hingga katering istimewa.
+                    </p>
+                    <!-- Main CTA Button -->
+                    <div class="mt-8 md:mt-11 flex flex-col sm:flex-row justify-center items-center gap-4 fade-in">
+                        <a href="#products" class="magnetic-btn btn-liquid inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:px-8 sm:py-4 cursor-hover text-xs sm:text-sm tracking-widest uppercase font-sans font-semibold text-[#091c3e]">
+                            Jelajahi Layanan
+                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                        </a>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="assets/rias.jpg" alt="Makeup Wisuda">
-                        <div class="gallery-overlay">
-                            <h3>Makeup Wisuda</h3>
-                        </div>
+                </div>
+            </section>
+
+            <!-- 2. STATEMENT / STORYTELLING SECTION -->
+            <section id="about" class="w-full min-h-[75vh] flex items-center bg-transparent px-5 sm:px-8 md:px-20 z-20 relative pt-24 md:pt-32">
+                <div class="max-w-6xl mx-auto w-full">
+                    <span class="font-sans text-xs tracking-[0.25em] uppercase text-brand font-semibold block mb-5">
+                        Kisah &amp; Dedikasi Kami
+                    </span>
+                    <h2 class="font-display text-h2 text-white split-text mb-8 md:mb-12">
+                        Di balik megahnya tenda pernikahan, ada doa keluarga dan senyum para tamu yang ingin Anda bahagiakan. Lebih dari 15 tahun Amsel merangkai setiap detail—dari teduhnya tenda, anggunnya rias dan busana, abadi dalam lensa foto video, hingga hangatnya sajian katering.
+                    </h2>
+                    <!-- Secondary Button - Direct WhatsApp -->
+                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20ingin%20konsultasi%20mengenai%20paket%20pernikahan%20dan%20sewa%20tenda." target="_blank" rel="noopener noreferrer" class="magnetic-btn inline-flex items-center gap-4 text-brand font-sans uppercase tracking-widest text-xs sm:text-sm cursor-hover group py-2">
+                        <span class="group-hover:translate-x-2 transition-transform duration-300">Konsultasikan Hari Bahagia Anda</span>
+                        <span class="w-8 h-[1px] bg-brand group-hover:w-12 transition-all duration-300"></span>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 3. STATISTICS SECTION -->
+            <section class="w-full py-20 md:py-32 bg-transparent px-5 sm:px-8 md:px-20 z-20 relative">
+                <div class="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-12 md:gap-10">
+                    <div class="border-t border-white/25 pt-7 stat-item">
+                        <h3 class="font-display text-4xl sm:text-5xl md:text-7xl text-brand mb-3 md:mb-4">&gt; 15 TH</h3>
+                        <p class="font-sans text-ash uppercase tracking-widest text-xs leading-relaxed">Lebih dari satu setengah dekade dipercaya keluarga besar di Wonosobo merayakan pernikahan, khitanan, dan syukuran.</p>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="assets/pakaian.jpg" alt="Gaun Pengantin">
-                        <div class="gallery-overlay">
-                            <h3>Gaun Pengantin</h3>
-                        </div>
+                    <div class="border-t border-white/25 pt-7 stat-item">
+                        <h3 class="font-display text-4xl sm:text-5xl md:text-7xl text-white mb-3 md:mb-4">1 PINTU</h3>
+                        <p class="font-sans text-ash uppercase tracking-widest text-xs leading-relaxed">Tak perlu repot mencari banyak vendor: sewa tenda, jasa rias, sewa pakaian, foto video, katering &amp; paket lengkap.</p>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="assets/amsel1.webp" alt="Acara Konser">
-                        <div class="gallery-overlay">
-                            <h3>Acara Konser</h3>
-                        </div>
+                    <div class="border-t border-white/25 pt-7 stat-item">
+                        <h3 class="font-display text-4xl sm:text-5xl md:text-7xl text-white mb-3 md:mb-4">100%</h3>
+                        <p class="font-sans text-ash uppercase tracking-widest text-xs leading-relaxed">Pemasangan tenda rapi, kain plafon bersih memukau, serta tim profesional yang sigap menjaga kelancaran acara.</p>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="assets/amsel2.jpg" alt="Dekorasi Acara">
-                        <div class="gallery-overlay">
-                            <h3>Dekorasi Acara</h3>
-                        </div>
+                </div>
+            </section>
+
+            <!-- 4. PRODUCTS / LAYANAN SHOWCASE -->
+            <section id="products" class="w-full py-20 md:py-32 bg-transparent z-20 relative overflow-hidden">
+                <div class="px-5 sm:px-8 md:px-20 mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
+                    <div>
+                        <span class="font-sans text-xs tracking-[0.25em] uppercase text-brand font-semibold block mb-3">
+                            Wujudkan Acara Impian
+                        </span>
+                        <h2 class="font-display text-h2 uppercase split-text text-white">Layanan<br>Lengkap.</h2>
                     </div>
-                    <div class="carousel-slide">
-                        <img src="assets/paket.jpg" alt="Rias Pengantin">
-                        <div class="gallery-overlay">
-                            <h3>Rias Pengantin</h3>
+                    <!-- Direct WhatsApp Price List Button -->
+                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20boleh%20minta%20daftar%20harga%20dan%20katalog%20sewa%20tenda%20serta%20paket%20lengkap?" target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid btn-liquid-on-dark px-6 py-3.5 cursor-hover text-xs tracking-[0.18em] uppercase font-sans font-semibold mb-1 text-white">
+                        Tanya Daftar Harga via WA
+                    </a>
+                </div>
+                
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start px-5 sm:px-8 md:px-20 gap-8 lg:gap-10">
+                    <!-- Layanan Card 1: Gambar Acara Nikah & Tenda Dekorasi -->
+                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20layanan%20Sewa%20Tenda%20Pernikahan%20%26%20Dekorasi." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card mt-0 lg:mt-16 block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                            <img src="https://ademiando.com/amsel/assets1.png"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Sewa+Tenda+Pernikahan';"
+                                 alt="Dekorasi Tenda Acara Pernikahan Amsel"
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
+                            <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
+                                <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">Tenda &amp; Dekorasi Pernikahan</span>
+                                <h3 class="font-display text-2xl sm:text-3xl mb-2.5 text-white">SEWA TENDA</h3>
+                                <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
+                                <div class="flex justify-between items-center gap-3">
+                                    <p class="font-sans text-xs text-ash leading-snug">Tenda Plafon Serut, Pelaminan &amp; Kursi Tamu</p>
+                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Layanan Card 2: Jasa Rias, Sewa Pakaian, Foto Video -->
+                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20Jasa%20Rias,%20Sewa%20Pakaian,%20Foto%20%26%20Video." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                            <img src="https://ademiando.com/amsel/assets2.png"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Jasa+Rias+%26+Foto+Video';"
+                                 alt="Jasa Rias Pengantin, Sewa Pakaian dan Foto Video Amsel"
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
+                            <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
+                                <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">Rias, Busana &amp; Dokumentasi</span>
+                                <h3 class="font-display text-2xl sm:text-3xl mb-2.5 text-white">RIAS &amp; FOTO</h3>
+                                <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
+                                <div class="flex justify-between items-center gap-3">
+                                    <p class="font-sans text-xs text-ash leading-snug">Jasa Rias, Sewa Pakaian, Foto &amp; Video</p>
+                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                    
+                    <!-- Layanan Card 3: Paket Lengkap & Katering -->
+                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20Paket%20Lengkap%20%26%20Katering." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card mt-0 lg:mt-28 block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                            <img src="https://ademiando.com/amsel/assets3.png"
+                                 onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Paket+Lengkap+%26+Katering';"
+                                 alt="Paket Lengkap Pernikahan dan Katering Amsel"
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                            <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
+                            <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
+                                <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">All-In &amp; Sajian Istimewa</span>
+                                <h3 class="font-display text-2xl sm:text-3xl mb-2.5 text-white">PAKET LENGKAP</h3>
+                                <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
+                                <div class="flex justify-between items-center gap-3">
+                                    <p class="font-sans text-xs text-ash leading-snug">Katering Prasmanan &amp; Paket Lengkap Acara</p>
+                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </a>
+                </div>
+            </section>
+
+            <!-- 5. FOOTER / BIG CTA (TEMA BIRU & PUTIH) -->
+            <footer id="contact" class="w-full relative z-20 mt-24 md:mt-32">
+                <!-- Lapisan Gradasi untuk menghilangkan garis potong tegas -->
+                <div class="absolute top-0 left-0 w-full h-[160px] md:h-[200px] bg-gradient-to-b from-transparent to-[#1d6eff] -translate-y-full pointer-events-none"></div>
+                
+                <div class="bg-[#1d6eff] text-white pt-10 pb-20 md:pb-32 px-5 sm:px-8 md:px-20 relative w-full">
+                    <div class="max-w-7xl mx-auto flex flex-col md:flex-row justify-between items-start md:items-end gap-12 md:gap-16">
+                        <div class="w-full md:w-3/5 group cursor-hover">
+                            <p class="font-sans font-bold uppercase tracking-[0.18em] mb-4 md:mb-6 text-xs sm:text-sm flex items-center gap-4 text-white/90">
+                                Wujudkan momen berkesan bersama kami
+                                <span class="w-8 h-[1px] bg-white group-hover:w-16 transition-all duration-300"></span>
+                            </p>
+                            <h2 class="font-display font-bold text-[clamp(2.35rem,7.8vw,8.8rem)] leading-[0.9] tracking-tight transition-transform duration-500 group-hover:translate-x-3 text-white">
+                                PESAN<br>SEKARANG.
+                            </h2>
+                        </div>
+                        <div class="flex flex-col gap-4 sm:gap-5 font-sans text-xs sm:text-sm font-medium w-full md:w-2/5">
+                            <!-- Direct WhatsApp Button (Klik 1x ubah warna WhatsApp, klik 2x buka WhatsApp) -->
+                            <a id="wa-order-btn" href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20ingin%20bertanya%20tentang%20sewa%20tenda,%20rias,%20foto%20video,%20dan%20katering." target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid-dark text-white px-6 py-4 sm:px-8 cursor-hover flex items-center justify-between gap-4 w-full font-semibold">
+                                <span>WhatsApp: 0852-9223-4655</span>
+                                <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+                            </a>
+                            <!-- Direct Google Maps Button (Disamakan rapi dengan tombol WhatsApp) -->
+                            <a id="maps-location-btn" href="https://maps.app.goo.gl/7zrS2X96xNxLzAJj8?g_st=ac" target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid-dark text-white px-6 py-4 sm:px-8 cursor-hover flex items-center justify-between gap-4 w-full font-semibold">
+                                <span>Buka Google Maps Lokasi</span>
+                                <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                            </a>
+                            <div class="mt-4 pt-6 border-t border-white/25">
+                                <!-- Kotak Maps Lanskap Interaktif (Digelapkan Sedikit & Dapat Digeser) -->
+                                <div id="address-map-box" data-lenis-prevent class="relative w-full rounded-2xl overflow-hidden border border-white/35 bg-[#071124] shadow-md">
+                                    <iframe
+                                        title="Peta Lokasi Amsel Tenda"
+                                        src="https://maps.google.com/maps?q=Amsel+Tenda,+Wonosari,+Mergolangu,+Kalibawang,+Wonosobo+56373&t=&z=16&ie=UTF8&iwloc=&output=embed"
+                                        class="absolute inset-0 w-full h-full border-0"
+                                        loading="lazy"
+                                        referrerpolicy="no-referrer-when-downgrade">
+                                    </iframe>
+                                    <div class="absolute inset-0 bg-[#030712]/20 pointer-events-none z-10"></div>
+
+                                    <!-- Ikon Perbesar / Perkecil Maps -->
+                                    <button type="button" id="map-expand-btn" aria-label="Perbesar Peta" class="absolute top-2.5 right-2.5 z-20 w-8 h-8 rounded-full bg-[#071124]/80 hover:bg-[#071124] backdrop-blur-md border border-white/30 text-white flex items-center justify-center transition-colors cursor-pointer">
+                                        <svg id="map-expand-icon" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/></svg>
+                                    </button>
+                                </div>
+
+                                <p class="text-white/85 text-xs uppercase tracking-widest mt-4 leading-relaxed">
+                                    &copy; 2024 Amsel &mdash; Sewa Tenda, Jasa Rias, Sewa Pakaian, Foto Video, Katering &amp; Paket Lengkap.
+                                </p>
+                                <p class="text-white/85 text-xs uppercase tracking-widest mt-1">
+                                    Pengalaman Lebih Dari 15 Tahun.
+                                </p>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
+            </footer>
+
+        </div>
+    </main>
+
+    <!-- SCRIPT UTAMA -->
+    <script type="module">
+        import * as THREE from 'three';
+
+        // --- 1. Utility: Memecah Teks untuk Animasi Reveal (Anti Terpotong di Mobile) ---
+        function setupTextReveal() {
+            document.querySelectorAll('.split-text').forEach(el => {
+                const text = el.innerText;
+                el.innerHTML = '';
+                text.split(' ').forEach(word => {
+                    const wordWrap = document.createElement('span');
+                    wordWrap.className = 'inline-block overflow-hidden align-bottom pb-2 sm:pb-3 mr-1.5 sm:mr-2 md:mr-4 max-w-full';
+                    const wordInner = document.createElement('span');
+                    wordInner.className = 'inline-block word-inner translate-y-[110%] opacity-0 rotate-2';
+                    wordInner.innerText = word;
+                    wordWrap.appendChild(wordInner);
+                    el.appendChild(wordWrap);
+                });
+            });
+
+            document.querySelectorAll('.split-line').forEach(el => {
+                const html = el.innerHTML;
+                el.innerHTML = '';
+                html.split('<br>').forEach(line => {
+                    const lineWrap = document.createElement('span');
+                    lineWrap.className = 'block overflow-hidden pb-1.5';
+                    const lineInner = document.createElement('span');
+                    lineInner.className = 'block line-inner translate-y-[110%] opacity-0';
+                    lineInner.innerHTML = line.trim();
+                    lineWrap.appendChild(lineInner);
+                    el.appendChild(lineWrap);
+                });
+            });
+        }
+        setupTextReveal();
+
+        // --- 2. Logika Kursor Kustom & Tombol Magnetik ---
+        const cursorDot = document.querySelector('.cursor-dot');
+        const cursorOutline = document.querySelector('.cursor-outline');
+        
+        window.addEventListener('mousemove', (e) => {
+            gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.1 });
+            gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power2.out" });
+        });
+        // --- Interaksi 2-Tahap Tombol WhatsApp & Kontrol Kotak Maps Lanskap ---
+        const waOrderBtn = document.getElementById('wa-order-btn');
+        let waClickedOnce = false;
+        if (waOrderBtn) {
+            waOrderBtn.addEventListener('click', (e) => {
+                if (!waClickedOnce) {
+                    e.preventDefault();
+                    waClickedOnce = true;
+                    waOrderBtn.classList.add('btn-wa-active');
+                }
+            });
+        }
+
+        const addressMapBox = document.getElementById('address-map-box');
+        const mapExpandBtn = document.getElementById('map-expand-btn');
+        const mapExpandIcon = document.getElementById('map-expand-icon');
+
+        if (addressMapBox && mapExpandBtn && mapExpandIcon) {
+            mapExpandBtn.addEventListener('click', () => {
+                const isExpanded = addressMapBox.classList.toggle('is-expanded');
+                if (isExpanded) {
+                    mapExpandBtn.setAttribute('aria-label', 'Perkecil Peta');
+                    mapExpandIcon.innerHTML = '<path d="M4 14h6v6M20 10h-6V4M14 10l7-7M10 14l-7 7"/>';
+                } else {
+                    mapExpandBtn.setAttribute('aria-label', 'Perbesar Peta');
+                    mapExpandIcon.innerHTML = '<path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>';
+                }
+            });
+        }
+
+        // --- 3. Lenis Smooth Scroll ---
+        const lenis = new Lenis({
+            duration: 1.2,
+            easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
+            smooth: true,
+        });
+
+        function raf(time) {
+            lenis.raf(time);
+            requestAnimationFrame(raf);
+        }
+        requestAnimationFrame(raf);
+
+        // --- 4. Logika Menu Overlay ---
+        const menuToggleBtn = document.getElementById('menu-toggle');
+        const menuOverlay = document.getElementById('menu-overlay');
+        let isMenuOpen = false;
+
+        function setMenuState(open) {
+            isMenuOpen = open;
+            if (isMenuOpen) {
+                menuOverlay.classList.add('open');
+                menuOverlay.classList.remove('pointer-events-none');
+                menuToggleBtn.querySelector('span').innerText = 'TUTUP';
+                
+                gsap.killTweensOf('#menu-overlay .word-inner');
+                gsap.to('#menu-overlay .word-inner', { 
+                    y: 0, 
+                    opacity: 1, 
+                    rotate: 0, 
+                    duration: 0.8, 
+                    stagger: 0.08, 
+                    ease: 'power4.out',
+                    delay: 0.2
+                });
+                lenis.stop();
+            } else {
+                menuOverlay.classList.remove('open');
+                menuOverlay.classList.add('pointer-events-none');
+                menuToggleBtn.querySelector('span').innerText = 'MENU';
+                
+                gsap.killTweensOf('#menu-overlay .word-inner');
+                gsap.set('#menu-overlay .word-inner', { y: '110%', opacity: 0, rotate: 2 });
+                lenis.start();
+            }
+        }
+
+        menuToggleBtn.addEventListener('click', () => {
+            setMenuState(!isMenuOpen);
+        });
+
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href');
+                if (targetId === '#') return;
+                
+                const targetElement = document.querySelector(targetId);
+                if (targetElement) {
+                    if (isMenuOpen) {
+                        setMenuState(false);
+                    }
+                    setTimeout(() => {
+                        lenis.scrollTo(targetElement, { offset: 0, duration: 1.5 });
+                    }, isMenuOpen ? 400 : 0);
+                }
+            });
+        });
+
+        // --- 5. Three.js: Gapura Kain Sifon Pernikahan Biru-Putih Ultra-Realistis & Interaktif ---
+        const container = document.getElementById('webgl-container');
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(42, window.innerWidth / window.innerHeight, 0.1, 100);
+        camera.position.set(0, 0.2, 13.5);
+
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5));
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        container.appendChild(renderer.domElement);
+
+        // Variabel Interaksi Kursor, Sentuhan (Touch), & Hembusan Angin
+        const targetPointer = new THREE.Vector2(0, 0);
+        const currentPointer = new THREE.Vector2(0, 0);
+        const pointerVel = new THREE.Vector2(0, 0);
+        let pointerEnergy = 0;
+        let gustStrength = 0;
+
+        function updatePointerInteraction(clientX, clientY) {
+            const nx = (clientX / window.innerWidth) * 2 - 1;
+            const ny = -(clientY / window.innerHeight) * 2 + 1;
+            const worldX = nx * 4.5;
+            const worldY = ny * 4.2;
+
+            pointerVel.x = THREE.MathUtils.clamp((worldX - targetPointer.x) * 1.8, -2.5, 2.5);
+            pointerVel.y = THREE.MathUtils.clamp((worldY - targetPointer.y) * 1.8, -2.5, 2.5);
+            targetPointer.set(worldX, worldY);
+            pointerEnergy = Math.min(pointerEnergy + 0.35, 1.35);
+        }
+
+        window.addEventListener('pointermove', (e) => {
+            updatePointerInteraction(e.clientX, e.clientY);
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            if (e.touches && e.touches.length > 0) {
+                updatePointerInteraction(e.touches[0].clientX, e.touches[0].clientY);
+            }
+        }, { passive: true });
+
+        window.addEventListener('pointerdown', (e) => {
+            updatePointerInteraction(e.clientX, e.clientY);
+            gustStrength = 1.0; // Memicu gelombang angin lembut saat layar diklik/disentuh
+        }, { passive: true });
+
+        // GPU Shader Kain Sifon / Organza Realistis dengan Subsurface Backlight, Anisotropic Silk Sheen & Interaksi Kursor
+        const chiffonVertexShader = `
+            uniform float uTime;
+            uniform float uPhase;
+            uniform float uWindAmp;
+            uniform float uAxisMode; // 0.0 = selendang melengkung (swag), 1.0 = tirai pilar vertikal
+            uniform float uRuched;   // 1.0 = kerutan diagonal bertumpuk untuk tirai putih dalam
+            uniform vec2 uPointer;
+            uniform vec2 uPointerVel;
+            uniform float uPointerEnergy;
+            uniform float uGust;
+
+            varying vec2 vUv;
+            varying vec3 vViewPos;
+            varying vec3 vWorldNormal;
+            varying float vCrease;
+            varying float vMicroPleat;
+            varying float vInteractGlow;
+
+            void main() {
+                vUv = uv;
+                vec3 pos = position;
+
+                // Kerutan yang menyempit di titik ikatan ujung dan mengembang alami di tengah
+                float spanArch = sin(uv.x * 3.14159);
+                float vertArch = sin(uv.y * 3.14159);
+
+                // Koordinat terdistorsi organik agar lipatan kain tidak kaku
+                float warp1 = sin(uv.x * 7.8 + uv.y * 4.4 + uPhase) * 0.44;
+                float warp2 = cos(uv.x * 13.5 - uv.y * 6.8 + uPhase * 1.3) * 0.24;
+
+                float across = mix(uv.y, uv.x, uAxisMode);
+                float along  = mix(uv.x, uv.y, uAxisMode);
+                float pinchFactor = mix(1.28 - 0.36 * spanArch, 1.18 - 0.26 * vertArch, uAxisMode);
+
+                // Lipatan utama dan lipatan halus kain sifon
+                float foldCoord = across * (21.0 * pinchFactor) + warp1 + warp2;
+                float primaryFold = sin(foldCoord);
+                float secondaryFold = sin(foldCoord * 2.4 + sin(along * 9.5 + uPhase) * 1.15) * 0.48;
+
+                // Efek kerutan bertumpuk (bridal ruching / diagonal cascades) pada tirai putih dalam
+                float diagCascade = 0.0;
+                if (uRuched > 0.5) {
+                    float diagPhase = uv.y * 16.0 + (uv.x - 0.5) * 7.0 + sin(uv.y * 6.2 + uPhase) * 1.4;
+                    float pocket = 1.0 - abs(sin(diagPhase));
+                    float subPocket = sin(uv.y * 30.0 - uv.x * 8.5 + uPhase) * 0.36;
+                    diagCascade = (pocket * 1.3 - 0.56) + subPocket;
+                }
+
+                // Masker ikatan ujung (ujung tali tetap tertambat sementara bagian tengah bebas melambai)
+                float pinMask = mix(spanArch * (0.42 + 0.58 * (1.0 - uv.y)), vertArch * 0.68 + 0.32, uAxisMode);
+
+                // Hembusan angin alami + gelombang gust saat disentuh
+                float gustWave = sin(uv.x * 3.2 - uTime * 3.4 + uPhase) * uGust * 0.42;
+                float breeze = sin(uv.x * 2.3 + uv.y * 1.9 + uTime * 0.92 + uPhase) * 0.17
+                             + cos(uv.y * 3.0 - uTime * 0.70 + uPhase) * 0.11
+                             + gustWave;
+
+                // Interaksi langsung dengan posisi & gerakan kursor / jari
+                vec2 toVertex = pos.xy - uPointer;
+                float distSq = dot(toVertex, toVertex);
+                float hoverMask = exp(-distSq * 0.30) * pinMask;
+                float speed = length(uPointerVel);
+
+                // Kain terdorong lembut ke belakang dan menyibak mengikuti arah gerakan kursor/jari
+                float pushZ = hoverMask * (0.34 * uPointerEnergy + speed * 0.48);
+                float rippleWake = sin(sqrt(distSq) * 4.8 - uTime * 5.2) * exp(-distSq * 0.38) * speed * 0.26 * pinMask;
+                vec2 pushXY = uPointerVel * hoverMask * 0.38;
+
+                float dispZ = (primaryFold * 0.17 + secondaryFold * 0.075 + diagCascade * 0.23)
+                            + breeze * uWindAmp * pinMask
+                            - pushZ + rippleWake;
+                float dispX = (diagCascade * 0.085 + breeze * 0.14 * uWindAmp) * pinMask + pushXY.x;
+                float dispY = breeze * 0.05 * uWindAmp * pinMask + pushXY.y;
+
+                pos.z += dispZ;
+                pos.x += dispX;
+                pos.y += dispY;
+
+                vCrease = clamp((primaryFold * 0.46 + secondaryFold * 0.26 + diagCascade * 0.56) * 0.5 + 0.5, 0.0, 1.0);
+                vMicroPleat = foldCoord;
+                vInteractGlow = clamp(hoverMask * (0.45 * uPointerEnergy + speed * 0.45), 0.0, 1.0);
+
+                vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
+                vViewPos = -mvPosition.xyz;
+                vWorldNormal = normalize(normalMatrix * normal);
+                gl_Position = projectionMatrix * mvPosition;
+            }
+        `;
+
+        const chiffonFragmentShader = `
+            uniform vec3 uBaseColor;
+            uniform vec3 uShadowColor;
+            uniform vec3 uHighlightColor;
+            uniform float uOpacity;
+            uniform float uAxisMode;
+            uniform float uRuched;
+            uniform float uPhase;
+            varying vec2 vUv;
+            varying vec3 vViewPos;
+            varying vec3 vWorldNormal;
+            varying float vCrease;
+            varying float vMicroPleat;
+            varying float vInteractGlow;
+
+            void main() {
+                float across = mix(vUv.y, vUv.x, uAxisMode);
+                float along  = mix(vUv.x, vUv.y, uAxisMode);
+
+                // Serat lipatan tarikan halus & anyaman mikro sutra organza
+                float warp = sin(along * 8.5 + across * 5.0 + uPhase) * 1.4
+                           + cos(along * 17.0 - across * 9.0) * 0.55;
+                float fineThread = sin(across * 86.0 + warp) * 0.5 + 0.5;
+                float microWeave = sin(vUv.x * 230.0) * sin(vUv.y * 230.0) * 0.5 + 0.5;
+                float mediumPleat = sin(vMicroPleat * 1.68 + warp * 0.45) * 0.5 + 0.5;
+                float ridgeCrease = 1.0 - abs(sin(vMicroPleat * 0.84 + warp * 0.35));
+                ridgeCrease = pow(ridgeCrease, 1.55);
+
+                // Detail kerutan bertumpuk tambahan untuk tirai putih dalam
+                float rucheDetail = 0.5;
+                if (uRuched > 0.5) {
+                    float d1 = 1.0 - abs(sin(vUv.y * 16.0 + (vUv.x - 0.5) * 7.0 + sin(vUv.y * 6.2 + uPhase) * 1.4));
+                    float d2 = sin(vUv.y * 35.0 + vUv.x * 14.0 + warp * 0.5) * 0.5 + 0.5;
+                    rucheDetail = mix(pow(d1, 1.38), d2, 0.35);
+                }
+
+                // Gabungan kedalaman lipatan kain
+                float foldVal = mix(mediumPleat, fineThread, 0.34);
+                foldVal = mix(foldVal, ridgeCrease, 0.34);
+                foldVal = mix(foldVal, vCrease, 0.38);
+                foldVal = mix(foldVal, microWeave, 0.07);
+                if (uRuched > 0.5) {
+                    foldVal = mix(foldVal, rucheDetail, 0.48);
+                }
+
+                // Pencahayaan sutra tembus cahaya (subsurface backlight + fresnel rim)
+                vec3 viewDir = normalize(vViewPos);
+                vec3 n = normalize(vWorldNormal);
+                float ndotv = abs(dot(n, viewDir));
+                float fresnel = pow(1.0 - ndotv, 1.72);
+
+                // Cahaya matahari lembut dari atas-belakang menembus lapisan kain tipis
+                vec3 sunDir = normalize(vec3(0.14, 0.76, 0.63));
+                float diffuse = clamp(dot(n, sunDir) * 0.5 + 0.5, 0.0, 1.0);
+                float backlitGlow = pow(clamp(1.0 - ndotv * 0.72, 0.0, 1.0), 1.6) * (0.55 + 0.45 * diffuse);
+                float silkSheen = pow(smoothstep(0.42, 0.97, foldVal), 1.55) * (0.68 + 0.32 * diffuse);
+
+                // Self-shadowing di lembah lipatan untuk kedalaman 3D yang fotografis
+                vec3 col = mix(uShadowColor, uBaseColor, smoothstep(0.14, 0.74, foldVal));
+                col = mix(col, uHighlightColor, clamp(silkSheen * 0.78 + fresnel * 0.40 + backlitGlow * 0.18 + vInteractGlow * 0.22, 0.0, 1.0));
+
+                // Tepi selendang memudar halus seperti tulle/sifon asli tanpa garis potong kaku
+                float edgeSoftX = smoothstep(0.0, 0.07, vUv.x) * smoothstep(1.0, 0.93, vUv.x);
+                float edgeSoftY = smoothstep(0.0, 0.09, vUv.y) * smoothstep(1.0, 0.91, vUv.y);
+                float edgeMask = mix(edgeSoftY, edgeSoftX, uAxisMode);
+
+                // Akumulasi ketebalan kain: bening di bagian membentang, lebih pekat di lipatan & tepi miring
+                float thickness = 0.36 + foldVal * 0.44 + fresnel * 0.48;
+                float alpha = clamp(uOpacity * edgeMask * thickness, 0.0, 0.95);
+
+                gl_FragColor = vec4(col, alpha);
+            }
+        `;
+
+        const sharedUniforms = [];
+
+        function createChiffonMaterial(palette, opacity, axisMode, phase, windAmp, ruched = 0.0) {
+            const palettes = {
+                skyBlue: {
+                    base: new THREE.Color('#95c3f7'),
+                    shadow: new THREE.Color('#6ba4ea'),
+                    highlight: new THREE.Color('#e6f2ff')
+                },
+                mistBlue: {
+                    base: new THREE.Color('#b5d7fb'),
+                    shadow: new THREE.Color('#8cbdf5'),
+                    highlight: new THREE.Color('#f2f8ff')
+                },
+                bridalWhite: {
+                    base: new THREE.Color('#f7faff'),
+                    shadow: new THREE.Color('#cedff5'),
+                    highlight: new THREE.Color('#ffffff')
+                },
+                pureSheer: {
+                    base: new THREE.Color('#fcfdff'),
+                    shadow: new THREE.Color('#dae8f9'),
+                    highlight: new THREE.Color('#ffffff')
+                }
+            };
+            const p = palettes[palette];
+            const mat = new THREE.ShaderMaterial({
+                vertexShader: chiffonVertexShader,
+                fragmentShader: chiffonFragmentShader,
+                uniforms: {
+                    uTime: { value: 0 },
+                    uPhase: { value: phase },
+                    uWindAmp: { value: windAmp },
+                    uAxisMode: { value: axisMode },
+                    uRuched: { value: ruched },
+                    uPointer: { value: new THREE.Vector2(0, 0) },
+                    uPointerVel: { value: new THREE.Vector2(0, 0) },
+                    uPointerEnergy: { value: 0 },
+                    uGust: { value: 0 },
+                    uBaseColor: { value: p.base },
+                    uShadowColor: { value: p.shadow },
+                    uHighlightColor: { value: p.highlight },
+                    uOpacity: { value: opacity }
+                },
+                transparent: true,
+                depthWrite: false,
+                side: THREE.DoubleSide
+            });
+            sharedUniforms.push(mat.uniforms);
+            return mat;
+        }
+
+        const archwayGroup = new THREE.Group();
+
+        // Helper 1: Selendang Melengkung Atas (Catenary Wedding Swag)
+        function createCatenarySwag(cfg) {
+            const segU = 60;
+            const segV = 18;
+            const geo = new THREE.PlaneGeometry(1, 1, segU, segV);
+            const pos = geo.attributes.position;
+
+            for (let i = 0; i < pos.count; i++) {
+                const u = pos.getX(i) + 0.5;
+                const v = pos.getY(i) + 0.5;
+
+                const x = THREE.MathUtils.lerp(cfg.x1, cfg.x2, u);
+                const uSkewed = Math.pow(u, cfg.skew || 1.0);
+                const archCurve = Math.sin(uSkewed * Math.PI);
+
+                const ribbonWidth = THREE.MathUtils.lerp(cfg.edgeWidth, cfg.centerWidth, Math.pow(archCurve, 0.62));
+                const centerY = THREE.MathUtils.lerp(cfg.y1, cfg.y2, u) - archCurve * cfg.sag;
+
+                const hemRipple = (1.0 - v) * Math.sin(u * 14.0 + cfg.phase) * 0.14 * archCurve;
+                const y = centerY + (v - 0.5) * ribbonWidth + hemRipple;
+                const z = cfg.z + Math.sin(v * Math.PI) * 0.35 + archCurve * 0.30;
+
+                pos.setXYZ(i, x, y, z);
+            }
+            geo.computeVertexNormals();
+
+            const mat = createChiffonMaterial(cfg.palette, cfg.opacity, 0.0, cfg.phase, cfg.windAmp, 0.0);
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.renderOrder = cfg.order;
+            archwayGroup.add(mesh);
+        }
+
+        // Helper 2: Tirai Pilar Vertikal Kiri & Kanan (Sisi luar biru langit + sisi dalam putih berkerut)
+        function createPillarCurtain(cfg) {
+            const segU = 24;
+            const segV = 56;
+            const geo = new THREE.PlaneGeometry(1, 1, segU, segV);
+            const pos = geo.attributes.position;
+
+            for (let i = 0; i < pos.count; i++) {
+                const u = pos.getX(i) + 0.5;
+                const v = pos.getY(i) + 0.5;
+
+                const waistPinch = Math.exp(-Math.pow((v - 0.72) * 3.1, 2.0));
+                const bottomFlare = (1.0 - v) * 0.35;
+                const organicWave = Math.sin(v * 15.0 + cfg.phase) * 0.09 + Math.cos(v * 7.5 - cfg.phase) * 0.08;
+
+                const currentWidth = cfg.width * (0.86 - 0.16 * waistPinch + bottomFlare * 0.25);
+                const xCenter = cfg.x + cfg.dir * (waistPinch * 0.36 - bottomFlare * 0.22 + organicWave);
+
+                const x = xCenter + (u - 0.5) * currentWidth;
+                const y = THREE.MathUtils.lerp(cfg.yBottom, cfg.yTop, v);
+                const z = cfg.z + Math.sin(u * Math.PI) * 0.36 + Math.sin(v * 16.0 + u * 5.0 + cfg.phase) * 0.12;
+
+                pos.setXYZ(i, x, y, z);
+            }
+            geo.computeVertexNormals();
+
+            const mat = createChiffonMaterial(cfg.palette, cfg.opacity, 1.0, cfg.phase, cfg.windAmp, cfg.ruched || 0.0);
+            const mesh = new THREE.Mesh(geo, mat);
+            mesh.renderOrder = cfg.order;
+            archwayGroup.add(mesh);
+        }
+
+        // === SUSUNAN LAPISAN KAIN PERSIS SEPERTI GAMBAR REFERENSI ===
+
+        // 1. TIRAI LATAR BELAKANG ATAS
+        createPillarCurtain({ x: -1.45, dir: 1, width: 2.6, yBottom: 1.4, yTop: 6.2, z: -1.4, palette: 'bridalWhite', opacity: 0.58, phase: 0.2, windAmp: 0.35, ruched: 0.0, order: 1 });
+        createPillarCurtain({ x: 1.55, dir: -1, width: 2.8, yBottom: 1.3, yTop: 6.2, z: -1.35, palette: 'mistBlue', opacity: 0.55, phase: 1.1, windAmp: 0.35, ruched: 0.0, order: 1 });
+
+        // 2. TIRAI PILAR BIRU LUAR (Kiri & Kanan)
+        createPillarCurtain({ x: -3.45, dir: 1, width: 2.35, yBottom: -6.3, yTop: 4.6, z: -0.55, palette: 'skyBlue', opacity: 0.92, phase: 0.4, windAmp: 0.48, ruched: 0.0, order: 3 });
+        createPillarCurtain({ x: -3.05, dir: 1, width: 1.75, yBottom: -6.3, yTop: 4.3, z: -0.15, palette: 'mistBlue', opacity: 0.74, phase: 1.6, windAmp: 0.55, ruched: 0.0, order: 4 });
+
+        createPillarCurtain({ x: 3.45, dir: -1, width: 2.35, yBottom: -6.3, yTop: 4.6, z: -0.55, palette: 'skyBlue', opacity: 0.92, phase: 0.9, windAmp: 0.48, ruched: 0.0, order: 3 });
+        createPillarCurtain({ x: 3.05, dir: -1, width: 1.75, yBottom: -6.3, yTop: 4.3, z: -0.15, palette: 'mistBlue', opacity: 0.74, phase: 2.2, windAmp: 0.55, ruched: 0.0, order: 4 });
+
+        // 3. TIRAI PILAR PUTIH BERKERUT DALAM (Ruched Bridal Cascades)
+        createPillarCurtain({ x: -2.42, dir: 1, width: 1.72, yBottom: -6.3, yTop: 3.9, z: 0.35, palette: 'bridalWhite', opacity: 0.96, phase: 1.9, windAmp: 0.42, ruched: 1.0, order: 5 });
+        createPillarCurtain({ x: -2.18, dir: 1, width: 1.25, yBottom: -6.3, yTop: 3.5, z: 0.62, palette: 'pureSheer', opacity: 0.78, phase: 2.8, windAmp: 0.48, ruched: 1.0, order: 6 });
+
+        createPillarCurtain({ x: 2.42, dir: -1, width: 1.72, yBottom: -6.3, yTop: 3.9, z: 0.35, palette: 'bridalWhite', opacity: 0.96, phase: 2.5, windAmp: 0.42, ruched: 1.0, order: 5 });
+        createPillarCurtain({ x: 2.18, dir: -1, width: 1.25, yBottom: -6.3, yTop: 3.5, z: 0.62, palette: 'pureSheer', opacity: 0.78, phase: 3.4, windAmp: 0.48, ruched: 1.0, order: 6 });
+
+        // 4. LENGKUNGAN GAPURA DALAM
+        createCatenarySwag({ x1: -3.8, y1: 3.85, x2: -0.25, y2: 3.7, sag: 2.05, skew: 1.05, edgeWidth: 0.85, centerWidth: 1.95, z: 0.15, palette: 'mistBlue', opacity: 0.78, phase: 1.3, windAmp: 0.6, order: 7 });
+        createCatenarySwag({ x1: -3.6, y1: 3.65, x2: -0.35, y2: 3.55, sag: 1.95, skew: 1.08, edgeWidth: 0.8, centerWidth: 1.85, z: 0.32, palette: 'bridalWhite', opacity: 0.90, phase: 1.7, windAmp: 0.6, order: 8 });
+        createCatenarySwag({ x1: -0.75, y1: 3.55, x2: 3.75, y2: 3.45, sag: 2.18, skew: 0.92, edgeWidth: 0.9, centerWidth: 2.1, z: 0.38, palette: 'bridalWhite', opacity: 0.92, phase: 2.3, windAmp: 0.62, order: 8 });
+
+        // 5. SELENDANG BAHU TENGAH
+        createCatenarySwag({ x1: -4.9, y1: 4.5, x2: -1.1, y2: 4.55, sag: 2.35, skew: 1.15, edgeWidth: 0.85, centerWidth: 1.85, z: 0.55, palette: 'skyBlue', opacity: 0.84, phase: 2.9, windAmp: 0.72, order: 9 });
+        createCatenarySwag({ x1: -0.6, y1: 4.2, x2: 5.1, y2: 5.4, sag: 1.75, skew: 0.88, edgeWidth: 0.85, centerWidth: 1.75, z: 0.65, palette: 'skyBlue', opacity: 0.86, phase: 3.4, windAmp: 0.75, order: 9 });
+
+        // 6. SELENDANG PUTIH UTAMA DEPAN
+        createCatenarySwag({ x1: -5.1, y1: 5.15, x2: 5.1, y2: 4.25, sag: 2.25, skew: 1.06, edgeWidth: 1.05, centerWidth: 2.35, z: 0.92, palette: 'pureSheer', opacity: 0.94, phase: 3.9, windAmp: 0.58, order: 10 });
+
+        // 7. MAHKOTA SELENDANG BIRU LANGIT TERATAS
+        createCatenarySwag({ x1: -3.4, y1: 6.1, x2: 5.3, y2: 5.2, sag: 1.75, skew: 1.12, edgeWidth: 0.85, centerWidth: 1.85, z: 1.12, palette: 'skyBlue', opacity: 0.88, phase: 4.4, windAmp: 0.62, order: 11 });
+        createCatenarySwag({ x1: -2.4, y1: 6.2, x2: 5.4, y2: 5.45, sag: 1.52, skew: 1.15, edgeWidth: 0.72, centerWidth: 1.45, z: 1.24, palette: 'mistBlue', opacity: 0.82, phase: 4.9, windAmp: 0.68, order: 12 });
+
+        scene.add(archwayGroup);
+
+        const clock = new THREE.Clock();
+        let baseCameraY = 0.2;
+
+        function render3D() {
+            const t = clock.getElapsedTime();
+
+            // Peluruhan halus interaksi pointer & gust angin
+            currentPointer.lerp(targetPointer, 0.08);
+            pointerVel.multiplyScalar(0.90);
+            pointerEnergy *= 0.965;
+            gustStrength *= 0.965;
+
+            for (let i = 0; i < sharedUniforms.length; i++) {
+                const u = sharedUniforms[i];
+                u.uTime.value = t;
+                u.uPointer.value.copy(currentPointer);
+                u.uPointerVel.value.copy(pointerVel);
+                u.uPointerEnergy.value = pointerEnergy;
+                u.uGust.value = gustStrength;
+            }
+
+            // Paralaks kamera 3D halus saat kursor/sentuhan bergerak sehingga kedalaman lapisan kain terasa nyata
+            camera.position.x = THREE.MathUtils.lerp(camera.position.x, currentPointer.x * 0.14, 0.06);
+            camera.position.y = THREE.MathUtils.lerp(camera.position.y, baseCameraY + currentPointer.y * 0.09, 0.06);
+            camera.lookAt(0, 0.15, 0);
+
+            archwayGroup.position.y = Math.sin(t * 0.5) * 0.06;
+            renderer.render(scene, camera);
+            requestAnimationFrame(render3D);
+        }
+        render3D();
+
+        function adjustCameraForViewport() {
+            const width = window.innerWidth;
+            const height = window.innerHeight;
+            camera.aspect = width / height;
+
+            if (width < 640) {
+                camera.fov = 50;
+                baseCameraY = 0.25;
+                camera.position.set(0, baseCameraY, 13.6);
+                archwayGroup.scale.set(0.94, 1.02, 1);
+            } else if (width < 1024) {
+                camera.fov = 44;
+                baseCameraY = 0.2;
+                camera.position.set(0, baseCameraY, 13.2);
+                archwayGroup.scale.set(1.24, 1.02, 1);
+            } else {
+                camera.fov = 40;
+                baseCameraY = 0.2;
+                camera.position.set(0, baseCameraY, 13.0);
+                archwayGroup.scale.set(1.62, 1.04, 1);
+            }
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }
+
+        window.addEventListener('resize', adjustCameraForViewport);
+
+        // --- 6. Animasi GSAP & ScrollTrigger ---
+        gsap.registerPlugin(ScrollTrigger);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
+        gsap.ticker.lagSmoothing(0);
+
+        window.onload = () => {
+            adjustCameraForViewport();
+
+            const tlLoader = gsap.timeline();
+            tlLoader.to('#progress-bar', { width: '100%', duration: 1.4, ease: "power3.inOut" })
+            .to('.mask-anim', { y: 0, duration: 0.6, ease: "power3.out" }, "-=0.5")
+            .to('.mask-anim', { y: '-110%', duration: 0.6, ease: "power3.in", delay: 0.2 })
+            .to('#loader', { yPercent: -100, duration: 1, ease: "expo.inOut" })
+            .to('.word-inner', { y: 0, opacity: 1, rotate: 0, duration: 1.2, stagger: 0.04, ease: "power4.out" }, "-=0.5")
+            .to('.line-inner', { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8")
+            .fromTo('.fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, "-=0.5");
+
+            // Animasi Halus Gapura Kain saat scroll dari Hero ke About
+            const tl3D = gsap.timeline({
+                scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1.5 }
+            });
+            tl3D.to(archwayGroup.position, { z: 2.2, y: 0.8, ease: "none" }, 0);
+
+            // Animasi Fog: Menggelap saat memasuki bagian Kisah (#about) dan tetap gelap hingga bawah
+            gsap.to('#fog', {
+                opacity: 0.92,
+                ease: "none",
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 85%",
+                    end: "top 20%",
+                    scrub: true
+                }
+            });
+
+            // Pengaturan warna teks Navigasi & AMSEL:
+            // - Hero (latar kain biru-putih cerah) -> hitam kebiruan (#0a1d3e)
+            // - About, Statistik & Katalog (latar tetap gelap) -> putih (#ffffff)
+            // - Contact / Footer biru (#1d6eff) & saat scroll mentok di HP -> hitam kebiruan seperti awal (#0a1d3e)
+            const mainNav = document.getElementById('main-nav');
+            const aboutSection = document.getElementById('about');
+            const contactSection = document.getElementById('contact');
+
+            function updateNavThemeOnScroll() {
+                const aboutTop = aboutSection.getBoundingClientRect().top;
+                const contactTop = contactSection.getBoundingClientRect().top;
+                const scrollBottom = window.scrollY + window.innerHeight;
+                const docHeight = document.documentElement.scrollHeight;
+                const isAtBottom = scrollBottom >= docHeight - 24;
+
+                if (contactTop <= 95 || isAtBottom) {
+                    mainNav.classList.remove('nav-light-text');
+                    mainNav.classList.add('nav-dark-text');
+                } else if (aboutTop <= window.innerHeight * 0.65) {
+                    mainNav.classList.remove('nav-dark-text');
+                    mainNav.classList.add('nav-light-text');
+                } else {
+                    mainNav.classList.remove('nav-light-text');
+                    mainNav.classList.remove('nav-dark-text');
+                }
+            }
+
+            lenis.on('scroll', updateNavThemeOnScroll);
+            window.addEventListener('scroll', updateNavThemeOnScroll, { passive: true });
+            window.addEventListener('resize', updateNavThemeOnScroll, { passive: true });
+            updateNavThemeOnScroll();
+
+            // Teks Reveal pada Scroll
+            gsap.utils.toArray('#about .word-inner').forEach(word => {
+                gsap.to(word, {
+                    y: 0, opacity: 1, rotate: 0, ease: "power3.out",
+                    scrollTrigger: { trigger: word, start: "top 95%", end: "top 72%", scrub: 1 }
+                });
+            });
+
+            gsap.from('.stat-item', {
+                y: 40, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", scrollTrigger: { trigger: '.stat-item', start: "top 85%" }
+            });
+
+            gsap.to('#products .word-inner', {
+                y: 0, opacity: 1, rotate: 0, duration: 1, stagger: 0.08, ease: "power4.out", scrollTrigger: { trigger: '#products', start: "top 75%" }
+            });
+
+            // Animasi kemunculan kartu layanan
+            gsap.from('.product-card', {
+                y: 80, opacity: 0, duration: 1.1, stagger: 0.15, ease: "expo.out", scrollTrigger: { trigger: '.product-card', start: "top 88%" }
+            });
             
-            <div class="carousel-controls">
-                <button class="carousel-prev"><i class="fas fa-chevron-left"></i></button>
-                <div class="carousel-indicators"></div>
-                <button class="carousel-next"><i class="fas fa-chevron-right"></i></button>
-            </div>
-        </div>
-    </div>
-</section>
-
-
-    <!-- Contact Section -->
-    <section class="contact" id="contact">
-        <div class="container">
-            <div class="section-header">
-                <h2>Hubungi Kami</h2>
-                <p>Kami siap membantu mewujudkan acara impian Anda</p>
-            </div>
-            <div class="contact-container">
-                <div class="contact-info">
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fab fa-whatsapp"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>WhatsApp</h4>
-                            <p><a href="https://wa.me/6285292234655">0852-9223-4655</a></p>
-                        </div>
-                    </div>
-                    <div class="contact-item">
-                        <div class="contact-icon">
-                            <i class="fas fa-map-marker-alt"></i>
-                        </div>
-                        <div class="contact-text">
-                            <h4>Alamat</h4>
-                            <p><a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></p>
-                        </div>
-                    </div>
-
- 
-
-
-
-                 <div class="social-links">
-                        <a href="https://wa.me/6285292234655" class="social-link">
-                            <i class="fab fa-whatsapp"></i>
-                        </a>
-                        <a href="https://instagram.com/amseltenda_wsb" class="social-link">
-                            <i class="fab fa-instagram"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-facebook-f"></i>
-                        </a>
-                        <a href="#" class="social-link">
-                            <i class="fab fa-tiktok"></i>
-                        </a>
-                    </div>
-                </div>
-                <div class="contact-map">
-                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d15843.52887610573!2d109.9177192!3d-7.2689788!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e700d4c3a0e5a27%3A0xcdc9a71c1b1d5d1f!2sWonosari%2C%20Mergolangu%2C%20Kalibawang%2C%20Wonosobo%20Regency%2C%20Central%20Java!5e0!3m2!1sen!2sid!4v1689689952560!5m2!1sen!2sid" allowfullscreen="" loading="lazy"></iframe>
-                    <div class="map-overlay">
-                        <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank" class="map-overlay-btn">
-                            <i class="fas fa-map-marker-alt"></i> Buka di Google Maps
-                        </a>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer>
-        <div class="container">
-            <div class="footer-container">
-                <div class="footer-links">
-                    <div class="footer-logo">Amsel Tenda</div>
-                    <p>Solusi lengkap untuk semua kebutuhan acara Anda. Dari penyewaan tenda hingga jasa rias profesional dengan kualitas premium dan harga terjangkau.</p>
-                </div>
-                <div class="footer-links">
-                    <h4>Layanan</h4>
-                    <ul>
-                        <li><a href="#services">Sewa Tenda</a></li>
-                        <li><a href="#services">Jasa Rias</a></li>
-                        <li><a href="#services">Sewa Pakaian</a></li>
-                        <li><a href="#services">Paket Acara Lengkap</a></li>
-                        <li><a href="#services">Fotografi & Video</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Link</h4>
-                    <ul>
-                        <li><a href="#home">Beranda</a></li>
-                        <li><a href="#about">Tentang Kami</a></li>
-                        <li><a href="#services">Layanan</a></li>
-                        <li><a href="#gallery">Galeri</a></li>
-                        <li><a href="#contact">Kontak</a></li>
-                    </ul>
-                </div>
-                <div class="footer-links">
-                    <h4>Kontak</h4>
-                    <ul>
-                        <li><i class="fas fa-phone-alt"></i> 0852-9223-4655</li>
-                        <li><i class="fas fa-map-marker-alt"></i> <a href="https://maps.app.goo.gl/bY2KpmC8s7ytgyku6" target="_blank">Wonosari, Mergolangu, Kalibawang, Kota Wonosobo, Jawa Tengah. 56373.</a></li>
-                    </ul>
-                </div>
-            </div>
-            <div class="copyright">
-              &copy; 2023–2025 Amsel Tenda. All rights reserved. Powered by <a href="https://ademiando.com" target="_blank" class="ademiando">ademiando</a>
-            </div>
-        </div>
-
-           <div class="scroll-top">
-          <i class="fas fa-arrow-up"></i>
-        </div>
-        
-    </footer>
-
-
-
-
-
-<script src="js/main.js"></script>
-<script src="js/scroll&animasi.js"></script>
-<script src="js/galery.js"></script>
-
-
-
+            // Animasi zoom-out sinematik khusus untuk foto layanan
+            gsap.from('.product-image-bg', {
+                scale: 1.35,
+                duration: 1.5,
+                stagger: 0.15,
+                ease: "power3.out",
+                scrollTrigger: { trigger: '.product-card', start: "top 88%" }
+            });
+        };
+    </script>
 </body>
 </html>
