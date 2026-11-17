@@ -1,10 +1,9 @@
-
 <!DOCTYPE html>
 <html lang="id" class="antialiased">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>AMSEL | Sewa Tenda & Perlengkapan Pesta Wonosobo</title>
+    <title>AMSEL | Sewa Tenda &amp; Perlengkapan Pesta Wonosobo</title>
     
     <!-- Premium Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -47,6 +46,19 @@
 
     <style>
         /* Pengaturan Dasar */
+        html.lenis, html.lenis body {
+            height: auto;
+        }
+        .lenis.lenis-smooth {
+            scroll-behavior: auto !important;
+        }
+        .lenis.lenis-smooth [data-lenis-prevent] {
+            overscroll-behavior: contain;
+        }
+        .lenis.lenis-stopped {
+            overflow: hidden;
+        }
+
         body {
             background-color: #dcebfa;
             color: #ffffff;
@@ -58,9 +70,13 @@
         ::-webkit-scrollbar { display: none; }
         * { -ms-overflow-style: none; scrollbar-width: none; }
 
+        .gpu-layer {
+            will-change: transform, opacity;
+        }
+
         /* Skala Tipografi Responsif agar rapi di layar HP tanpa terpotong */
         .text-hero {
-            font-size: clamp(2.1rem, 8.5vw, 8.8rem);
+            font-size: clamp(2.15rem, 8.6vw, 8.8rem);
             line-height: 0.96;
             letter-spacing: -0.03em;
             word-break: keep-all;
@@ -78,19 +94,78 @@
             background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 200 200' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
         }
 
-        /* Latar Belakang WebGL dengan Gradien Langit Cerah Lembut seperti Referensi */
+        /* Latar Belakang WebGL dengan Gradien Langit Cerah Lembut */
         #webgl-container {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             z-index: -2; pointer-events: none;
             background: radial-gradient(circle at 50% 25%, #f5faff 0%, #e4f0fd 48%, #d2e5fa 100%);
         }
 
-        /* Kabut Ambien - Bening di Hero agar kain sifon biru-putih terlihat utuh, lalu tetap gelap setelah di-scroll */
+        /* Kabut Ambien */
         .fog-overlay {
             position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
             background: #030712;
             z-index: -1; pointer-events: none;
             opacity: 0;
+        }
+
+        /* Animasi Kepakan Sayap Merpati Putih & Angin Botani */
+        @keyframes wingUpperFlap {
+            0%, 100% { transform: rotate(0deg) scaleY(1); }
+            45% { transform: rotate(-24deg) scaleY(0.72); }
+        }
+        @keyframes wingLowerFlap {
+            0%, 100% { transform: rotate(0deg) scaleY(1); }
+            45% { transform: rotate(18deg) scaleY(0.78); }
+        }
+        @keyframes doveHover {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-7px); }
+        }
+        @keyframes branchBreezeRight {
+            0%, 100% { transform: scaleX(-1) rotate(0deg) translateY(0px); }
+            50% { transform: scaleX(-1) rotate(2.4deg) translateY(4px); }
+        }
+        @keyframes petalDriftA {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            50% { transform: translate(8px, -10px) rotate(14deg); }
+        }
+        @keyframes petalDriftB {
+            0%, 100% { transform: translate(0px, 0px) rotate(0deg); }
+            50% { transform: translate(-9px, -8px) rotate(-16deg); }
+        }
+
+        .dove-wing-top {
+            transform-origin: 118px 82px;
+            animation: wingUpperFlap 1.05s ease-in-out infinite;
+        }
+        .dove-wing-bottom {
+            transform-origin: 115px 86px;
+            animation: wingLowerFlap 1.05s ease-in-out infinite;
+        }
+        .dove-wing-top-delay {
+            transform-origin: 118px 82px;
+            animation: wingUpperFlap 1.18s ease-in-out 0.35s infinite;
+        }
+        .dove-wing-bottom-delay {
+            transform-origin: 115px 86px;
+            animation: wingLowerFlap 1.18s ease-in-out 0.35s infinite;
+        }
+        .dove-hover-1 {
+            animation: doveHover 2.8s ease-in-out infinite;
+        }
+        .dove-hover-2 {
+            animation: doveHover 3.2s ease-in-out 0.6s infinite;
+        }
+        .floral-breeze-right {
+            transform-origin: 10% 10%;
+            animation: branchBreezeRight 6s ease-in-out 0.8s infinite;
+        }
+        .petal-float-a {
+            animation: petalDriftA 4.2s ease-in-out infinite;
+        }
+        .petal-float-b {
+            animation: petalDriftB 4.8s ease-in-out 0.7s infinite;
         }
 
         /* Kursor Kustom */
@@ -114,19 +189,18 @@
             position: absolute; bottom: 0; left: 0; height: 4px; background: #1d6eff; width: 0%;
         }
 
-        /* --- EFEK CAIRAN MURNI (TRUE ORGANIC LIQUID - TETAP ASLI) --- */
+        /* --- EFEK CAIRAN MURNI (TRUE ORGANIC LIQUID) --- */
         @keyframes liquid-wobble {
             0%, 100% { border-radius: 35px 45px 35px 45px / 45px 35px 45px 35px; }
             33% { border-radius: 45px 35px 45px 35px / 35px 45px 35px 45px; }
             66% { border-radius: 40px 45px 35px 40px / 45px 40px 45px 35px; }
         }
 
-        /* Bening Cair Terang */
         .btn-liquid {
-            background: rgba(255, 255, 255, 0.28);
+            background: rgba(255, 255, 255, 0.34);
             backdrop-filter: blur(8px);
             -webkit-backdrop-filter: blur(8px);
-            border: 1px solid rgba(255, 255, 255, 0.65);
+            border: 1px solid rgba(255, 255, 255, 0.72);
             box-shadow: 
                 inset 0 3px 6px -2px rgba(255, 255, 255, 0.85), 
                 inset 0 -3px 6px -2px rgba(29, 110, 255, 0.22), 
@@ -138,7 +212,7 @@
         }
 
         .btn-liquid:hover {
-            background: rgba(255, 255, 255, 0.45);
+            background: rgba(255, 255, 255, 0.5);
             backdrop-filter: blur(10px);
             animation-duration: 2s;
             box-shadow: 
@@ -152,7 +226,6 @@
             transform: scale(0.95);
         }
 
-        /* Tombol cair di area gelap (section Layanan) */
         .btn-liquid-on-dark {
             background: rgba(255, 255, 255, 0.06);
             border: 1px solid rgba(255, 255, 255, 0.25);
@@ -165,7 +238,6 @@
             background: rgba(255, 255, 255, 0.15);
         }
 
-        /* Cair Kontras (Untuk footer biru agar serasi dengan putih) */
         .btn-liquid-dark {
             background: rgba(255, 255, 255, 0.12);
             backdrop-filter: blur(6px);
@@ -192,7 +264,7 @@
             transform: translateY(-2px);
         }
 
-        /* State Klik Pertama Tombol WhatsApp (Berubah Warna WhatsApp) */
+        /* State Klik Pertama Tombol WhatsApp (Berubah Hijau WhatsApp) */
         .btn-wa-active {
             background: #25D366 !important;
             border-color: rgba(255, 255, 255, 0.9) !important;
@@ -203,7 +275,20 @@
                 0 8px 24px rgba(37, 211, 102, 0.48) !important;
         }
 
-        /* Kotak Maps Lanskap Interaktif (Bisa Digeser, Perbesar & Perkecil) */
+        /* State Klik Pertama Tombol Google Maps (Aktifkan Tampilan Hover Terlebih Dahulu) */
+        .btn-maps-active {
+            background: rgba(255, 255, 255, 0.28) !important;
+            backdrop-filter: blur(10px) !important;
+            -webkit-backdrop-filter: blur(10px) !important;
+            border-color: rgba(255, 255, 255, 0.92) !important;
+            box-shadow:
+                inset 0 4px 8px -2px rgba(255, 255, 255, 0.9),
+                inset 0 -4px 8px -2px rgba(8, 28, 75, 0.4),
+                0 8px 22px rgba(8, 28, 75, 0.28) !important;
+            transform: translateY(-2px) !important;
+        }
+
+        /* Kotak Maps Lanskap Interaktif */
         #address-map-box {
             height: 185px;
             transition: height 0.45s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.35s ease;
@@ -230,10 +315,7 @@
             clip-path: circle(150% at 100% 0%);
         }
 
-        /* State warna navigasi dinamis:
-           1. Awal di Hero (latar kain sifon biru-putih cerah) -> teks biru tua elegan (#0a1d3e)
-           2. Area tengah gelap (Kisah & Layanan) -> teks putih (#ffffff)
-           3. Ujung scroll (Footer biru #1d6eff) -> hitam kebiruan seperti awal (#0a1d3e) */
+        /* State warna navigasi dinamis */
         #main-nav {
             transition: color 0.35s ease;
             color: #0a1d3e;
@@ -276,6 +358,233 @@
     <div id="webgl-container"></div>
     <div class="fog-overlay" id="fog"></div>
 
+    <!-- LAPISAN ORNAMEN BOTANI BUNGA, DEDAUNAN & MERPATI PUTIH (TANPA MENUTUPI LOGO AMSEL) -->
+    <div id="hero-ornaments-layer" class="fixed inset-0 z-[15] pointer-events-none overflow-hidden">
+        <!-- SVG Definitions: Gradien Alami Kelopak Mawar, Daun Eucalyptus & Bulu Merpati -->
+        <svg width="0" height="0" class="hidden" aria-hidden="true">
+            <defs>
+                <linearGradient id="doveBodyGrad" x1="15%" y1="0%" x2="85%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="58%" stop-color="#f1f7ff" />
+                    <stop offset="100%" stop-color="#bad6fb" />
+                </linearGradient>
+                <linearGradient id="dovePrimaryWing" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="68%" stop-color="#e8f2fe" />
+                    <stop offset="100%" stop-color="#93c5fd" />
+                </linearGradient>
+                <linearGradient id="doveBackWing" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#dbeafe" />
+                    <stop offset="100%" stop-color="#60a5fa" />
+                </linearGradient>
+
+                <linearGradient id="roseWhiteOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="65%" stop-color="#eff6ff" />
+                    <stop offset="100%" stop-color="#bdd9fc" />
+                </linearGradient>
+                <linearGradient id="roseWhiteInner" x1="20%" y1="0%" x2="80%" y2="100%">
+                    <stop offset="0%" stop-color="#ffffff" />
+                    <stop offset="100%" stop-color="#dbeafe" />
+                </linearGradient>
+
+                <linearGradient id="roseBlueOuter" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#93c5fd" />
+                    <stop offset="55%" stop-color="#3b82f6" />
+                    <stop offset="100%" stop-color="#1d4ed8" />
+                </linearGradient>
+                <linearGradient id="roseBlueInner" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#eff6ff" />
+                    <stop offset="60%" stop-color="#60a5fa" />
+                    <stop offset="100%" stop-color="#2563eb" />
+                </linearGradient>
+
+                <linearGradient id="eucalyptusLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#bfdbfe" />
+                    <stop offset="55%" stop-color="#60a5fa" />
+                    <stop offset="100%" stop-color="#1e40af" />
+                </linearGradient>
+                <linearGradient id="sageLeaf" x1="0%" y1="0%" x2="100%" y2="100%">
+                    <stop offset="0%" stop-color="#e0f2fe" />
+                    <stop offset="60%" stop-color="#7dd3fc" />
+                    <stop offset="100%" stop-color="#0284c7" />
+                </linearGradient>
+            </defs>
+        </svg>
+
+        <!-- RANGKAIAN BUNGA MAWAR & DAUN EUCALYPTUS SISI KANAN (Ditempatkan di bawah area navigasi) -->
+        <div id="floral-garland-right" class="gpu-layer absolute top-14 sm:top-16 md:top-20 -right-5 sm:-right-3 w-[205px] sm:w-[295px] md:w-[360px] drop-shadow-[0_12px_24px_rgba(15,45,110,0.2)]">
+            <div class="ornament-enter w-full h-full">
+                <svg viewBox="0 0 380 340" fill="none" class="w-full h-auto floral-breeze-right">
+                    <path d="M12 245C46 175 102 115 182 78C232 55 282 42 332 38" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" opacity="0.55" />
+                    <path d="M24 140C72 135 128 148 175 178" stroke="#3b82f6" stroke-width="2" stroke-linecap="round" opacity="0.45" />
+
+                    <path d="M188 72C212 36 254 24 290 36C258 58 224 72 188 72Z" fill="url(#eucalyptusLeaf)" opacity="0.88" />
+                    <path d="M250 48C278 18 318 12 350 26C318 44 284 52 250 48Z" fill="url(#sageLeaf)" opacity="0.85" />
+                    <path d="M135 105C168 92 206 102 232 128C194 128 162 120 135 105Z" fill="url(#eucalyptusLeaf)" opacity="0.84" />
+                    <path d="M68 185C54 224 62 266 86 296C94 256 88 218 68 185Z" fill="url(#sageLeaf)" opacity="0.86" />
+                    <path d="M40 218C18 252 16 292 34 322C48 286 50 250 40 218Z" fill="url(#eucalyptusLeaf)" opacity="0.82" />
+                    <path d="M108 158C144 156 178 174 198 204C162 196 132 180 108 158Z" fill="url(#sageLeaf)" opacity="0.8" />
+
+                    <g transform="translate(205, 86)">
+                        <path d="M0 -42C18 -42 32 -26 24 -8C14 -14 -14 -14 -24 -8C-32 -26 -18 -42 0 -42Z" fill="url(#roseBlueOuter)" />
+                        <path d="M40 -12C46 6 34 24 15 22C18 10 10 -12 0 -18C16 -24 34 -24 40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M24 36C8 46 -12 40 -16 22C-4 20 12 8 16 -2C26 8 34 24 24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-24 36C-34 24 -26 8 -16 -2C-12 8 4 20 16 22C12 40 -8 46 -24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-40 -12C-34 -24 -16 -24 0 -18C-10 -12 -18 10 -15 22C-34 24 -46 6 -40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M0 -24C14 -24 22 -10 14 2C6 -2 -6 -2 -14 2C-22 -10 -14 -24 0 -24Z" fill="url(#roseBlueInner)" />
+                        <path d="M20 8C16 22 -2 26 -12 16C-4 10 4 0 6 -8C16 -6 22 0 20 8Z" fill="url(#roseBlueInner)" />
+                        <path d="M-20 8C-22 0 -16 -6 -6 -8C-4 0 4 10 12 16C2 26 -16 22 -20 8Z" fill="url(#roseBlueInner)" />
+                        <path d="M-6 0C-6 -6 6 -6 6 0C6 6 -6 6 -6 0Z" fill="#eff6ff" />
+                    </g>
+
+                    <g transform="translate(96, 122)">
+                        <path d="M0 -58C26 -60 46 -38 36 -12C20 -20 -20 -20 -36 -12C-46 -38 -26 -60 0 -58Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M55 -18C64 6 48 34 22 30C24 12 14 -14 0 -22C22 -32 46 -32 55 -18Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M34 48C14 64 -18 56 -24 30C-6 26 16 10 22 -4C36 10 46 32 34 48Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-34 48C-46 32 -36 10 -22 -4C-16 10 6 26 24 30C18 56 -14 64 -34 48Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-55 -18C-46 -32 -22 -32 0 -22C-14 -14 -24 12 -22 30C-48 34 -64 6 -55 -18Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M0 -34C18 -34 30 -16 20 2C8 -4 -8 -4 -20 2C-30 -16 -18 -34 0 -34Z" fill="url(#roseWhiteInner)" stroke="#93c5fd" stroke-width="0.8" />
+                        <path d="M28 10C24 28 -2 34 -16 20C-6 12 6 0 8 -12C22 -10 30 0 28 10Z" fill="url(#roseWhiteInner)" stroke="#93c5fd" stroke-width="0.8" />
+                        <path d="M-28 10C-30 0 -22 -10 -8 -12C-6 0 6 12 16 20C2 34 -24 28 -28 10Z" fill="url(#roseWhiteInner)" stroke="#93c5fd" stroke-width="0.8" />
+                        <path d="M0 -14C10 -14 14 -2 8 6C2 10 -6 8 -10 2C-14 -6 -8 -14 0 -14Z" fill="#ffffff" stroke="#60a5fa" stroke-width="0.9" />
+                        <path d="M-4 -2C0 -7 6 -4 4 2C2 6 -5 4 -4 -2Z" fill="#93c5fd" />
+                    </g>
+
+                    <g transform="translate(56, 224) scale(0.72)">
+                        <path d="M0 -48C22 -48 38 -30 30 -10C16 -16 -16 -16 -30 -10C-38 -30 -22 -48 0 -48Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M45 -14C52 6 38 28 18 24C20 10 12 -12 0 -18C18 -26 38 -26 45 -14Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M28 40C10 52 -14 46 -20 24C-4 22 14 8 18 -4C30 8 38 26 28 40Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-28 40C-38 26 -30 8 -18 -4C-14 8 4 22 20 24C14 46 -10 52 -28 40Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-45 -14C-38 -26 -18 -26 0 -18C-12 -12 -20 10 -18 24C-38 28 -52 6 -45 -14Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M0 -20C12 -20 18 -6 10 4C2 8 -6 6 -10 2C-16 -6 -10 -20 0 -20Z" fill="#ffffff" stroke="#60a5fa" stroke-width="1" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- RANGKAIAN RANTING BUNGA LATAR DEPAN SUDUT BAWAH KIRI & KANAN -->
+        <div id="floral-bottom-left" class="gpu-layer absolute -bottom-5 -left-6 sm:-bottom-4 sm:-left-4 w-[185px] sm:w-[270px] md:w-[330px] drop-shadow-[0_10px_20px_rgba(15,45,110,0.2)]">
+            <div class="ornament-enter w-full h-full">
+                <svg viewBox="0 0 280 230" fill="none" class="w-full h-auto">
+                    <path d="M18 215C44 156 96 108 168 82" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+                    <path d="M98 118C124 82 166 64 206 72C172 96 136 112 98 118Z" fill="url(#eucalyptusLeaf)" opacity="0.9" />
+                    <path d="M148 92C178 62 218 52 252 66C218 84 184 94 148 92Z" fill="url(#sageLeaf)" opacity="0.88" />
+                    <path d="M64 148C98 138 136 148 164 174C126 174 92 166 64 148Z" fill="url(#eucalyptusLeaf)" opacity="0.85" />
+                    <g transform="translate(88, 134) scale(0.82)">
+                        <path d="M0 -54C24 -54 42 -34 34 -10C18 -18 -18 -18 -34 -10C-42 -34 -24 -54 0 -54Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M50 -16C58 6 42 32 20 28C22 12 12 -14 0 -20C20 -30 42 -30 50 -16Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M32 44C12 58 -16 52 -22 28C-4 24 16 10 20 -4C34 10 42 30 32 44Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-32 44C-42 30 -34 10 -20 -4C-16 10 4 24 22 28C16 52 -12 58 -32 44Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-50 -16C-42 -30 -20 -30 0 -20C-12 -14 -22 12 -20 28C-42 32 -58 6 -50 -16Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M0 -24C14 -24 20 -8 12 4C4 8 -6 6 -12 2C-18 -8 -12 -24 0 -24Z" fill="#ffffff" stroke="#60a5fa" stroke-width="1" />
+                    </g>
+                    <g transform="translate(156, 108) scale(0.65)">
+                        <path d="M0 -42C18 -42 32 -26 24 -8C14 -14 -14 -14 -24 -8C-32 -26 -18 -42 0 -42Z" fill="url(#roseBlueOuter)" />
+                        <path d="M40 -12C46 6 34 24 15 22C18 10 10 -12 0 -18C16 -24 34 -24 40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M24 36C8 46 -12 40 -16 22C-4 20 12 8 16 -2C26 8 34 24 24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-24 36C-34 24 -26 8 -16 -2C-12 8 4 20 16 22C12 40 -8 46 -24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-40 -12C-34 -24 -16 -24 0 -18C-10 -12 -18 10 -15 22C-34 24 -46 6 -40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-6 0C-6 -6 6 -6 6 0C6 6 -6 6 -6 0Z" fill="#eff6ff" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div id="floral-bottom-right" class="gpu-layer absolute -bottom-5 -right-6 sm:-bottom-4 sm:-right-4 w-[185px] sm:w-[270px] md:w-[330px] drop-shadow-[0_10px_20px_rgba(15,45,110,0.2)]">
+            <div class="ornament-enter w-full h-full">
+                <svg viewBox="0 0 280 230" fill="none" class="w-full h-auto" style="transform: scaleX(-1);">
+                    <path d="M18 215C44 156 96 108 168 82" stroke="#2563eb" stroke-width="2.5" stroke-linecap="round" opacity="0.6" />
+                    <path d="M98 118C124 82 166 64 206 72C172 96 136 112 98 118Z" fill="url(#eucalyptusLeaf)" opacity="0.9" />
+                    <path d="M148 92C178 62 218 52 252 66C218 84 184 94 148 92Z" fill="url(#sageLeaf)" opacity="0.88" />
+                    <path d="M64 148C98 138 136 148 164 174C126 174 92 166 64 148Z" fill="url(#eucalyptusLeaf)" opacity="0.85" />
+                    <g transform="translate(88, 134) scale(0.82)">
+                        <path d="M0 -54C24 -54 42 -34 34 -10C18 -18 -18 -18 -34 -10C-42 -34 -24 -54 0 -54Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M50 -16C58 6 42 32 20 28C22 12 12 -14 0 -20C20 -30 42 -30 50 -16Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M32 44C12 58 -16 52 -22 28C-4 24 16 10 20 -4C34 10 42 30 32 44Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-32 44C-42 30 -34 10 -20 -4C-16 10 4 24 22 28C16 52 -12 58 -32 44Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M-50 -16C-42 -30 -20 -30 0 -20C-12 -14 -22 12 -20 28C-42 32 -58 6 -50 -16Z" fill="url(#roseWhiteOuter)" stroke="#bfdbfe" stroke-width="1" />
+                        <path d="M0 -24C14 -24 20 -8 12 4C4 8 -6 6 -12 2C-18 -8 -12 -24 0 -24Z" fill="#ffffff" stroke="#60a5fa" stroke-width="1" />
+                    </g>
+                    <g transform="translate(156, 108) scale(0.65)">
+                        <path d="M0 -42C18 -42 32 -26 24 -8C14 -14 -14 -14 -24 -8C-32 -26 -18 -42 0 -42Z" fill="url(#roseBlueOuter)" />
+                        <path d="M40 -12C46 6 34 24 15 22C18 10 10 -12 0 -18C16 -24 34 -24 40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M24 36C8 46 -12 40 -16 22C-4 20 12 8 16 -2C26 8 34 24 24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-24 36C-34 24 -26 8 -16 -2C-12 8 4 20 16 22C12 40 -8 46 -24 36Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-40 -12C-34 -24 -16 -24 0 -18C-10 -12 -18 10 -15 22C-34 24 -46 6 -40 -12Z" fill="url(#roseBlueOuter)" />
+                        <path d="M-6 0C-6 -6 6 -6 6 0C6 6 -6 6 -6 0Z" fill="#eff6ff" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- SEPASANG BURUNG MERPATI PUTIH BERSAYAP BULU -->
+        <div id="hero-dove-lead" class="gpu-layer absolute top-[18%] left-[8%] sm:left-[18%] md:left-[24%] w-[160px] sm:w-[225px] md:w-[265px] drop-shadow-[0_12px_22px_rgba(12,46,115,0.28)]">
+            <div class="ornament-enter w-full h-full">
+                <svg viewBox="0 0 220 160" fill="none" class="w-full h-auto dove-hover-1">
+                    <g class="dove-wing-bottom">
+                        <path d="M115 86C94 52 64 28 32 24C44 40 58 54 74 66C56 58 40 54 24 54C42 68 62 78 82 86C68 82 54 80 42 82C62 92 84 96 106 94Z" fill="url(#doveBackWing)" />
+                    </g>
+                    <path d="M64 102L22 118L36 106L16 108L34 98L18 96L58 92Z" fill="url(#doveBodyGrad)" stroke="#93c5fd" stroke-width="0.8" />
+                    <path d="M56 96C78 88 102 82 128 82C142 82 152 72 160 62C166 55 176 55 182 61C186 66 184 74 176 79C168 84 162 92 152 99C132 112 98 114 64 104Z" fill="url(#doveBodyGrad)" stroke="#bfdbfe" stroke-width="1" />
+                    <path d="M183 63L196 66L182 70Z" fill="#60a5fa" />
+                    <circle cx="173" cy="64" r="2" fill="#0f2952" />
+                    <g class="dove-wing-top">
+                        <path d="M122 86C112 44 82 12 44 4C54 22 68 38 84 52C64 40 44 32 24 30C42 46 62 58 82 68C64 62 46 58 28 58C48 72 70 80 94 86C80 84 66 84 54 86C74 94 96 96 118 92Z" fill="url(#dovePrimaryWing)" stroke="#93c5fd" stroke-width="0.9" />
+                        <path d="M114 82C96 54 74 30 50 12M110 84C88 62 62 44 34 34M106 86C82 72 58 64 36 60" stroke="#bfdbfe" stroke-width="0.9" stroke-linecap="round" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <div id="hero-dove-companion" class="gpu-layer absolute top-[24%] right-[6%] sm:right-[16%] md:right-[22%] w-[135px] sm:w-[190px] md:w-[225px] drop-shadow-[0_10px_20px_rgba(12,46,115,0.24)]">
+            <div class="ornament-enter w-full h-full">
+                <svg viewBox="0 0 220 160" fill="none" class="w-full h-auto dove-hover-2" style="transform: scaleX(-1);">
+                    <g class="dove-wing-bottom-delay">
+                        <path d="M115 86C94 52 64 28 32 24C44 40 58 54 74 66C56 58 40 54 24 54C42 68 62 78 82 86C68 82 54 80 42 82C62 92 84 96 106 94Z" fill="url(#doveBackWing)" />
+                    </g>
+                    <path d="M64 102L22 118L36 106L16 108L34 98L18 96L58 92Z" fill="url(#doveBodyGrad)" stroke="#93c5fd" stroke-width="0.8" />
+                    <path d="M56 96C78 88 102 82 128 82C142 82 152 72 160 62C166 55 176 55 182 61C186 66 184 74 176 79C168 84 162 92 152 99C132 112 98 114 64 104Z" fill="url(#doveBodyGrad)" stroke="#bfdbfe" stroke-width="1" />
+                    <path d="M183 63L196 66L182 70Z" fill="#60a5fa" />
+                    <circle cx="173" cy="64" r="2" fill="#0f2952" />
+                    <g class="dove-wing-top-delay">
+                        <path d="M122 86C112 44 82 12 44 4C54 22 68 38 84 52C64 40 44 32 24 30C42 46 62 58 82 68C64 62 46 58 28 58C48 72 70 80 94 86C80 84 66 84 54 86C74 94 96 96 118 92Z" fill="url(#dovePrimaryWing)" stroke="#93c5fd" stroke-width="0.9" />
+                        <path d="M114 82C96 54 74 30 50 12M110 84C88 62 62 44 34 34M106 86C82 72 58 64 36 60" stroke="#bfdbfe" stroke-width="0.9" stroke-linecap="round" />
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- KELOPAK BUNGA MAWAR & DAUN MELAYANG ORGANIK -->
+        <div id="petal-1" class="gpu-layer absolute top-[29%] left-[14%] sm:left-[26%] w-9 h-9 sm:w-11 sm:h-11 drop-shadow-[0_6px_12px_rgba(29,110,255,0.22)]">
+            <svg viewBox="0 0 60 60" fill="none" class="w-full h-full petal-float-a">
+                <path d="M30 6C44 14 52 28 45 43C39 54 21 54 15 43C8 28 16 14 30 6Z" fill="url(#roseWhiteOuter)" stroke="#93c5fd" stroke-width="1" />
+                <path d="M30 10C31 24 31 38 30 50" stroke="#bfdbfe" stroke-width="1" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <div id="petal-2" class="gpu-layer absolute top-[35%] right-[12%] sm:right-[24%] w-10 h-10 sm:w-12 sm:h-12 drop-shadow-[0_6px_14px_rgba(29,110,255,0.25)]">
+            <svg viewBox="0 0 60 60" fill="none" class="w-full h-full petal-float-b">
+                <path d="M32 6C46 13 53 29 43 44C34 55 18 51 15 37C12 22 20 12 32 6Z" fill="url(#roseBlueInner)" />
+                <path d="M31 11C30 24 28 37 26 48" stroke="#dbeafe" stroke-width="1" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <div id="petal-3" class="gpu-layer absolute bottom-[25%] left-[16%] sm:left-[28%] w-10 h-10 sm:w-12 sm:h-12 drop-shadow-[0_6px_14px_rgba(29,110,255,0.24)]">
+            <svg viewBox="0 0 60 60" fill="none" class="w-full h-full petal-float-b">
+                <path d="M28 6C42 12 50 28 42 43C34 54 17 52 13 38C9 24 16 12 28 6Z" fill="url(#roseWhiteOuter)" stroke="#93c5fd" stroke-width="1" />
+                <path d="M28 11C29 24 28 38 27 49" stroke="#bfdbfe" stroke-width="1" stroke-linecap="round" />
+            </svg>
+        </div>
+
+        <div id="petal-4" class="gpu-layer absolute bottom-[27%] right-[14%] sm:right-[25%] w-9 h-9 sm:w-11 sm:h-11 drop-shadow-[0_6px_12px_rgba(29,110,255,0.22)]">
+            <svg viewBox="0 0 60 60" fill="none" class="w-full h-full petal-float-a">
+                <path d="M14 46C18 26 32 14 50 12C46 32 34 44 14 46Z" fill="url(#eucalyptusLeaf)" />
+                <path d="M16 44C28 32 38 22 48 14" stroke="#eff6ff" stroke-width="1" stroke-linecap="round" />
+            </svg>
+        </div>
+    </div>
+
     <!-- Fullscreen Menu Overlay -->
     <div id="menu-overlay" class="fixed inset-0 bg-[#071124] z-[60] flex flex-col justify-center items-center pointer-events-none">
         <div class="absolute inset-0 opacity-15 bg-[url('https://images.unsplash.com/photo-1519225421980-715cb0215aed?auto=format&fit=crop&q=80')] bg-cover bg-center mix-blend-luminosity"></div>
@@ -314,24 +623,28 @@
     <main id="smooth-wrapper" class="w-full overflow-x-hidden">
         <div id="smooth-content" class="w-full">
 
-            <!-- 1. HERO SECTION (Selaras dengan Latar Kain Sifon Biru-Putih Cerah Interaktif) -->
-            <section class="relative w-full min-h-screen flex flex-col justify-center items-center px-5 sm:px-8 z-10" id="hero">
+            <!-- 1. HERO SECTION (Transisi Interaktif Menembus Teks, Tirai Sifon, Merpati & Rangkaian Bunga) -->
+            <section class="relative w-full min-h-screen flex flex-col justify-center items-center px-5 sm:px-8 z-10 overflow-hidden" id="hero">
                 <div class="text-center mt-16 md:mt-24 w-full max-w-4xl mx-auto">
-                    <span class="inline-block font-sans text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[#1450b8] font-semibold mb-4 md:mb-6 fade-in drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
-                        Wonosobo &amp; Sekitarnya &bull; Pengalaman Lebih Dari 15 Tahun
-                    </span>
-                    <h1 class="font-display font-bold text-hero uppercase split-text text-[#091c3e] drop-shadow-[0_2px_20px_rgba(255,255,255,0.95)]" data-speed="0.8">
+                    <div id="hero-kicker" class="gpu-layer mb-4 md:mb-6">
+                        <span class="hero-fade-in inline-block font-sans text-[11px] sm:text-xs tracking-[0.24em] uppercase text-[#1450b8] font-semibold drop-shadow-[0_1px_8px_rgba(255,255,255,0.95)]">
+                            Wonosobo &amp; Sekitarnya &bull; Pengalaman Lebih Dari 15 Tahun
+                        </span>
+                    </div>
+                    <h1 id="hero-portal-title" class="gpu-layer font-display font-bold text-hero uppercase split-text text-[#091c3e] drop-shadow-[0_2px_20px_rgba(255,255,255,0.95)]">
                         Merajut Momen<br>Suci.
                     </h1>
-                    <p class="font-sans text-[#173363] font-medium mt-5 md:mt-8 max-w-xl mx-auto text-xs sm:text-sm tracking-[0.11em] sm:tracking-[0.14em] uppercase leading-relaxed split-line drop-shadow-[0_1px_14px_rgba(255,255,255,0.95)] px-2" data-speed="1.1">
+                    <p id="hero-sub-copy" class="gpu-layer font-sans text-[#173363] font-medium mt-5 md:mt-8 max-w-xl mx-auto text-xs sm:text-sm tracking-[0.11em] sm:tracking-[0.14em] uppercase leading-relaxed split-line drop-shadow-[0_1px_14px_rgba(255,255,255,0.95)] px-2">
                         Setiap pernikahan dan hajatan adalah kisah sekali seumur hidup.<br>Amsel hadir melengkapi hari bahagia Anda dengan tenda dekorasi elegan, jasa rias, sewa pakaian, foto video, hingga katering istimewa.
                     </p>
                     <!-- Main CTA Button -->
-                    <div class="mt-8 md:mt-11 flex flex-col sm:flex-row justify-center items-center gap-4 fade-in">
-                        <a href="#products" class="magnetic-btn btn-liquid inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:px-8 sm:py-4 cursor-hover text-xs sm:text-sm tracking-widest uppercase font-sans font-semibold text-[#091c3e]">
-                            Jelajahi Layanan
-                            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
-                        </a>
+                    <div id="hero-cta-wrap" class="gpu-layer mt-8 md:mt-11">
+                        <div class="hero-fade-in flex flex-col sm:flex-row justify-center items-center gap-4">
+                            <a href="#products" class="magnetic-btn btn-liquid inline-flex items-center justify-center gap-3 px-7 py-3.5 sm:px-8 sm:py-4 cursor-hover text-xs sm:text-sm tracking-widest uppercase font-sans font-semibold text-[#091c3e]">
+                                Jelajahi Layanan
+                                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 5v14M19 12l-7 7-7-7"/></svg>
+                            </a>
+                        </div>
                     </div>
                 </div>
             </section>
@@ -371,29 +684,29 @@
                 </div>
             </section>
 
-            <!-- 4. PRODUCTS / LAYANAN SHOWCASE -->
+            <!-- 4. PRODUCTS / LAYANAN SHOWCASE (Latar WebGL Kain Sifon Tampil Kembali) -->
             <section id="products" class="w-full py-20 md:py-32 bg-transparent z-20 relative overflow-hidden">
                 <div class="px-5 sm:px-8 md:px-20 mb-12 md:mb-24 flex flex-col md:flex-row justify-between items-start md:items-end gap-6">
                     <div>
-                        <span class="font-sans text-xs tracking-[0.25em] uppercase text-brand font-semibold block mb-3">
+                        <span class="font-sans text-xs tracking-[0.25em] uppercase text-[#1450b8] font-semibold block mb-3 drop-shadow-[0_1px_8px_rgba(255,255,255,0.9)]">
                             Wujudkan Acara Impian
                         </span>
-                        <h2 class="font-display text-h2 uppercase split-text text-white">Layanan<br>Lengkap.</h2>
+                        <h2 class="font-display text-h2 uppercase split-text text-[#091c3e] drop-shadow-[0_2px_18px_rgba(255,255,255,0.95)]">Layanan<br>Lengkap.</h2>
                     </div>
-                    <!-- Direct WhatsApp Price List Button -->
-                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20boleh%20minta%20daftar%20harga%20dan%20katalog%20sewa%20tenda%20serta%20paket%20lengkap?" target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid btn-liquid-on-dark px-6 py-3.5 cursor-hover text-xs tracking-[0.18em] uppercase font-sans font-semibold mb-1 text-white">
+                    <!-- Tombol Tanya Daftar Harga: Klik 1x Ubah Warna WhatsApp, Klik 2x Buka WhatsApp -->
+                    <a id="pricelist-wa-btn" href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20boleh%20minta%20daftar%20harga%20dan%20katalog%20sewa%20tenda%20serta%20paket%20lengkap?" target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid px-6 py-3.5 cursor-hover text-xs tracking-[0.18em] uppercase font-sans font-semibold mb-1 text-[#091c3e]">
                         Tanya Daftar Harga via WA
                     </a>
                 </div>
                 
                 <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 items-start px-5 sm:px-8 md:px-20 gap-8 lg:gap-10">
-                    <!-- Layanan Card 1: Gambar Acara Nikah & Tenda Dekorasi -->
-                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20layanan%20Sewa%20Tenda%20Pernikahan%20%26%20Dekorasi." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card mt-0 lg:mt-16 block">
-                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                    <!-- Layanan Card 1: Hover Foto Saja, Tombol Panah Gulir ke WhatsApp -->
+                    <div class="group product-card mt-0 lg:mt-16 block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-[#091c3e]/15 shadow-[0_18px_40px_rgba(9,28,62,0.18)]">
                             <img src="https://ademiando.com/amsel/assets1.png"
                                  onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Sewa+Tenda+Pernikahan';"
                                  alt="Dekorasi Tenda Acara Pernikahan Amsel"
-                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
                             <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
                                 <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">Tenda &amp; Dekorasi Pernikahan</span>
@@ -401,21 +714,21 @@
                                 <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
                                 <div class="flex justify-between items-center gap-3">
                                     <p class="font-sans text-xs text-ash leading-snug">Tenda Plafon Serut, Pelaminan &amp; Kursi Tamu</p>
-                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                    <button type="button" aria-label="Gulir ke Tombol WhatsApp" class="scroll-to-wa-btn magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white cursor-pointer">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                     
-                    <!-- Layanan Card 2: Jasa Rias, Sewa Pakaian, Foto Video -->
-                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20Jasa%20Rias,%20Sewa%20Pakaian,%20Foto%20%26%20Video." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card block">
-                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                    <!-- Layanan Card 2: Hover Foto Saja, Tombol Panah Gulir ke WhatsApp -->
+                    <div class="group product-card block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-[#091c3e]/15 shadow-[0_18px_40px_rgba(9,28,62,0.18)]">
                             <img src="https://ademiando.com/amsel/assets2.png"
                                  onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Jasa+Rias+%26+Foto+Video';"
                                  alt="Jasa Rias Pengantin, Sewa Pakaian dan Foto Video Amsel"
-                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
                             <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
                                 <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">Rias, Busana &amp; Dokumentasi</span>
@@ -423,21 +736,21 @@
                                 <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
                                 <div class="flex justify-between items-center gap-3">
                                     <p class="font-sans text-xs text-ash leading-snug">Jasa Rias, Sewa Pakaian, Foto &amp; Video</p>
-                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                    <button type="button" aria-label="Gulir ke Tombol WhatsApp" class="scroll-to-wa-btn magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white cursor-pointer">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                     
-                    <!-- Layanan Card 3: Paket Lengkap & Katering -->
-                    <a href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20tertarik%20dengan%20Paket%20Lengkap%20%26%20Katering." target="_blank" rel="noopener noreferrer" class="group cursor-hover product-card mt-0 lg:mt-28 block">
-                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-white/15">
+                    <!-- Layanan Card 3: Hover Foto Saja, Tombol Panah Gulir ke WhatsApp -->
+                    <div class="group product-card mt-0 lg:mt-28 block">
+                        <div class="aspect-[16/10] w-full bg-[#071124] relative hover-reveal overflow-hidden rounded-sm border border-[#091c3e]/15 shadow-[0_18px_40px_rgba(9,28,62,0.18)]">
                             <img src="https://ademiando.com/amsel/assets3.png"
                                  onerror="this.onerror=null;this.src='https://placehold.co/1200x750/0b2559/ffffff?text=Paket+Lengkap+%26+Katering';"
                                  alt="Paket Lengkap Pernikahan dan Katering Amsel"
-                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-75 group-hover:opacity-95 transition-opacity duration-700">
+                                 class="product-image-bg absolute inset-0 w-full h-full object-cover object-center opacity-85 group-hover:opacity-100 group-hover:scale-105 transition-all duration-700 ease-out">
                             <div class="absolute inset-0 bg-gradient-to-t from-[#030712] via-[#030712]/45 to-transparent z-10 pointer-events-none"></div>
                             <div class="absolute bottom-4 left-5 right-5 sm:bottom-6 sm:left-6 sm:right-6 z-20">
                                 <span class="font-sans text-[10px] tracking-[0.2em] text-brand uppercase mb-1.5 block font-semibold">All-In &amp; Sajian Istimewa</span>
@@ -445,19 +758,18 @@
                                 <div class="w-full h-[1px] bg-white/25 mb-2.5 group-hover:bg-brand transition-colors duration-500"></div>
                                 <div class="flex justify-between items-center gap-3">
                                     <p class="font-sans text-xs text-ash leading-snug">Katering Prasmanan &amp; Paket Lengkap Acara</p>
-                                    <span class="magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white">
+                                    <button type="button" aria-label="Gulir ke Tombol WhatsApp" class="scroll-to-wa-btn magnetic-btn btn-liquid btn-liquid-on-dark w-9 h-9 shrink-0 flex items-center justify-center text-white cursor-pointer">
                                         <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-                                    </span>
+                                    </button>
                                 </div>
                             </div>
                         </div>
-                    </a>
+                    </div>
                 </div>
             </section>
 
-            <!-- 5. FOOTER / BIG CTA (TEMA BIRU & PUTIH) -->
+            <!-- 5. FOOTER / BIG CTA (TETAP BIRU) -->
             <footer id="contact" class="w-full relative z-20 mt-24 md:mt-32">
-                <!-- Lapisan Gradasi untuk menghilangkan garis potong tegas -->
                 <div class="absolute top-0 left-0 w-full h-[160px] md:h-[200px] bg-gradient-to-b from-transparent to-[#1d6eff] -translate-y-full pointer-events-none"></div>
                 
                 <div class="bg-[#1d6eff] text-white pt-10 pb-20 md:pb-32 px-5 sm:px-8 md:px-20 relative w-full">
@@ -472,18 +784,18 @@
                             </h2>
                         </div>
                         <div class="flex flex-col gap-4 sm:gap-5 font-sans text-xs sm:text-sm font-medium w-full md:w-2/5">
-                            <!-- Direct WhatsApp Button (Klik 1x ubah warna WhatsApp, klik 2x buka WhatsApp) -->
+                            <!-- Tombol WhatsApp Utama: Klik 1x Ubah Warna WhatsApp, Klik 2x Buka WhatsApp -->
                             <a id="wa-order-btn" href="https://api.whatsapp.com/send?phone=6285292234655&text=Halo%20Amsel,%20saya%20ingin%20bertanya%20tentang%20sewa%20tenda,%20rias,%20foto%20video,%20dan%20katering." target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid-dark text-white px-6 py-4 sm:px-8 cursor-hover flex items-center justify-between gap-4 w-full font-semibold">
                                 <span>WhatsApp: 0852-9223-4655</span>
                                 <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
                             </a>
-                            <!-- Direct Google Maps Button (Disamakan rapi dengan tombol WhatsApp) -->
+                            <!-- Tombol Maps Lokasi: Klik 1x Aktifkan Hover, Klik 2x Buka Google Maps -->
                             <a id="maps-location-btn" href="https://maps.app.goo.gl/7zrS2X96xNxLzAJj8?g_st=ac" target="_blank" rel="noopener noreferrer" class="magnetic-btn btn-liquid-dark text-white px-6 py-4 sm:px-8 cursor-hover flex items-center justify-between gap-4 w-full font-semibold">
                                 <span>Buka Google Maps Lokasi</span>
                                 <svg class="shrink-0" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
                             </a>
                             <div class="mt-4 pt-6 border-t border-white/25">
-                                <!-- Kotak Maps Lanskap Interaktif (Digelapkan Sedikit & Dapat Digeser) -->
+                                <!-- Kotak Maps Lanskap Interaktif (Dapat Digeser & Diperbesar) -->
                                 <div id="address-map-box" data-lenis-prevent class="relative w-full rounded-2xl overflow-hidden border border-white/35 bg-[#071124] shadow-md">
                                     <iframe
                                         title="Peta Lokasi Amsel Tenda"
@@ -519,7 +831,7 @@
     <script type="module">
         import * as THREE from 'three';
 
-        // --- 1. Utility: Memecah Teks untuk Animasi Reveal (Anti Terpotong di Mobile) ---
+        // --- 1. Utility: Memecah Teks untuk Animasi Reveal ---
         function setupTextReveal() {
             document.querySelectorAll('.split-text').forEach(el => {
                 const text = el.innerText;
@@ -551,33 +863,63 @@
         }
         setupTextReveal();
 
-        // --- 2. Logika Kursor Kustom & Tombol Magnetik ---
+        // --- 2. Logika Kursor Kustom & Efek Magnetik ---
         const cursorDot = document.querySelector('.cursor-dot');
         const cursorOutline = document.querySelector('.cursor-outline');
         
         window.addEventListener('mousemove', (e) => {
             gsap.to(cursorDot, { x: e.clientX, y: e.clientY, duration: 0.1 });
-            gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.5, ease: "power2.out" });
+            gsap.to(cursorOutline, { x: e.clientX, y: e.clientY, duration: 0.45, ease: "power2.out" });
+        }, { passive: true });
+
+        document.querySelectorAll('.magnetic-btn').forEach(btn => {
+            btn.addEventListener('mousemove', (e) => {
+                const rect = btn.getBoundingClientRect();
+                const relX = e.clientX - rect.left - rect.width / 2;
+                const relY = e.clientY - rect.top - rect.height / 2;
+                gsap.to(btn, { x: relX * 0.22, y: relY * 0.22, duration: 0.35, ease: "power2.out" });
+                if (cursorOutline) {
+                    cursorOutline.style.width = '56px';
+                    cursorOutline.style.height = '56px';
+                }
+            });
+            btn.addEventListener('mouseleave', () => {
+                gsap.to(btn, { x: 0, y: 0, duration: 0.45, ease: "elastic.out(1, 0.4)" });
+                if (cursorOutline) {
+                    cursorOutline.style.width = '40px';
+                    cursorOutline.style.height = '40px';
+                }
+            });
         });
-        // --- Interaksi 2-Tahap Tombol WhatsApp & Kontrol Kotak Maps Lanskap ---
-        const waOrderBtn = document.getElementById('wa-order-btn');
-        let waClickedOnce = false;
-        if (waOrderBtn) {
-            waOrderBtn.addEventListener('click', (e) => {
-                if (!waClickedOnce) {
+
+        // --- Interaksi 2-Tahap Tombol WhatsApp, Tombol Daftar Harga, Tombol Maps & Kontrol Kotak Maps ---
+        function attachTwoStepButton(btnEl, activeClass) {
+            if (!btnEl) return;
+            let clickedOnce = false;
+            btnEl.addEventListener('click', (e) => {
+                if (!clickedOnce) {
                     e.preventDefault();
-                    waClickedOnce = true;
-                    waOrderBtn.classList.add('btn-wa-active');
+                    clickedOnce = true;
+                    btnEl.classList.add(activeClass);
                 }
             });
         }
+
+        const waOrderBtn = document.getElementById('wa-order-btn');
+        const pricelistWaBtn = document.getElementById('pricelist-wa-btn');
+        const mapsLocationBtn = document.getElementById('maps-location-btn');
+
+        attachTwoStepButton(waOrderBtn, 'btn-wa-active');
+        attachTwoStepButton(pricelistWaBtn, 'btn-wa-active');
+        attachTwoStepButton(mapsLocationBtn, 'btn-maps-active');
 
         const addressMapBox = document.getElementById('address-map-box');
         const mapExpandBtn = document.getElementById('map-expand-btn');
         const mapExpandIcon = document.getElementById('map-expand-icon');
 
         if (addressMapBox && mapExpandBtn && mapExpandIcon) {
-            mapExpandBtn.addEventListener('click', () => {
+            mapExpandBtn.addEventListener('click', (e) => {
+                e.stopPropagation();
                 const isExpanded = addressMapBox.classList.toggle('is-expanded');
                 if (isExpanded) {
                     mapExpandBtn.setAttribute('aria-label', 'Perkecil Peta');
@@ -589,18 +931,38 @@
             });
         }
 
-        // --- 3. Lenis Smooth Scroll ---
+        // --- 3. Lenis Smooth Scroll (Satu Loop Sinkron dengan GSAP Ticker) ---
+        gsap.registerPlugin(ScrollTrigger);
+        ScrollTrigger.config({ ignoreMobileResize: true });
+
         const lenis = new Lenis({
-            duration: 1.2,
+            duration: 1.15,
             easing: (t) => Math.min(1, 1.001 - Math.pow(2, -10 * t)),
             smooth: true,
         });
 
-        function raf(time) {
-            lenis.raf(time);
-            requestAnimationFrame(raf);
-        }
-        requestAnimationFrame(raf);
+        lenis.on('scroll', ScrollTrigger.update);
+        gsap.ticker.add((time) => {
+            lenis.raf(time * 1000);
+        });
+        gsap.ticker.lagSmoothing(0);
+
+        // Tombol Panah di Kartu Layanan Menggulir Halus ke Tombol WhatsApp di Footer
+        document.querySelectorAll('.scroll-to-wa-btn').forEach((btn) => {
+            btn.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const targetWa = document.getElementById('wa-order-btn');
+                if (targetWa) {
+                    lenis.scrollTo(targetWa, {
+                        offset: -140,
+                        duration: 1.5,
+                        onComplete: () => {
+                            gsap.fromTo(targetWa, { scale: 1 }, { scale: 1.03, duration: 0.25, yoyo: true, repeat: 1, ease: 'power2.out' });
+                        }
+                    });
+                }
+            });
+        });
 
         // --- 4. Logika Menu Overlay ---
         const menuToggleBtn = document.getElementById('menu-toggle');
@@ -652,7 +1014,7 @@
                         setMenuState(false);
                     }
                     setTimeout(() => {
-                        lenis.scrollTo(targetElement, { offset: 0, duration: 1.5 });
+                        lenis.scrollTo(targetElement, { offset: 0, duration: 1.4 });
                     }, isMenuOpen ? 400 : 0);
                 }
             });
@@ -669,7 +1031,6 @@
         renderer.setSize(window.innerWidth, window.innerHeight);
         container.appendChild(renderer.domElement);
 
-        // Variabel Interaksi Kursor, Sentuhan (Touch), & Hembusan Angin
         const targetPointer = new THREE.Vector2(0, 0);
         const currentPointer = new THREE.Vector2(0, 0);
         const pointerVel = new THREE.Vector2(0, 0);
@@ -700,16 +1061,15 @@
 
         window.addEventListener('pointerdown', (e) => {
             updatePointerInteraction(e.clientX, e.clientY);
-            gustStrength = 1.0; // Memicu gelombang angin lembut saat layar diklik/disentuh
+            gustStrength = 1.0;
         }, { passive: true });
 
-        // GPU Shader Kain Sifon / Organza Realistis dengan Subsurface Backlight, Anisotropic Silk Sheen & Interaksi Kursor
         const chiffonVertexShader = `
             uniform float uTime;
             uniform float uPhase;
             uniform float uWindAmp;
-            uniform float uAxisMode; // 0.0 = selendang melengkung (swag), 1.0 = tirai pilar vertikal
-            uniform float uRuched;   // 1.0 = kerutan diagonal bertumpuk untuk tirai putih dalam
+            uniform float uAxisMode;
+            uniform float uRuched;
             uniform vec2 uPointer;
             uniform vec2 uPointerVel;
             uniform float uPointerEnergy;
@@ -726,11 +1086,9 @@
                 vUv = uv;
                 vec3 pos = position;
 
-                // Kerutan yang menyempit di titik ikatan ujung dan mengembang alami di tengah
                 float spanArch = sin(uv.x * 3.14159);
                 float vertArch = sin(uv.y * 3.14159);
 
-                // Koordinat terdistorsi organik agar lipatan kain tidak kaku
                 float warp1 = sin(uv.x * 7.8 + uv.y * 4.4 + uPhase) * 0.44;
                 float warp2 = cos(uv.x * 13.5 - uv.y * 6.8 + uPhase * 1.3) * 0.24;
 
@@ -738,12 +1096,10 @@
                 float along  = mix(uv.x, uv.y, uAxisMode);
                 float pinchFactor = mix(1.28 - 0.36 * spanArch, 1.18 - 0.26 * vertArch, uAxisMode);
 
-                // Lipatan utama dan lipatan halus kain sifon
                 float foldCoord = across * (21.0 * pinchFactor) + warp1 + warp2;
                 float primaryFold = sin(foldCoord);
                 float secondaryFold = sin(foldCoord * 2.4 + sin(along * 9.5 + uPhase) * 1.15) * 0.48;
 
-                // Efek kerutan bertumpuk (bridal ruching / diagonal cascades) pada tirai putih dalam
                 float diagCascade = 0.0;
                 if (uRuched > 0.5) {
                     float diagPhase = uv.y * 16.0 + (uv.x - 0.5) * 7.0 + sin(uv.y * 6.2 + uPhase) * 1.4;
@@ -752,22 +1108,18 @@
                     diagCascade = (pocket * 1.3 - 0.56) + subPocket;
                 }
 
-                // Masker ikatan ujung (ujung tali tetap tertambat sementara bagian tengah bebas melambai)
                 float pinMask = mix(spanArch * (0.42 + 0.58 * (1.0 - uv.y)), vertArch * 0.68 + 0.32, uAxisMode);
 
-                // Hembusan angin alami + gelombang gust saat disentuh
                 float gustWave = sin(uv.x * 3.2 - uTime * 3.4 + uPhase) * uGust * 0.42;
                 float breeze = sin(uv.x * 2.3 + uv.y * 1.9 + uTime * 0.92 + uPhase) * 0.17
                              + cos(uv.y * 3.0 - uTime * 0.70 + uPhase) * 0.11
                              + gustWave;
 
-                // Interaksi langsung dengan posisi & gerakan kursor / jari
                 vec2 toVertex = pos.xy - uPointer;
                 float distSq = dot(toVertex, toVertex);
                 float hoverMask = exp(-distSq * 0.30) * pinMask;
                 float speed = length(uPointerVel);
 
-                // Kain terdorong lembut ke belakang dan menyibak mengikuti arah gerakan kursor/jari
                 float pushZ = hoverMask * (0.34 * uPointerEnergy + speed * 0.48);
                 float rippleWake = sin(sqrt(distSq) * 4.8 - uTime * 5.2) * exp(-distSq * 0.38) * speed * 0.26 * pinMask;
                 vec2 pushXY = uPointerVel * hoverMask * 0.38;
@@ -812,7 +1164,6 @@
                 float across = mix(vUv.y, vUv.x, uAxisMode);
                 float along  = mix(vUv.x, vUv.y, uAxisMode);
 
-                // Serat lipatan tarikan halus & anyaman mikro sutra organza
                 float warp = sin(along * 8.5 + across * 5.0 + uPhase) * 1.4
                            + cos(along * 17.0 - across * 9.0) * 0.55;
                 float fineThread = sin(across * 86.0 + warp) * 0.5 + 0.5;
@@ -821,7 +1172,6 @@
                 float ridgeCrease = 1.0 - abs(sin(vMicroPleat * 0.84 + warp * 0.35));
                 ridgeCrease = pow(ridgeCrease, 1.55);
 
-                // Detail kerutan bertumpuk tambahan untuk tirai putih dalam
                 float rucheDetail = 0.5;
                 if (uRuched > 0.5) {
                     float d1 = 1.0 - abs(sin(vUv.y * 16.0 + (vUv.x - 0.5) * 7.0 + sin(vUv.y * 6.2 + uPhase) * 1.4));
@@ -829,7 +1179,6 @@
                     rucheDetail = mix(pow(d1, 1.38), d2, 0.35);
                 }
 
-                // Gabungan kedalaman lipatan kain
                 float foldVal = mix(mediumPleat, fineThread, 0.34);
                 foldVal = mix(foldVal, ridgeCrease, 0.34);
                 foldVal = mix(foldVal, vCrease, 0.38);
@@ -838,28 +1187,23 @@
                     foldVal = mix(foldVal, rucheDetail, 0.48);
                 }
 
-                // Pencahayaan sutra tembus cahaya (subsurface backlight + fresnel rim)
                 vec3 viewDir = normalize(vViewPos);
                 vec3 n = normalize(vWorldNormal);
                 float ndotv = abs(dot(n, viewDir));
                 float fresnel = pow(1.0 - ndotv, 1.72);
 
-                // Cahaya matahari lembut dari atas-belakang menembus lapisan kain tipis
                 vec3 sunDir = normalize(vec3(0.14, 0.76, 0.63));
                 float diffuse = clamp(dot(n, sunDir) * 0.5 + 0.5, 0.0, 1.0);
                 float backlitGlow = pow(clamp(1.0 - ndotv * 0.72, 0.0, 1.0), 1.6) * (0.55 + 0.45 * diffuse);
                 float silkSheen = pow(smoothstep(0.42, 0.97, foldVal), 1.55) * (0.68 + 0.32 * diffuse);
 
-                // Self-shadowing di lembah lipatan untuk kedalaman 3D yang fotografis
                 vec3 col = mix(uShadowColor, uBaseColor, smoothstep(0.14, 0.74, foldVal));
                 col = mix(col, uHighlightColor, clamp(silkSheen * 0.78 + fresnel * 0.40 + backlitGlow * 0.18 + vInteractGlow * 0.22, 0.0, 1.0));
 
-                // Tepi selendang memudar halus seperti tulle/sifon asli tanpa garis potong kaku
                 float edgeSoftX = smoothstep(0.0, 0.07, vUv.x) * smoothstep(1.0, 0.93, vUv.x);
                 float edgeSoftY = smoothstep(0.0, 0.09, vUv.y) * smoothstep(1.0, 0.91, vUv.y);
                 float edgeMask = mix(edgeSoftY, edgeSoftX, uAxisMode);
 
-                // Akumulasi ketebalan kain: bening di bagian membentang, lebih pekat di lipatan & tepi miring
                 float thickness = 0.36 + foldVal * 0.44 + fresnel * 0.48;
                 float alpha = clamp(uOpacity * edgeMask * thickness, 0.0, 0.95);
 
@@ -920,8 +1264,9 @@
         }
 
         const archwayGroup = new THREE.Group();
+        const leftCurtainMeshes = [];
+        const rightCurtainMeshes = [];
 
-        // Helper 1: Selendang Melengkung Atas (Catenary Wedding Swag)
         function createCatenarySwag(cfg) {
             const segU = 60;
             const segV = 18;
@@ -953,7 +1298,6 @@
             archwayGroup.add(mesh);
         }
 
-        // Helper 2: Tirai Pilar Vertikal Kiri & Kanan (Sisi luar biru langit + sisi dalam putih berkerut)
         function createPillarCurtain(cfg) {
             const segU = 24;
             const segV = 56;
@@ -983,41 +1327,36 @@
             const mesh = new THREE.Mesh(geo, mat);
             mesh.renderOrder = cfg.order;
             archwayGroup.add(mesh);
+
+            if (cfg.x < -1.8) leftCurtainMeshes.push(mesh);
+            if (cfg.x > 1.8) rightCurtainMeshes.push(mesh);
         }
 
-        // === SUSUNAN LAPISAN KAIN PERSIS SEPERTI GAMBAR REFERENSI ===
-
-        // 1. TIRAI LATAR BELAKANG ATAS
+        // === SUSUNAN LAPISAN KAIN SIFON ===
         createPillarCurtain({ x: -1.45, dir: 1, width: 2.6, yBottom: 1.4, yTop: 6.2, z: -1.4, palette: 'bridalWhite', opacity: 0.58, phase: 0.2, windAmp: 0.35, ruched: 0.0, order: 1 });
         createPillarCurtain({ x: 1.55, dir: -1, width: 2.8, yBottom: 1.3, yTop: 6.2, z: -1.35, palette: 'mistBlue', opacity: 0.55, phase: 1.1, windAmp: 0.35, ruched: 0.0, order: 1 });
 
-        // 2. TIRAI PILAR BIRU LUAR (Kiri & Kanan)
         createPillarCurtain({ x: -3.45, dir: 1, width: 2.35, yBottom: -6.3, yTop: 4.6, z: -0.55, palette: 'skyBlue', opacity: 0.92, phase: 0.4, windAmp: 0.48, ruched: 0.0, order: 3 });
         createPillarCurtain({ x: -3.05, dir: 1, width: 1.75, yBottom: -6.3, yTop: 4.3, z: -0.15, palette: 'mistBlue', opacity: 0.74, phase: 1.6, windAmp: 0.55, ruched: 0.0, order: 4 });
 
         createPillarCurtain({ x: 3.45, dir: -1, width: 2.35, yBottom: -6.3, yTop: 4.6, z: -0.55, palette: 'skyBlue', opacity: 0.92, phase: 0.9, windAmp: 0.48, ruched: 0.0, order: 3 });
         createPillarCurtain({ x: 3.05, dir: -1, width: 1.75, yBottom: -6.3, yTop: 4.3, z: -0.15, palette: 'mistBlue', opacity: 0.74, phase: 2.2, windAmp: 0.55, ruched: 0.0, order: 4 });
 
-        // 3. TIRAI PILAR PUTIH BERKERUT DALAM (Ruched Bridal Cascades)
         createPillarCurtain({ x: -2.42, dir: 1, width: 1.72, yBottom: -6.3, yTop: 3.9, z: 0.35, palette: 'bridalWhite', opacity: 0.96, phase: 1.9, windAmp: 0.42, ruched: 1.0, order: 5 });
         createPillarCurtain({ x: -2.18, dir: 1, width: 1.25, yBottom: -6.3, yTop: 3.5, z: 0.62, palette: 'pureSheer', opacity: 0.78, phase: 2.8, windAmp: 0.48, ruched: 1.0, order: 6 });
 
         createPillarCurtain({ x: 2.42, dir: -1, width: 1.72, yBottom: -6.3, yTop: 3.9, z: 0.35, palette: 'bridalWhite', opacity: 0.96, phase: 2.5, windAmp: 0.42, ruched: 1.0, order: 5 });
         createPillarCurtain({ x: 2.18, dir: -1, width: 1.25, yBottom: -6.3, yTop: 3.5, z: 0.62, palette: 'pureSheer', opacity: 0.78, phase: 3.4, windAmp: 0.48, ruched: 1.0, order: 6 });
 
-        // 4. LENGKUNGAN GAPURA DALAM
         createCatenarySwag({ x1: -3.8, y1: 3.85, x2: -0.25, y2: 3.7, sag: 2.05, skew: 1.05, edgeWidth: 0.85, centerWidth: 1.95, z: 0.15, palette: 'mistBlue', opacity: 0.78, phase: 1.3, windAmp: 0.6, order: 7 });
         createCatenarySwag({ x1: -3.6, y1: 3.65, x2: -0.35, y2: 3.55, sag: 1.95, skew: 1.08, edgeWidth: 0.8, centerWidth: 1.85, z: 0.32, palette: 'bridalWhite', opacity: 0.90, phase: 1.7, windAmp: 0.6, order: 8 });
         createCatenarySwag({ x1: -0.75, y1: 3.55, x2: 3.75, y2: 3.45, sag: 2.18, skew: 0.92, edgeWidth: 0.9, centerWidth: 2.1, z: 0.38, palette: 'bridalWhite', opacity: 0.92, phase: 2.3, windAmp: 0.62, order: 8 });
 
-        // 5. SELENDANG BAHU TENGAH
         createCatenarySwag({ x1: -4.9, y1: 4.5, x2: -1.1, y2: 4.55, sag: 2.35, skew: 1.15, edgeWidth: 0.85, centerWidth: 1.85, z: 0.55, palette: 'skyBlue', opacity: 0.84, phase: 2.9, windAmp: 0.72, order: 9 });
         createCatenarySwag({ x1: -0.6, y1: 4.2, x2: 5.1, y2: 5.4, sag: 1.75, skew: 0.88, edgeWidth: 0.85, centerWidth: 1.75, z: 0.65, palette: 'skyBlue', opacity: 0.86, phase: 3.4, windAmp: 0.75, order: 9 });
 
-        // 6. SELENDANG PUTIH UTAMA DEPAN
         createCatenarySwag({ x1: -5.1, y1: 5.15, x2: 5.1, y2: 4.25, sag: 2.25, skew: 1.06, edgeWidth: 1.05, centerWidth: 2.35, z: 0.92, palette: 'pureSheer', opacity: 0.94, phase: 3.9, windAmp: 0.58, order: 10 });
 
-        // 7. MAHKOTA SELENDANG BIRU LANGIT TERATAS
         createCatenarySwag({ x1: -3.4, y1: 6.1, x2: 5.3, y2: 5.2, sag: 1.75, skew: 1.12, edgeWidth: 0.85, centerWidth: 1.85, z: 1.12, palette: 'skyBlue', opacity: 0.88, phase: 4.4, windAmp: 0.62, order: 11 });
         createCatenarySwag({ x1: -2.4, y1: 6.2, x2: 5.4, y2: 5.45, sag: 1.52, skew: 1.15, edgeWidth: 0.72, centerWidth: 1.45, z: 1.24, palette: 'mistBlue', opacity: 0.82, phase: 4.9, windAmp: 0.68, order: 12 });
 
@@ -1025,11 +1364,11 @@
 
         const clock = new THREE.Clock();
         let baseCameraY = 0.2;
+        const scrollState = { curtainPartX: 0 };
 
         function render3D() {
             const t = clock.getElapsedTime();
 
-            // Peluruhan halus interaksi pointer & gust angin
             currentPointer.lerp(targetPointer, 0.08);
             pointerVel.multiplyScalar(0.90);
             pointerEnergy *= 0.965;
@@ -1044,7 +1383,14 @@
                 u.uGust.value = gustStrength;
             }
 
-            // Paralaks kamera 3D halus saat kursor/sentuhan bergerak sehingga kedalaman lapisan kain terasa nyata
+            // Tirai pilar kiri & kanan menyibak keluar saat kamera menembus Hero
+            for (let i = 0; i < leftCurtainMeshes.length; i++) {
+                leftCurtainMeshes[i].position.x = -scrollState.curtainPartX;
+            }
+            for (let i = 0; i < rightCurtainMeshes.length; i++) {
+                rightCurtainMeshes[i].position.x = scrollState.curtainPartX;
+            }
+
             camera.position.x = THREE.MathUtils.lerp(camera.position.x, currentPointer.x * 0.14, 0.06);
             camera.position.y = THREE.MathUtils.lerp(camera.position.y, baseCameraY + currentPointer.y * 0.09, 0.06);
             camera.lookAt(0, 0.15, 0);
@@ -1083,57 +1429,180 @@
         window.addEventListener('resize', adjustCameraForViewport);
 
         // --- 6. Animasi GSAP & ScrollTrigger ---
-        gsap.registerPlugin(ScrollTrigger);
-        lenis.on('scroll', ScrollTrigger.update);
-        gsap.ticker.add((time) => { lenis.raf(time * 1000); });
-        gsap.ticker.lagSmoothing(0);
-
         window.onload = () => {
             adjustCameraForViewport();
 
-            const tlLoader = gsap.timeline();
-            tlLoader.to('#progress-bar', { width: '100%', duration: 1.4, ease: "power3.inOut" })
-            .to('.mask-anim', { y: 0, duration: 0.6, ease: "power3.out" }, "-=0.5")
-            .to('.mask-anim', { y: '-110%', duration: 0.6, ease: "power3.in", delay: 0.2 })
-            .to('#loader', { yPercent: -100, duration: 1, ease: "expo.inOut" })
-            .to('.word-inner', { y: 0, opacity: 1, rotate: 0, duration: 1.2, stagger: 0.04, ease: "power4.out" }, "-=0.5")
-            .to('.line-inner', { y: 0, opacity: 1, duration: 1, stagger: 0.1, ease: "power3.out" }, "-=0.8")
-            .fromTo('.fade-in', { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 1 }, "-=0.5");
-
-            // Animasi Halus Gapura Kain saat scroll dari Hero ke About
-            const tl3D = gsap.timeline({
-                scrollTrigger: { trigger: "#hero", start: "top top", end: "bottom top", scrub: 1.5 }
-            });
-            tl3D.to(archwayGroup.position, { z: 2.2, y: 0.8, ease: "none" }, 0);
-
-            // Animasi Fog: Menggelap saat memasuki bagian Kisah (#about) dan tetap gelap hingga bawah
-            gsap.to('#fog', {
-                opacity: 0.92,
-                ease: "none",
-                scrollTrigger: {
-                    trigger: "#about",
-                    start: "top 85%",
-                    end: "top 20%",
-                    scrub: true
+            // Animasi Loader & Kemunculan Awal (terisolasi pada inner wrapper agar tidak bentrok saat scroll ke atas)
+            const tlLoader = gsap.timeline({
+                onComplete: () => {
+                    ScrollTrigger.refresh();
                 }
             });
 
-            // Pengaturan warna teks Navigasi & AMSEL:
-            // - Hero (latar kain biru-putih cerah) -> hitam kebiruan (#0a1d3e)
-            // - About, Statistik & Katalog (latar tetap gelap) -> putih (#ffffff)
-            // - Contact / Footer biru (#1d6eff) & saat scroll mentok di HP -> hitam kebiruan seperti awal (#0a1d3e)
+            tlLoader.to('#progress-bar', { width: '100%', duration: 1.25, ease: "power3.inOut" })
+            .to('.mask-anim', { y: 0, duration: 0.5, ease: "power3.out" }, "-=0.4")
+            .to('.mask-anim', { y: '-110%', duration: 0.5, ease: "power3.in", delay: 0.15 })
+            .to('#loader', {
+                yPercent: -100,
+                duration: 0.9,
+                ease: "expo.inOut",
+                onComplete: () => {
+                    const loaderEl = document.getElementById('loader');
+                    if (loaderEl) loaderEl.style.display = 'none';
+                }
+            })
+            .to('#hero .word-inner', { y: 0, opacity: 1, rotate: 0, duration: 1.05, stagger: 0.04, ease: "power4.out" }, "-=0.45")
+            .to('#hero .line-inner', { y: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: "power3.out" }, "-=0.75")
+            .fromTo('#hero .hero-fade-in', { opacity: 0, y: 18 }, { opacity: 1, y: 0, duration: 0.85, ease: "power3.out" }, "-=0.55")
+            .fromTo('#hero-ornaments-layer .ornament-enter',
+                { opacity: 0, scale: 0.88 },
+                { opacity: 1, scale: 1, duration: 1.0, stagger: 0.08, ease: "power3.out" }, "-=0.8");
+
+            // === BAGIAN AWAL (HERO): Menembus Teks, Menyibak Kain Sifon, Merpati & Rangkaian Bunga ===
+            // Menggunakan fromTo eksplisit agar saat scroll kembali ke atas semua elemen selalu utuh & presisi
+            const heroPortalTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#hero",
+                    start: "top top",
+                    end: "+=110%",
+                    pin: true,
+                    scrub: 0.55,
+                    anticipatePin: 1,
+                    invalidateOnRefresh: true
+                }
+            });
+
+            heroPortalTl
+                // 1. Judul "Merajut Momen Suci." membesar menembus kamera
+                .fromTo("#hero-portal-title",
+                    { scale: 1, opacity: 1 },
+                    { scale: 11.5, opacity: 0, ease: "power2.in", duration: 1 },
+                    0
+                )
+                // 2. Kicker, deskripsi & tombol CTA memudar halus ke atas
+                .fromTo(["#hero-kicker", "#hero-sub-copy", "#hero-cta-wrap"],
+                    { opacity: 1, y: 0 },
+                    { opacity: 0, y: -36, duration: 0.45, ease: "power2.out" },
+                    0
+                )
+                // 3. Kamera maju melewati gapura kain sifon 3D & tirai kiri-kanan menyibak lebar
+                .fromTo(archwayGroup.position,
+                    { z: 0, y: 0 },
+                    { z: 7.8, y: 0.75, ease: "power1.inOut", duration: 1 },
+                    0
+                )
+                .fromTo(scrollState,
+                    { curtainPartX: 0 },
+                    { curtainPartX: 2.75, ease: "power1.inOut", duration: 1 },
+                    0
+                )
+                // 4. Rangkaian bunga mawar & dedaunan kanan + bawah tersingkap melebar melewati kamera
+                .fromTo("#floral-garland-right",
+                    { x: 0, y: 0, scale: 1, opacity: 1 },
+                    { x: () => window.innerWidth * 0.42, y: -100, scale: 1.48, opacity: 0, ease: "power1.inOut", duration: 0.95 },
+                    0
+                )
+                .fromTo("#floral-bottom-left",
+                    { x: 0, y: 0, scale: 1, opacity: 1 },
+                    { x: () => -window.innerWidth * 0.45, y: 120, scale: 1.55, opacity: 0, ease: "power1.inOut", duration: 0.9 },
+                    0
+                )
+                .fromTo("#floral-bottom-right",
+                    { x: 0, y: 0, scale: 1, opacity: 1 },
+                    { x: () => window.innerWidth * 0.45, y: 120, scale: 1.55, opacity: 0, ease: "power1.inOut", duration: 0.9 },
+                    0
+                )
+                // 5. Sepasang Merpati Putih terbang menyilang melintasi layar & membesar dekat kamera
+                .fromTo("#hero-dove-lead",
+                    { x: 0, y: 0, scale: 1, rotation: 0 },
+                    { x: () => window.innerWidth * 0.62, y: () => -window.innerHeight * 0.16, scale: 1.55, rotation: -8, ease: "power1.inOut", duration: 1 },
+                    0
+                )
+                .fromTo("#hero-dove-lead",
+                    { opacity: 1 },
+                    { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false },
+                    0.78
+                )
+                .fromTo("#hero-dove-companion",
+                    { x: 0, y: 0, scale: 1, rotation: 0 },
+                    { x: () => -window.innerWidth * 0.62, y: () => -window.innerHeight * 0.12, scale: 1.48, rotation: 8, ease: "power1.inOut", duration: 1 },
+                    0
+                )
+                .fromTo("#hero-dove-companion",
+                    { opacity: 1 },
+                    { opacity: 0, duration: 0.22, ease: "power1.in", immediateRender: false },
+                    0.78
+                )
+                // 6. Kelopak bunga mawar & daun eucalyptus melayang berputar melewati kamera
+                .fromTo("#petal-1",
+                    { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
+                    { x: () => -window.innerWidth * 0.32, y: -140, rotation: 210, scale: 1.6, opacity: 0, duration: 1 },
+                    0
+                )
+                .fromTo("#petal-2",
+                    { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
+                    { x: () => window.innerWidth * 0.34, y: -120, rotation: -200, scale: 1.6, opacity: 0, duration: 1 },
+                    0
+                )
+                .fromTo("#petal-3",
+                    { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
+                    { x: () => -window.innerWidth * 0.30, y: 140, rotation: -190, scale: 1.6, opacity: 0, duration: 1 },
+                    0
+                )
+                .fromTo("#petal-4",
+                    { x: 0, y: 0, rotation: 0, scale: 1, opacity: 1 },
+                    { x: () => window.innerWidth * 0.32, y: 130, rotation: 220, scale: 1.6, opacity: 0, duration: 1 },
+                    0
+                )
+                // 7. Kabut gelap masuk halus menuju bagian Kisah Kami
+                .fromTo("#fog",
+                    { opacity: 0 },
+                    { opacity: 0.92, ease: "power1.inOut", duration: 0.5 },
+                    0.5
+                );
+
+            // === BAGIAN LAYANAN & SETELAHNYA: Tampilkan Kembali Latar WebGL Kain Sifon ===
+            const productsRevealTl = gsap.timeline({
+                scrollTrigger: {
+                    trigger: "#products",
+                    start: "top 88%",
+                    end: "top 22%",
+                    scrub: 0.75
+                }
+            });
+
+            productsRevealTl
+                .fromTo("#fog",
+                    { opacity: 0.92 },
+                    { opacity: 0, ease: "none", immediateRender: false },
+                    0
+                )
+                .fromTo(archwayGroup.position,
+                    { z: 7.8, y: 0.75 },
+                    { z: -0.45, y: 0.12, ease: "power1.inOut", immediateRender: false },
+                    0
+                )
+                .fromTo(scrollState,
+                    { curtainPartX: 2.75 },
+                    { curtainPartX: 0.35, ease: "power1.inOut", immediateRender: false },
+                    0
+                );
+
+            // === PENGATURAN WARNA NAVIGASI DINAMIS ===
             const mainNav = document.getElementById('main-nav');
             const aboutSection = document.getElementById('about');
+            const productsSection = document.getElementById('products');
             const contactSection = document.getElementById('contact');
 
             function updateNavThemeOnScroll() {
                 const aboutTop = aboutSection.getBoundingClientRect().top;
+                const productsTop = productsSection.getBoundingClientRect().top;
                 const contactTop = contactSection.getBoundingClientRect().top;
                 const scrollBottom = window.scrollY + window.innerHeight;
                 const docHeight = document.documentElement.scrollHeight;
                 const isAtBottom = scrollBottom >= docHeight - 24;
 
-                if (contactTop <= 95 || isAtBottom) {
+                if (contactTop <= 95 || isAtBottom || productsTop <= window.innerHeight * 0.55) {
                     mainNav.classList.remove('nav-light-text');
                     mainNav.classList.add('nav-dark-text');
                 } else if (aboutTop <= window.innerHeight * 0.65) {
@@ -1150,34 +1619,77 @@
             window.addEventListener('resize', updateNavThemeOnScroll, { passive: true });
             updateNavThemeOnScroll();
 
-            // Teks Reveal pada Scroll
-            gsap.utils.toArray('#about .word-inner').forEach(word => {
-                gsap.to(word, {
-                    y: 0, opacity: 1, rotate: 0, ease: "power3.out",
-                    scrollTrigger: { trigger: word, start: "top 95%", end: "top 72%", scrub: 1 }
-                });
+            // Reveal Teks Kisah Kami (Tetap terbaca penuh saat scroll naik-turun, tidak hilang lagi)
+            gsap.to('#about .word-inner', {
+                y: 0,
+                opacity: 1,
+                rotate: 0,
+                duration: 0.85,
+                stagger: 0.022,
+                ease: "power3.out",
+                scrollTrigger: {
+                    trigger: "#about",
+                    start: "top 82%",
+                    once: true
+                }
             });
 
+            // Reveal Statistik (Tetap tampil saat scroll kembali ke atas)
             gsap.from('.stat-item', {
-                y: 40, opacity: 0, duration: 1, stagger: 0.2, ease: "power3.out", scrollTrigger: { trigger: '.stat-item', start: "top 85%" }
+                y: 36,
+                opacity: 0,
+                duration: 0.9,
+                stagger: 0.16,
+                ease: "power3.out",
+                clearProps: "transform,opacity",
+                scrollTrigger: {
+                    trigger: '.stat-item',
+                    start: "top 88%",
+                    once: true
+                }
             });
 
+            // Reveal Judul Layanan Lengkap
             gsap.to('#products .word-inner', {
-                y: 0, opacity: 1, rotate: 0, duration: 1, stagger: 0.08, ease: "power4.out", scrollTrigger: { trigger: '#products', start: "top 75%" }
+                y: 0,
+                opacity: 1,
+                rotate: 0,
+                duration: 0.95,
+                stagger: 0.08,
+                ease: "power4.out",
+                scrollTrigger: {
+                    trigger: '#products',
+                    start: "top 82%",
+                    once: true
+                }
             });
 
-            // Animasi kemunculan kartu layanan
+            // Reveal Kartu Layanan (Tidak hilang saat scroll kembali ke atas)
             gsap.from('.product-card', {
-                y: 80, opacity: 0, duration: 1.1, stagger: 0.15, ease: "expo.out", scrollTrigger: { trigger: '.product-card', start: "top 88%" }
+                y: 65,
+                opacity: 0,
+                duration: 1.0,
+                stagger: 0.14,
+                ease: "expo.out",
+                clearProps: "transform,opacity",
+                scrollTrigger: {
+                    trigger: '.product-card',
+                    start: "top 90%",
+                    once: true
+                }
             });
             
-            // Animasi zoom-out sinematik khusus untuk foto layanan
             gsap.from('.product-image-bg', {
-                scale: 1.35,
-                duration: 1.5,
-                stagger: 0.15,
+                scale: 1.28,
+                duration: 1.35,
+                stagger: 0.14,
                 ease: "power3.out",
-                scrollTrigger: { trigger: '.product-card', start: "top 88%" }
+                clearProps: "transform",
+                scrollTrigger: {
+                    trigger: '.product-card',
+                    start: "top 90%",
+                    once: true
+                }
             });
         };
     </script>
